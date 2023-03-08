@@ -1,5 +1,3 @@
-
-import './App.css'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import NabBar from './components/NavBar'
 import Profile from './components/profile/profile'
