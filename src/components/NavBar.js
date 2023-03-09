@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react"
 //import keycloak from "../keycloak"
 import { NavLink } from "react-router-dom"
-import { Button } from "@mui/material"
+import { Button, MenuItem, Select } from "@mui/material"
 import { strings } from "../utils/localization"
 import { useDispatch, useSelector } from "react-redux"
-import { loginUser, logout } from "../reducers/authenticationSlice"
+import { logout } from "../reducers/authenticationSlice"
 
-const NabBar = ({keycloak}) => {
+const NabBar = ({keycloak, language, changeLanguageHandler}) => {
   const dispatch = useDispatch()
   const {username} = useSelector((state) => state.username)
 
@@ -16,6 +16,10 @@ const NabBar = ({keycloak}) => {
 
   return (
     <div>
+      <Select value={language} onChange={(e) => changeLanguageHandler(e.target.value)}>
+        <MenuItem value={"en"}>En</MenuItem>
+        <MenuItem value={"fi"}>Fi</MenuItem>
+      </Select>
       <section className="actions">
         {!username ? 
           <Button onClick={() => keycloak.login()}>{strings.navbar.login}</Button>

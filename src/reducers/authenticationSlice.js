@@ -4,8 +4,7 @@ import keycloak from "../keycloak"
 export const authenticationSlice = createSlice({
   name: "authentication",
   initialState: {
-    username: "",
-    error: null
+    username: ""
   },
   reducers: {
     logout: (state, action) => {

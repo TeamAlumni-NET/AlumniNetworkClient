@@ -30,6 +30,5 @@ module.exports = {
     "no-constant-condition": "warn",
     "no-empty-function": "warn",
     "react/prop-types": "off",
-    //"parser": "@babel/eslint-parser"
   }
 }
