@@ -2,24 +2,30 @@ import React, { useEffect, useState } from "react"
 import { NavLink } from "react-router-dom"
 import { Button, MenuItem, Select } from "@mui/material"
 import { strings } from "../utils/localization"
-import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from "react-redux"
+import { logout } from "../reducers/authenticationSlice"
 
-const NabBar = ({language, changeLanguageHandler}) => {
-  /*NabBar.PropTypes = {
-    language: PropTypes.string,
-    changeLanguageHandler: PropTypes.object
+const NabBar = ({keycloak, language, changeLanguageHandler}) => {
+  const dispatch = useDispatch()
+  const {username} = useSelector((state) => state.username)
+
+  const logoutHandler = () => {
+    dispatch(logout())
   }
-  console.log(this.props.language)
-  */
+
   return (
     <div>
       <Select value={language} onChange={(e) => changeLanguageHandler(e.target.value)}>
         <MenuItem value={"en"}>En</MenuItem>
         <MenuItem value={"fi"}>Fi</MenuItem>
       </Select>
-      <NavLink to={"/"}>
-        <Button>{strings.navbar.logout}</Button>
-      </NavLink>
+      <section className="actions">
+        {!username ? 
+          <Button onClick={() => keycloak.login()}>{strings.navbar.login}</Button>
+          : <NavLink to={"/"}>
+            <Button onClick={() => logoutHandler()}>{strings.navbar.logout}</Button>
+          </NavLink>}
+      </section>
     </div>
   )
 }

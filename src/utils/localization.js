@@ -3,6 +3,7 @@ import LocalizedStrings from "react-localization"
 export const strings = new LocalizedStrings({
   en: {
     navbar:{
+      login: "Log in",
       logout: "Log out"
     },
     groupList: {
@@ -20,6 +21,7 @@ export const strings = new LocalizedStrings({
   },
   fi: {
     navbar:{
+      login: "Kirjaudu sisään",
       logout: "Kirjaudu ulos",
     },
     groupList: {
@@ -29,7 +31,7 @@ export const strings = new LocalizedStrings({
       private: "Yksityinen"
     },
     topicList: {
-      title: "Ahe listaus",
+      title: "Aihe listaus",
       createNewTopic: "Luo uusi aihe",
       member: "Jäsen",
     }

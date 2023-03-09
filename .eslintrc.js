@@ -29,6 +29,6 @@ module.exports = {
     "indent": ["warn", 2],
     "no-constant-condition": "warn",
     "no-empty-function": "warn",
-    "react/prop-types": "off"
+    "react/prop-types": "off",
   }
 }

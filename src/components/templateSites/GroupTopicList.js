@@ -1,8 +1,5 @@
-import { strings } from "../../utils/localization";
-
 
 const GroupTopicList = (stringList) => {
-  console.log(stringList, stringList.stringList.title);
   return (
     <>
       {stringList.stringList.title}
