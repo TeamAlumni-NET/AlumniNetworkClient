@@ -8,7 +8,7 @@ const GroupList = () => {
     member: strings.groupList.member,
     privateGroup: strings.groupList.private
   }
-  console.log(stringList.privateGroup);
+  console.log(stringList.privateGroup)
 
   return (
     <>

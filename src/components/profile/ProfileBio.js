@@ -3,8 +3,7 @@ import Grid from '@mui/material/Grid'
 import Paper from '@mui/material/Paper'
 import Typography from '@mui/material/Typography'
 import ButtonBase from '@mui/material/ButtonBase'
-import { Box } from '@mui/material'
-import { height } from '@mui/system'
+
 
 const Img = styled('img')({
   margin: 'auto',
@@ -13,7 +12,7 @@ const Img = styled('img')({
   maxHeight: '100%'
 })
 
-function Profile () {
+function ProfileBio () {
   return (
     <Paper
       sx={{
@@ -39,6 +38,7 @@ function Profile () {
                 Status
               </Typography>
             </Grid>
+            <Grid item></Grid>
           </Grid>
           <Grid item>
             <ButtonBase sx={{ width: 80, height: 50 }}>
@@ -49,31 +49,7 @@ function Profile () {
           </Grid>
         </Grid>
       </Grid>
-      <Grid container spacing={2}>
-        <Grid item>
-          <Typography gutterBottom variant='body2' component='div'>
-            FunFact
-          </Typography>
-        </Grid>
-        <Grid
-          item
-          xs
-          container
-          direction='column'
-          spacing={2}
-          sx={{ height: 600 }}
-        >
-          <Grid item xs>
-            <Box sx={{ backgroundColor: 'green',
-          height:500 }}>
-              <Typography variant='body2' gutterBottom>
-                BIO
-              </Typography>
-            </Box>
-          </Grid>
-        </Grid>
-      </Grid>
     </Paper>
   )
 }
-export default Profile
+export default ProfileBio
