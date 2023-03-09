@@ -20,7 +20,6 @@ try {
       </React.StrictMode>
     </ReactKeycloakProvider>
   )
-  
 } catch (error) {
   root.render(
     <React.StrictMode>

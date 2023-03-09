@@ -1,3 +1,4 @@
+
 import { useKeycloak } from '@react-keycloak/web'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -36,7 +37,6 @@ function App() {
     localStorage.setItem("language", lang)
   }
 
-  //Default pohja. element={<Profile/>} korvattavissa fiksummalla vaihtoehdolla.
   return (
     <BrowserRouter>
       <div className="App">

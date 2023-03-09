@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react"
-//import keycloak from "../keycloak"
 import { NavLink } from "react-router-dom"
 import { Button, MenuItem, Select } from "@mui/material"
 import { strings } from "../utils/localization"
