@@ -4,6 +4,7 @@ export const strings = new LocalizedStrings({
   en: {
     navbar: {
       title: "Network Alumni",
+      login: "Log in",
       logout: "Log out",
       navMenuList: ["Timeline", "Groups", "Topics", "Calendar", "Profile"],
     },
@@ -22,6 +23,7 @@ export const strings = new LocalizedStrings({
   fi: {
     navbar: {
       title: "Network Alumni",
+      login: "Kirjaudu sisään",
       logout: "Kirjaudu ulos",
       navMenuList: ["Aikajana", "Ryhmät", "Aiheet", "Kalenteri", "Profiili"],
     },
@@ -32,7 +34,7 @@ export const strings = new LocalizedStrings({
       private: "Yksityinen",
     },
     topicList: {
-      title: "Ahe listaus",
+      title: "Aihe listaus",
       createNewTopic: "Luo uusi aihe",
       member: "Jäsen",
     },
