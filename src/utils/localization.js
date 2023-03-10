@@ -1,4 +1,4 @@
-import LocalizedStrings from "react-localization";
+import LocalizedStrings from "react-localization"
 
 export const strings = new LocalizedStrings({
   en: {
@@ -39,4 +39,4 @@ export const strings = new LocalizedStrings({
       member: "Jäsen",
     },
   },
-});
+})
