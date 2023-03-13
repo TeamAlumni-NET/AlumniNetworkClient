@@ -6,6 +6,7 @@ import Button from "@mui/material/Button"
 import { strings } from "../../utils/localization"
 import { MenuItem, Select, useMediaQuery } from "@mui/material"
 import NavMenu from "./NavMenu"
+import keycloak from "../../keycloak"
 
 /**
  *  Navigation bar for page navigation
@@ -24,7 +25,9 @@ const NavBar = ({ language, changeLanguageHandler }) => {
             strings.navbar.navMenuList.map((item, key) => (
               <MenuItem key={key}>{item}</MenuItem>
             ))}
-          <Button color="inherit">{strings.navbar.logout}</Button>
+          <Button color="inherit" onClick={() => keycloak.logout()}>
+            {strings.navbar.logout}
+          </Button>
           <Select
             value={language}
             onChange={(e) => changeLanguageHandler(e.target.value)}

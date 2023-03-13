@@ -1,4 +1,3 @@
-import { useKeycloak } from "@react-keycloak/web"
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
@@ -10,12 +9,13 @@ import { login } from "./reducers/authenticationSlice"
 import { strings } from "./utils/localization"
 import SignIn from "./components/SignIn"
 import { createTheme, ThemeProvider } from "@mui/material/styles"
+import DummyDashboard from "./components/testPages/DummyDashboard"
 
 function App() {
   const dispatch = useDispatch()
   const [language, setLanguage] = useState("en")
   const { username } = useSelector((state) => state.username)
-  const { keycloak, initialized } = useKeycloak()
+  // const { keycloak, initialized } = useKeycloak()
 
   const theme = createTheme({
     palette: {
@@ -49,20 +49,20 @@ function App() {
     },
   })
 
-  useEffect(() => {
-    if (keycloak.authenticated && !localStorage.getItem("token")) {
-      localStorage.setItem("token", keycloak.token)
-      dispatch(login(keycloak.token))
-    }
-    if (localStorage.getItem("token") !== null && username === "") {
-      dispatch(login(localStorage.getItem("token")))
-    }
-  }, [keycloak, initialized, username, dispatch])
+  // useEffect(() => {
+  //   if (keycloak.authenticated && !localStorage.getItem("token")) {
+  //     localStorage.setItem("token", keycloak.token)
+  //     dispatch(login(keycloak.token))
+  //   }
+  //   if (localStorage.getItem("token") !== null && username === "") {
+  //     dispatch(login(localStorage.getItem("token")))
+  //   }
+  // }, [keycloak, initialized, username, dispatch])
 
   useEffect(() => {
     const savedLanguage = localStorage.getItem("language")
     if (savedLanguage) changeLanguageHandler(savedLanguage)
-  })
+  }, [language])
 
   const changeLanguageHandler = (lang) => {
     setLanguage(lang)
@@ -73,18 +73,16 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <BrowserRouter>
-        <div className="App">
-          <NavBar
-            keycloak={keycloak}
-            language={language}
-            changeLanguageHandler={changeLanguageHandler}
-          />
-          <Routes>
-            <Route path="/" element={<SignIn />} />
-            <Route path="/groupList" element={<GroupList />} />
-            <Route path="/topicList" element={<TopicList />} />
-          </Routes>
-        </div>
+        <NavBar
+          language={language}
+          changeLanguageHandler={changeLanguageHandler}
+        />
+        <Routes>
+          <Route path="/" element={<SignIn />} />
+          <Route path="/dashboard" element={<DummyDashboard />} />
+          <Route path="/groupList" element={<GroupList />} />
+          <Route path="/topicList" element={<TopicList />} />
+        </Routes>
       </BrowserRouter>
     </ThemeProvider>
   )

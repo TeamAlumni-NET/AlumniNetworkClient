@@ -12,7 +12,8 @@ export const initialize = () => {
   const config = {
     checkLoginIframe: false,
     onLoad: "check-sso",
-    silentCheckSsoRedirectUri: window.location.origin + "/silent-check-sso.html",
+    silentCheckSsoRedirectUri:
+      window.location.origin + "/silent-check-sso.html",
   }
   return keycloak.init(config)
 }
