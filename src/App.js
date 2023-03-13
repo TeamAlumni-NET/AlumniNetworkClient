@@ -9,12 +9,45 @@ import Profile from "./components/profile/profile"
 import { login } from "./reducers/authenticationSlice"
 import { strings } from "./utils/localization"
 import SignIn from "./components/SignIn"
+import { createTheme, ThemeProvider } from "@mui/material/styles"
 
 function App() {
   const dispatch = useDispatch()
   const [language, setLanguage] = useState("en")
   const { username } = useSelector((state) => state.username)
   const { keycloak, initialized } = useKeycloak()
+
+  const theme = createTheme({
+    palette: {
+      mode: "light",
+      primary: {
+        main: "rgba(75,30,177,0.95)",
+      },
+      secondary: {
+        main: "#8c9eff",
+      },
+      success: {
+        main: "#2e7d32",
+      },
+      info: {
+        main: "#ff8f00",
+      },
+    },
+    typography: {
+      button: {
+        fontSize: "0.9rem",
+        lineHeight: 2.6,
+        letterSpacing: "0.17em",
+        fontFamily: "Open Sans",
+      },
+      overline: {
+        fontSize: "1.2rem",
+      },
+    },
+    shape: {
+      borderRadius: 10,
+    },
+  })
 
   useEffect(() => {
     if (keycloak.authenticated && !localStorage.getItem("token")) {
@@ -38,20 +71,22 @@ function App() {
   }
 
   return (
-    <BrowserRouter>
-      <div className="App">
-        <NavBar
-          keycloak={keycloak}
-          language={language}
-          changeLanguageHandler={changeLanguageHandler}
-        />
-        <Routes>
-          <Route path="/" element={<SignIn />} />
-          <Route path="/groupList" element={<GroupList />} />
-          <Route path="/topicList" element={<TopicList />} />
-        </Routes>
-      </div>
-    </BrowserRouter>
+    <ThemeProvider theme={theme}>
+      <BrowserRouter>
+        <div className="App">
+          <NavBar
+            keycloak={keycloak}
+            language={language}
+            changeLanguageHandler={changeLanguageHandler}
+          />
+          <Routes>
+            <Route path="/" element={<SignIn />} />
+            <Route path="/groupList" element={<GroupList />} />
+            <Route path="/topicList" element={<TopicList />} />
+          </Routes>
+        </div>
+      </BrowserRouter>
+    </ThemeProvider>
   )
 }
 
