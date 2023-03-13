@@ -1,7 +1,21 @@
 import { Button, Container } from "@mui/material"
+import { useEffect } from "react"
+import { useNavigate } from "react-router-dom"
+import keycloak from "../keycloak"
 import { strings } from "../utils/localization"
 
 const SignIn = () => {
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    const isAuthenticated = keycloak.authenticated
+
+    if (isAuthenticated) {
+      navigate("/dashboard")
+    }
+    console.log(isAuthenticated)
+  }, [])
+
   return (
     <Container
       maxWidth={false}
@@ -22,7 +36,11 @@ const SignIn = () => {
           height: "auto",
         }}
       />
-      <Button variant="contained" sx={{ mt: "100px" }}>
+      <Button
+        variant="contained"
+        sx={{ mt: "100px" }}
+        onClick={() => keycloak.login()}
+      >
         {strings.navbar.login}
       </Button>
     </Container>

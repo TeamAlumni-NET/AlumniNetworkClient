@@ -5,25 +5,25 @@ import store from "./store/store"
 import { Provider } from "react-redux"
 import { initialize } from "./keycloak"
 import keycloak from "./keycloak"
-import { ReactKeycloakProvider } from "@react-keycloak/web"
 
 const root = ReactDOM.createRoot(document.getElementById("root"))
 
-try {
-  initialize()
-  root.render(
-    <ReactKeycloakProvider authClient={keycloak}>
+// Initialize Keycloak
+initialize()
+  .then(() => {
+    // If No Keycloak Error occurred - Display the App
+    root.render(
       <React.StrictMode>
         <Provider store={store}>
           <App />
         </Provider>
       </React.StrictMode>
-    </ReactKeycloakProvider>
-  )
-} catch (error) {
-  root.render(
-    <React.StrictMode>
-      <p>hups</p>
-    </React.StrictMode>
-  )
-}
+    )
+  })
+  .catch(() => {
+    root.render(
+      <React.StrictMode>
+        <p>Could Not Connect To Keycloak.</p>
+      </React.StrictMode>
+    )
+  })
