@@ -2,6 +2,9 @@ import LocalizedStrings from "react-localization"
 
 export const strings = new LocalizedStrings({
   en: {
+    login: {
+      logoUrl: "/media/logo/AlumniNetworkEn/png/logo-no-background.png",
+    },
     navbar: {
       title: "Network Alumni",
       login: "Log in",
@@ -21,6 +24,9 @@ export const strings = new LocalizedStrings({
     },
   },
   fi: {
+    login: {
+      logoUrl: "/media/logo/AlumniNetworkFi/png/logo-no-background.png",
+    },
     navbar: {
       title: "Network Alumni",
       login: "Kirjaudu sisään",

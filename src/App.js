@@ -8,6 +8,7 @@ import TopicList from "./components/testPages/TopicList"
 import Profile from "./components/profile/profile"
 import { login } from "./reducers/authenticationSlice"
 import { strings } from "./utils/localization"
+import SignIn from "./components/SignIn"
 
 function App() {
   const dispatch = useDispatch()
@@ -45,7 +46,7 @@ function App() {
           changeLanguageHandler={changeLanguageHandler}
         />
         <Routes>
-          <Route path="/" element={<Profile />} />
+          <Route path="/" element={<SignIn />} />
           <Route path="/groupList" element={<GroupList />} />
           <Route path="/topicList" element={<TopicList />} />
         </Routes>
