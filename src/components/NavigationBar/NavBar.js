@@ -1,11 +1,11 @@
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
-import { strings } from "../../utils/localization";
-import { MenuItem, Select, useMediaQuery } from "@mui/material";
-import NavMenu from "./NavMenu";
+import AppBar from "@mui/material/AppBar"
+import Box from "@mui/material/Box"
+import Toolbar from "@mui/material/Toolbar"
+import Typography from "@mui/material/Typography"
+import Button from "@mui/material/Button"
+import { strings } from "../../utils/localization"
+import { MenuItem, Select, useMediaQuery } from "@mui/material"
+import NavMenu from "./NavMenu"
 
 /**
  *  Navigation bar for page navigation
@@ -35,7 +35,7 @@ const NavBar = ({ language, changeLanguageHandler }) => {
         </Toolbar>
       </AppBar>
     </Box>
-  );
-};
+  )
+}
 
-export default NavBar;
+export default NavBar

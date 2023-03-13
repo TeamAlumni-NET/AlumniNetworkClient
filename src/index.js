@@ -1,13 +1,13 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App'
+import React from "react"
+import ReactDOM from "react-dom/client"
+import App from "./App"
 import store from "./store/store"
 import { Provider } from "react-redux"
-import { initialize } from './keycloak'
+import { initialize } from "./keycloak"
 import keycloak from "./keycloak"
-import { ReactKeycloakProvider } from '@react-keycloak/web' 
+import { ReactKeycloakProvider } from "@react-keycloak/web"
 
-const root = ReactDOM.createRoot(document.getElementById('root'))
+const root = ReactDOM.createRoot(document.getElementById("root"))
 
 try {
   initialize()
