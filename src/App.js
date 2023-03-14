@@ -7,6 +7,7 @@ import TopicList from "./components/testPages/TopicList"
 import Profile from "./components/profile/profile"
 import { login } from "./reducers/authenticationSlice"
 import { strings } from "./utils/localization"
+import { createTheme, ThemeProvider } from "@mui/material/styles"
 
 function App() {
   const dispatch = useDispatch()
@@ -77,6 +78,7 @@ function App() {
         <Routes>
           <Route path='/groupList' element={<GroupList/>} />
           <Route path='/topicList' element={<TopicList/>} />
+          <Route path='/profile' element ={<Profile/>}/>
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

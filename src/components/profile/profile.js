@@ -4,6 +4,7 @@ import Paper from '@mui/material/Paper'
 import Typography from '@mui/material/Typography'
 import ButtonBase from '@mui/material/ButtonBase'
 import { Box } from '@mui/material'
+import { useEffect, useState } from 'react'
 
 
 const Img = styled('img')({
@@ -14,6 +15,21 @@ const Img = styled('img')({
 })
 
 function Profile () {
+  const [user, setUser] = useState(null)
+
+  const fetchData = () => {
+    return fetch("https://localhost:7252/api/users/1")
+      .then((response) => response.json())
+      .then((data) => setUser(data) )
+  }
+
+  useEffect(() => {
+    fetchData()
+  }, [])
+
+
+
+
   return (
     <Paper
       sx={{
@@ -33,7 +49,7 @@ function Profile () {
           <Grid item xs container direction='column' spacing={2}>
             <Grid item xs>
               <Typography gutterBottom variant='subtitle1' component='div'>
-                Username
+                {user.firstname}
               </Typography>
               <Typography variant='body2' gutterBottom>
                 Status
