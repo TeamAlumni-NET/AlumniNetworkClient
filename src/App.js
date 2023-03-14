@@ -4,7 +4,6 @@ import NabBar from './components/NavBar'
 import Profile from './components/profile/Profile'
 import GroupList from './components/GroupList'
 import TopicList from "./components/TopicList"
-import { Button, MenuItem, Select } from "@mui/material"
 import { strings } from "./utils/localization"
 import UserView from "./components/views/UserView"
 

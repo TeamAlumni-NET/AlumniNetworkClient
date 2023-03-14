@@ -4,7 +4,7 @@ import Paper from '@mui/material/Paper'
 import Typography from '@mui/material/Typography'
 import ButtonBase from '@mui/material/ButtonBase'
 import { Box } from '@mui/material'
-import { height } from '@mui/system'
+
 
 const Img = styled('img')({
   margin: 'auto',
@@ -65,7 +65,7 @@ function Profile () {
         >
           <Grid item xs>
             <Box sx={{ backgroundColor: 'green',
-          height:500 }}>
+              height:500 }}>
               <Typography variant='body2' gutterBottom>
                 BIO
               </Typography>

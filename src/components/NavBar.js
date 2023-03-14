@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react"
+
 import { NavLink } from "react-router-dom"
 import { Button, MenuItem, Select } from "@mui/material"
 import { strings } from "../utils/localization"
-import PropTypes from 'prop-types';
+
 
 const NabBar = ({language, changeLanguageHandler}) => {
   /*NabBar.PropTypes = {

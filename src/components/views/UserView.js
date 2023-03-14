@@ -1,6 +1,6 @@
 
 import Profile from "../profile/Profile"
-import ProfileBio from "../profile/ProfileBio"
+
 
 
 const UserView = () => {
