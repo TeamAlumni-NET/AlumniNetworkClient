@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { BrowserRouter, Routes, Route } from "react-router-dom"
+import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom"
 import NavBar from "./components/NavigationBar/NavBar"
 import GroupList from "./components/testPages/GroupList"
 import TopicList from "./components/testPages/TopicList"
@@ -10,12 +10,12 @@ import { strings } from "./utils/localization"
 import SignIn from "./components/SignIn"
 import { createTheme, ThemeProvider } from "@mui/material/styles"
 import DummyDashboard from "./components/testPages/DummyDashboard"
+import keycloak from "./keycloak"
 
 function App() {
   const dispatch = useDispatch()
   const [language, setLanguage] = useState("en")
   const { username } = useSelector((state) => state.username)
-  // const { keycloak, initialized } = useKeycloak()
 
   const theme = createTheme({
     palette: {

@@ -11,7 +11,6 @@ function KeycloakRoute({ children, role, redirectTo = "/" }) {
   if (!keycloak.authenticated) {
     return <Navigate replace to={redirectTo} />
   }
-
   if (keycloak.hasRealmRole(role)) {
     return <>{children}</>
   }
