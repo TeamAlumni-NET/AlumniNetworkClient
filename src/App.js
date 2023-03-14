@@ -82,6 +82,7 @@ function App() {
           <Route path="/dashboard" element={<DummyDashboard />} />
           <Route path="/groupList" element={<GroupList />} />
           <Route path="/topicList" element={<TopicList />} />
+          <Route path="/profile" element={<Profile/>} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
