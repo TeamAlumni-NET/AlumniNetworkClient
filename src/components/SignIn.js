@@ -6,14 +6,12 @@ import { strings } from "../utils/localization"
 
 const SignIn = () => {
   const navigate = useNavigate()
+  const isAuthenticated = keycloak.authenticated
 
   useEffect(() => {
-    const isAuthenticated = keycloak.authenticated
-
     if (isAuthenticated) {
       navigate("/dashboard")
     }
-    console.log(isAuthenticated)
   }, [])
 
   return (

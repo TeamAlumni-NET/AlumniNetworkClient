@@ -7,37 +7,52 @@ import { strings } from "../../utils/localization"
 import { MenuItem, Select, useMediaQuery } from "@mui/material"
 import NavMenu from "./NavMenu"
 import keycloak from "../../keycloak"
+import { useEffect } from "react"
+import { Navigate, useNavigate } from "react-router-dom"
 
 /**
  *  Navigation bar for page navigation
  * @returns {JSX-Element}
  */
 const NavBar = ({ language, changeLanguageHandler }) => {
+  const isAuthenticated = keycloak.authenticated
+  const navigate = useNavigate()
+  const mobile = useMediaQuery("(max-width:800px)")
+  const pc = useMediaQuery("(min-width:800px)")
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate("/")
+    }
+  }, [isAuthenticated])
+
   return (
-    <Box>
-      <AppBar position="static">
-        <Toolbar>
-          {useMediaQuery("(max-width:800px)") && <NavMenu />}
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            {strings.navbar.title}
-          </Typography>
-          {useMediaQuery("(min-width:800px)") &&
-            strings.navbar.navMenuList.map((item, key) => (
-              <MenuItem key={key}>{item}</MenuItem>
-            ))}
-          <Button color="inherit" onClick={() => keycloak.logout()}>
-            {strings.navbar.logout}
-          </Button>
-          <Select
-            value={language}
-            onChange={(e) => changeLanguageHandler(e.target.value)}
-          >
-            <MenuItem value={"en"}>En</MenuItem>
-            <MenuItem value={"fi"}>Fi</MenuItem>
-          </Select>
-        </Toolbar>
-      </AppBar>
-    </Box>
+    isAuthenticated && (
+      <Box>
+        <AppBar position="static">
+          <Toolbar>
+            {mobile && <NavMenu />}
+            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+              {strings.navbar.title}
+            </Typography>
+            {pc &&
+              strings.navbar.navMenuList.map((item, key) => (
+                <MenuItem key={key}>{item}</MenuItem>
+              ))}
+            <Button color="inherit" onClick={() => keycloak.logout()}>
+              {strings.navbar.logout}
+            </Button>
+            <Select
+              value={language}
+              onChange={(e) => changeLanguageHandler(e.target.value)}
+            >
+              <MenuItem value={"en"}>En</MenuItem>
+              <MenuItem value={"fi"}>Fi</MenuItem>
+            </Select>
+          </Toolbar>
+        </AppBar>
+      </Box>
+    )
   )
 }
 
