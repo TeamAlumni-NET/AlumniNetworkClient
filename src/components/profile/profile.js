@@ -7,6 +7,7 @@ import { Box } from '@mui/material'
 import { useEffect, useState } from 'react'
 import keycloak from '../../keycloak'
 import { strings } from '../../utils/localization'
+import { config } from '../../utils/config'
 
 
 const Img = styled('img')({
@@ -18,7 +19,8 @@ const Img = styled('img')({
 
 function Profile () {
 
-  const url = "https://localhost:7252/api/users/2"
+  const apiUrl = config.url
+  const endpoint = "/api/users/2"
   const token = keycloak.token
   const [userDetails, setUserDetails] = useState(null)
 
@@ -26,7 +28,7 @@ function Profile () {
     const headers = { 'Authorization': `bearer ${token}`,
       'Content-Type': 'application/json'
     }
-    fetch(url, { headers })
+    fetch(apiUrl + endpoint, { headers })
       .then(response => response.json())
       .then(data => setUserDetails(data))
       
