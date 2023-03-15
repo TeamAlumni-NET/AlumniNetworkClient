@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom"
 import NavBar from "./components/NavigationBar/NavBar"
 import GroupList from "./components/testPages/GroupList"
 import TopicList from "./components/testPages/TopicList"
+import Profile from "./components/profile/profile"
 import { strings } from "./utils/localization"
 import SignIn from "./components/SignIn"
 import { createTheme, ThemeProvider } from "@mui/material/styles"
@@ -83,8 +84,9 @@ function App() {
         <Routes>
           <Route path="/" element={<SignIn />} />
           <Route path="/dashboard" element={<DummyDashboard />} />
-          <Route path="/Groups" element={<GroupList />} />
-          <Route path="/Topics" element={<TopicList />} />
+          <Route path="/groupList" element={<GroupList />} />
+          <Route path="/topicList" element={<TopicList />} />
+          <Route path="/profile" element={<Profile/>} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
