@@ -1,10 +1,14 @@
 import axios from "axios"
 import keycloak from "../../../keycloak"
+import { config } from "../../../utils/config"
 
 export const onSignInGetOrCreateUser = async (username, token) => {
+  const endpoint = "/api/users/user/" + username
+  const createEndpoint = "/api/users/"
   try {
+    
     const res = await axios.get(
-      "https://localhost:44378/api/users/user/" + username,
+      config.url + endpoint,
       {
         headers: { Authorization: `bearer ${token}` },
         username,
@@ -16,7 +20,7 @@ export const onSignInGetOrCreateUser = async (username, token) => {
     if (e.response.status === 404) {
       try {
         const res = await axios.post(
-          "https://localhost:44378/api/users/",
+          config.url + createEndpoint,
           {
             username: keycloak.tokenParsed.preferred_username,
             firstName: keycloak.tokenParsed.given_name,

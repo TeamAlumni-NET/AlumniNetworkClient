@@ -9,7 +9,6 @@ import keycloak from '../../keycloak'
 import { strings } from '../../utils/localization'
 import { config } from '../../utils/config'
 
-
 const Img = styled('img')({
   margin: 'auto',
   display: 'block',
@@ -18,24 +17,27 @@ const Img = styled('img')({
 })
 
 function Profile () {
+  const data = localStorage.getItem('currentUser')
+  const parsedData = JSON.parse(data)
+  const username = parsedData.userName
+  console.log(username)
 
   const apiUrl = config.url
-  const endpoint = "/api/users/2"
+  const endpoint = '/api/users/user/' + username
   const token = keycloak.token
   const [userDetails, setUserDetails] = useState(null)
 
   useEffect(() => {
-    const headers = { 'Authorization': `bearer ${token}`,
+    const headers = {
+      Authorization: `bearer ${token}`,
       'Content-Type': 'application/json'
     }
     fetch(apiUrl + endpoint, { headers })
       .then(response => response.json())
       .then(data => setUserDetails(data))
-      
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-
-
 
   return (
     <Paper
@@ -64,11 +66,20 @@ function Profile () {
             </Grid>
           </Grid>
           <Grid item>
-            <ButtonBase sx={{ width: 80, height: 50 }}>
-              <Typography variant='subtitle1' component='div'>
-                {strings.profilePage.edit}
-              </Typography>
-            </ButtonBase>
+            {(() => {
+              if (username=== userDetails?.userName) {
+                return (
+                  <ButtonBase sx={{ width: 80, height: 50 }}>
+                    <Typography variant='subtitle1' component='div'>
+                      {strings.profilePage.edit}
+                    </Typography>
+                  </ButtonBase>
+                )
+              }
+
+              return null
+            })()}
+            
           </Grid>
         </Grid>
       </Grid>
@@ -87,8 +98,7 @@ function Profile () {
           sx={{ height: 600 }}
         >
           <Grid item xs>
-            <Box sx={{ backgroundColor: 'lightgrey',
-              height:500 }}>
+            <Box sx={{ backgroundColor: 'lightgrey', height: 500 }}>
               <Typography variant='body2' gutterBottom>
                 {userDetails?.bio}
               </Typography>
