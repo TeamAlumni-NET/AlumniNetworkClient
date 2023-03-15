@@ -1,16 +1,19 @@
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom"
+import { BrowserRouter, Routes, Route } from "react-router-dom"
 import NavBar from "./components/NavigationBar/NavBar"
 import GroupList from "./components/testPages/GroupList"
 import TopicList from "./components/testPages/TopicList"
-import Profile from "./components/profile/profile"
-import { login } from "./reducers/authenticationSlice"
 import { strings } from "./utils/localization"
 import SignIn from "./components/SignIn"
 import { createTheme, ThemeProvider } from "@mui/material/styles"
 import DummyDashboard from "./components/testPages/DummyDashboard"
 import keycloak from "./keycloak"
+import {
+  getUserByUsername,
+  getUserById,
+  onSignInGetOrCreateUser,
+} from "./Services/Axios/User/UserCRUDOperations"
 
 function App() {
   const dispatch = useDispatch()
@@ -49,15 +52,15 @@ function App() {
     },
   })
 
-  // useEffect(() => {
-  //   if (keycloak.authenticated && !localStorage.getItem("token")) {
-  //     localStorage.setItem("token", keycloak.token)
-  //     dispatch(login(keycloak.token))
-  //   }
-  //   if (localStorage.getItem("token") !== null && username === "") {
-  //     dispatch(login(localStorage.getItem("token")))
-  //   }
-  // }, [keycloak, initialized, username, dispatch])
+  useEffect(() => {
+    const get = async () =>
+      await onSignInGetOrCreateUser(
+        keycloak.tokenParsed.preferred_username,
+        keycloak.token
+      )
+
+    if (keycloak.token) get()
+  }, [Boolean(keycloak.token)])
 
   useEffect(() => {
     const savedLanguage = localStorage.getItem("language")

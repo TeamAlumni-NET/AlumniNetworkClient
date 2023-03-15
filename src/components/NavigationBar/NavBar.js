@@ -39,7 +39,13 @@ const NavBar = ({ language, changeLanguageHandler }) => {
               strings.navbar.navMenuList.map((item, key) => (
                 <MenuItem key={key}>{item}</MenuItem>
               ))}
-            <Button color="inherit" onClick={() => keycloak.logout()}>
+            <Button
+              color="inherit"
+              onClick={() => {
+                keycloak.logout()
+                window.localStorage.removeItem("currentUser")
+              }}
+            >
               {strings.navbar.logout}
             </Button>
             <Select
