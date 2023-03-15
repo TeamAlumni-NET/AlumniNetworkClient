@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react'
 import keycloak from '../../keycloak'
 import { strings } from '../../utils/localization'
 import { config } from '../../utils/config'
+import EditProfile from './EditProfile'
 
 const Img = styled('img')({
   margin: 'auto',
@@ -17,6 +18,11 @@ const Img = styled('img')({
 })
 
 function Profile () {
+  const [show, setShow] = useState(false)
+  function toggleShow () {
+    setShow(!show)
+  }
+
   const data = localStorage.getItem('currentUser')
   const parsedData = JSON.parse(data)
   const username = parsedData.userName
@@ -67,19 +73,14 @@ function Profile () {
           </Grid>
           <Grid item>
             {(() => {
-              if (username=== userDetails?.userName) {
-                return (
-                  <ButtonBase sx={{ width: 80, height: 50 }}>
-                    <Typography variant='subtitle1' component='div'>
-                      {strings.profilePage.edit}
-                    </Typography>
-                  </ButtonBase>
-                )
+              if (username === userDetails?.userName) {
+                return <EditProfile show={show} toggleShow={toggleShow}
+                editData = {userDetails}
+                />
               }
 
               return null
             })()}
-            
           </Grid>
         </Grid>
       </Grid>
