@@ -37,7 +37,9 @@ const NavBar = ({ language, changeLanguageHandler }) => {
             </Typography>
             {pc &&
               strings.navbar.navMenuList.map((item, key) => (
-                <MenuItem key={key}>{item}</MenuItem>
+                <MenuItem key={key} onClick={() => navigate(`/${item}`)}>
+                  {item}
+                </MenuItem>
               ))}
             <Button
               color="inherit"
