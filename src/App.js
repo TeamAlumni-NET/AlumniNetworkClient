@@ -11,6 +11,7 @@ import SignIn from "./components/SignIn"
 import { createTheme, ThemeProvider } from "@mui/material/styles"
 import DummyDashboard from "./components/testPages/DummyDashboard"
 import keycloak from "./keycloak"
+import CreatePostForm from "./components/testPages/CreatePostForm"
 
 function App() {
   const dispatch = useDispatch()
@@ -82,6 +83,7 @@ function App() {
           <Route path="/dashboard" element={<DummyDashboard />} />
           <Route path="/groupList" element={<GroupList />} />
           <Route path="/topicList" element={<TopicList />} />
+          <Route path="/createPostForm" element={<CreatePostForm />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

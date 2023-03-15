@@ -22,6 +22,15 @@ export const strings = new LocalizedStrings({
       createNewTopic: "Create new topic",
       member: "Member",
     },
+    createPostForm: {
+      title: "Create new post",
+      postTitle: "Post Title",
+      group: "Group",
+      topic: "Topic",
+      content: "Content",
+      none: "None",
+      post: "Post!"
+    },
   },
   fi: {
     login: {
@@ -43,6 +52,15 @@ export const strings = new LocalizedStrings({
       title: "Aihe listaus",
       createNewTopic: "Luo uusi aihe",
       member: "Jäsen",
+    },
+    createPostForm: {
+      title: "Luo uusi viesti",
+      postTitle: "Otsikko",
+      group: "Ryhmä",
+      topic: "Aihe",
+      content: "Viesti",
+      none: "Tyhjä",
+      post: "Julkaise!"
     },
   },
 })
