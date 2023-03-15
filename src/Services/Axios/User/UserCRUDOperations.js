@@ -10,6 +10,7 @@ export const onSignInGetOrCreateUser = async (username, token) => {
         username,
       }
     )
+    localStorage.setItem("currentUser", JSON.stringify(res.data))
     return res.data
   } catch (e) {
     if (e.response.status === 404) {
@@ -26,6 +27,7 @@ export const onSignInGetOrCreateUser = async (username, token) => {
             username,
           }
         )
+        localStorage.setItem("currentUser", JSON.stringify(res.data))
         return await res.data
       } catch (e) {
         console.log(e.message)
