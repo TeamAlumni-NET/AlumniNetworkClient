@@ -30,5 +30,6 @@ module.exports = {
     "no-constant-condition": "warn",
     "no-empty-function": "warn",
     "react/prop-types": "off",
+    "no-empty-pattern": "warn"
   }
 }
