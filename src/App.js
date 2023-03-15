@@ -83,8 +83,8 @@ function App() {
         <Routes>
           <Route path="/" element={<SignIn />} />
           <Route path="/dashboard" element={<DummyDashboard />} />
-          <Route path="/groupList" element={<GroupList />} />
-          <Route path="/topicList" element={<TopicList />} />
+          <Route path="/Groups" element={<GroupList />} />
+          <Route path="/Topics" element={<TopicList />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
