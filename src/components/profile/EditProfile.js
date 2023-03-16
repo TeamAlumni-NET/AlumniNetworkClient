@@ -137,10 +137,10 @@ const EditProfile = props => {
             <label>{strings.profilePage.bio}</label>
             <div>
               <TextareaAutosize
-                required
+                
                 minRows={4}
                 id='outlined-required'
-                label='Required'
+                
                 defaultValue={props.editData.bio}
                 onChange={e => setBio(e.target.value)}
               />

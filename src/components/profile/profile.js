@@ -24,7 +24,7 @@ function Profile () {
   const data = localStorage.getItem('currentUser')
   const parsedData = JSON.parse(data)
   const username = parsedData.userName
-  console.log(username)
+ 
 
   const apiUrl = config.url
   const endpoint = '/api/users/user/' + username
@@ -42,6 +42,7 @@ function Profile () {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+  
 
   return (
     <Paper
