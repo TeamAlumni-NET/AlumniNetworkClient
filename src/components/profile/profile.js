@@ -2,11 +2,9 @@ import { styled } from '@mui/material/styles'
 import Grid from '@mui/material/Grid'
 import Paper from '@mui/material/Paper'
 import Typography from '@mui/material/Typography'
-import ButtonBase from '@mui/material/ButtonBase'
 import { Box } from '@mui/material'
 import { useEffect, useState } from 'react'
 import keycloak from '../../keycloak'
-import { strings } from '../../utils/localization'
 import { config } from '../../utils/config'
 import EditProfile from './EditProfile'
 
@@ -74,9 +72,13 @@ function Profile () {
           <Grid item>
             {(() => {
               if (username === userDetails?.userName) {
-                return <EditProfile show={show} toggleShow={toggleShow}
-                editData = {userDetails}
-                />
+                return (
+                  <EditProfile
+                    show={show}
+                    toggleShow={toggleShow}
+                    editData={userDetails}
+                  />
+                )
               }
 
               return null
