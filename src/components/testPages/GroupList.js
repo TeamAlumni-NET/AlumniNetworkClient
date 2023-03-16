@@ -1,18 +1,19 @@
 import { strings } from "../../utils/localization"
 import GroupTopicList from "../templateSites/GroupTopicList"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { getGroupAsList } from "../../reducers/groupsSlice"
 import { useEffect } from "react"
 
 const GroupList = () => {
   const dispatch = useDispatch()
+  const {groups} = useSelector(state => state.groupList)
+
   const stringList = {
     title: strings.groupList.title,
-    create: strings.groupList.createNewGroup,
     member: strings.groupList.member,
-    privateGroup: strings.groupList.private
+    private: strings.groupList.private,
+    createNew: strings.groupList.createNew,
   }
-
   useEffect(() => {
     dispatch(getGroupAsList())
   }, [dispatch])
@@ -21,6 +22,7 @@ const GroupList = () => {
     <>
       <GroupTopicList 
         stringList={stringList}
+        data={groups}
       />
     </>
   )

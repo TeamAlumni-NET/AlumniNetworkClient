@@ -1,25 +1,43 @@
 
-import { Card, CardContent, Typography, Button, Container } from "@mui/material"
+import { Card, CardContent, Typography, Button, Container, Grid, CardHeader } from "@mui/material"
 
-const GroupTopicList = (stringList) => {
+const GroupTopicList = ({stringList, data}) => {
+  console.log(stringList, data)
+  const list = () => { 
+    if (data){
+      return data.map(d => {
+        return (
+          <Card key={d.id} sx={{display: "flex", justifyContent: "space-between"}}>
+            <CardContent>
+              <Typography variant="body1">{d.name}</Typography>
+              <Typography variant="body2">{d.description}</Typography>
+            </CardContent>
+            <CardContent>
+              {d.isPrivate && <Typography>{stringList.private}</Typography>}
+              {d.users && <Typography>{stringList.private}</Typography>}
+            </CardContent>
+          </Card>
+        )
+      })
+    }
+  }
+  
+
   return (
     <Container sx={{width: "70vw"}}>
-      <div>
+      <div className="header" style={{display: "flex", justifyContent: "space-between"}}>
         <Typography variant="h2">
-          {stringList.stringList.title}
+          {stringList.title}
         </Typography> 
-        <Button>{stringList.stringList.createNewGroup}</Button>
+        <Button>{stringList.createNew}</Button>
       </div>
-      <Card className="cardSize">
-        <CardContent>
-          <Typography>jee</Typography>
-        </CardContent>
-      </Card>
-      
-      {stringList.stringList.create}
-      {stringList.stringList.member}
-      {stringList.stringList.privateGroup}
+      {list()}
     </Container>
   )
 }
 export default GroupTopicList
+
+/*{data?.name}
+      {data?.description}
+      {data?.isPrivate}
+      */
