@@ -5,6 +5,9 @@ import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
 import { strings } from '../../utils/localization'
 import { TextareaAutosize } from '@mui/base'
+import keycloak from '../../keycloak'
+import { config } from '../../utils/config'
+import axios from 'axios'
 
 const style = {
   position: 'absolute',
@@ -18,13 +21,7 @@ const style = {
   p: 4
 }
 
-
-
-
-
-
 const EditProfile = props => {
-
   const [editFirstName, setFirstName] = useState(props.editData.firstName)
   const [editLastName, setLastName] = useState(props.editData.lastName)
   const [editStatus, setStatus] = useState(props.editData.status)
@@ -32,14 +29,14 @@ const EditProfile = props => {
   const [editPictureUrl, setPictureUrl] = useState(props.editData.pictureUrl)
   const [editBio, setBio] = useState(props.editData.bio)
 
-  function submit(e){
+  async function submit (e) {
     e.preventDefault()
-    
+
     const dataToBackend = {
-      id : 4,
-      userName : props.editData.userName,
-      firstName : editFirstName,
-      lastName : editLastName,
+      id: 4,
+      userName: props.editData.userName,
+      firstName: editFirstName,
+      lastName: editLastName,
       status: editStatus,
       bio: editBio,
       funFact: editFunFact,
@@ -47,13 +44,21 @@ const EditProfile = props => {
     }
     console.log(dataToBackend)
     console.log(JSON.stringify(dataToBackend))
-    
-    
+    const apiUrl = config.url
+    const endpoint = '/api/users/' + props.editData.userName
+    const token =keycloak.token
+    const body = JSON.stringify(dataToBackend)
+
+    await axios.patch(apiUrl + endpoint, body, {
+      headers: {
+        Authorization: `bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
+    })
 
     handleClose()
-    alert("Profile updated")
+    alert('Profile updated')
   }
-
 
   const [open, setOpen] = useState(false)
   const handleOpen = () => {
@@ -62,8 +67,6 @@ const EditProfile = props => {
   const handleClose = () => {
     setOpen(false)
   }
-
-  
 
   return (
     <>
@@ -79,14 +82,13 @@ const EditProfile = props => {
             }}
           >
             <h2>{props.editData.userName}</h2>
-            <div>  
+            <div>
               <TextField
                 required
                 id='outlined-required'
                 label={strings.profilePage.firstName}
                 defaultValue={props.editData.firstName}
-                
-                onChange={(e) => setFirstName(e.target.value) }
+                onChange={e => setFirstName(e.target.value)}
               />
             </div>
             <div>
@@ -95,8 +97,7 @@ const EditProfile = props => {
                 id='outlined-required'
                 label={strings.profilePage.lastName}
                 defaultValue={props.editData.lastName}
-                
-                onChange={(e) => setLastName(e.target.value)}
+                onChange={e => setLastName(e.target.value)}
               />
             </div>
             <div>
@@ -105,8 +106,7 @@ const EditProfile = props => {
                 id='outlined-required'
                 label={strings.profilePage.userStatus}
                 defaultValue={props.editData.status}
-                
-                onChange={(e) => setStatus(e.target.value)}
+                onChange={e => setStatus(e.target.value)}
               />
             </div>
             <div>
@@ -115,8 +115,7 @@ const EditProfile = props => {
                 id='outlined-required'
                 label={strings.profilePage.funFact}
                 defaultValue={props.editData.funFact}
-               
-                onChange={(e) => setFunFact(e.target.value) }
+                onChange={e => setFunFact(e.target.value)}
               />
             </div>
             <div>
@@ -125,8 +124,7 @@ const EditProfile = props => {
                 id='outlined-required'
                 label={strings.profilePage.pictureUrl}
                 defaultValue={props.editData.pictureUrl}
-                
-                onChange={(e) => setPictureUrl(e.target.value)}
+                onChange={e => setPictureUrl(e.target.value)}
               />
             </div>
             <label>{strings.profilePage.bio}</label>
@@ -137,17 +135,15 @@ const EditProfile = props => {
                 id='outlined-required'
                 label='Required'
                 defaultValue={props.editData.bio}
-                
-                onChange={(e) => setBio(e.target.value)}
-
+                onChange={e => setBio(e.target.value)}
               />
             </div>
             <Button type='submit' variant='primary'>
               {strings.common.save}
             </Button>
-            <Button variant="secondary" onClick={handleClose}>
+            <Button variant='secondary' onClick={handleClose}>
               {strings.common.close}
-          </Button>
+            </Button>
           </Box>
         </Modal>
       </form>
