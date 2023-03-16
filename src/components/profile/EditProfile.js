@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import Box from '@mui/material/Box'
 import Modal from '@mui/material/Modal'
 import Button from '@mui/material/Button'
@@ -8,6 +8,7 @@ import { TextareaAutosize } from '@mui/base'
 import keycloak from '../../keycloak'
 import { config } from '../../utils/config'
 import axios from 'axios'
+
 
 const style = {
   position: 'absolute',
@@ -42,22 +43,28 @@ const EditProfile = props => {
       funFact: editFunFact,
       pictureUrl: editPictureUrl
     }
-    console.log(dataToBackend)
-    console.log(JSON.stringify(dataToBackend))
     const apiUrl = config.url
     const endpoint = '/api/users/' + props.editData.userName
-    const token =keycloak.token
+    const token = keycloak.token
     const body = JSON.stringify(dataToBackend)
 
-    await axios.patch(apiUrl + endpoint, body, {
-      headers: {
-        Authorization: `bearer ${token}`,
-        'Content-Type': 'application/json'
-      }
-    })
+    try {
+      await axios.patch(apiUrl + endpoint, body, {
+        headers: {
+          Authorization: `bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      })
+    } catch (e) {
+      handleClose()
+      alert('Something went wrong')
+      return
+    }
 
     handleClose()
     alert('Profile updated')
+    props.onDataUpdate(dataToBackend)
+    
   }
 
   const [open, setOpen] = useState(false)

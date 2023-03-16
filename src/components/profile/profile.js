@@ -77,6 +77,7 @@ function Profile () {
                     show={show}
                     toggleShow={toggleShow}
                     editData={userDetails}
+                    onDataUpdate={setUserDetails}
                   />
                 )
               }
