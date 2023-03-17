@@ -1,5 +1,5 @@
 
-import { Card, CardContent, Typography, Button, Container, Grid, CardHeader } from "@mui/material"
+import { Card, CardContent, Typography, Button, Container } from "@mui/material"
 import { useNavigate } from "react-router-dom"
 import { useState } from "react"
 import CreateGroupTopic from "./CreateGroupTopic" 
@@ -12,7 +12,7 @@ const GroupTopicList = ({stringList, data, type}) => {
     if (data){
       return data.map(d => {
         return (
-          <Card key={d.id} sx={{display: "flex", justifyContent: "space-between"}} onClick={() => navigate(`/${type}/${d.name}`)}>
+          <Card key={d.id} sx={{display: "flex", justifyContent: "space-between"}} onClick={() => navigate(`/${type}/${d.name.replace(/\s/g, '_')}`)}>
             <CardContent>
               <Typography variant="body1">{d.name}</Typography>
               <Typography variant="body2">{d.description}</Typography>

@@ -22,6 +22,9 @@ export const strings = new LocalizedStrings({
       createNew: "Create new topic",
       member: "Member",
     },
+    profilePage: {
+      edit: "Edit",
+    },
   },
   fi: {
     login: {
@@ -43,6 +46,9 @@ export const strings = new LocalizedStrings({
       title: "Aihe listaus",
       createNew: "Luo uusi aihe",
       member: "Jäsen",
+    },
+    profilePage: {
+      edit: "Muokkaa",
     },
   },
 })

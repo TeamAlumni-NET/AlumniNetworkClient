@@ -8,7 +8,7 @@ import { useNavigate } from "react-router"
  * An element to display menu as hamburger drawer menu
  * @returns {JSX-Element}
  */
-const NavMenu = () => {
+const NavMenu = ({ paths }) => {
   const [drawer, setDrawer] = useState(false)
   const navigate = useNavigate()
 
@@ -41,7 +41,7 @@ const NavMenu = () => {
       </IconButton>
       <Drawer open={drawer["left"]} onClose={toggleDrawer("left", false)}>
         {strings.navbar.navMenuList.map((item, key) => (
-          <MenuItem key={key} onClick={() => navigate(`/${item}`)}>
+          <MenuItem key={key} onClick={() => navigate(`/${paths[key]}`)}>
             {item}
           </MenuItem>
         ))}

@@ -1,15 +1,16 @@
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
-import NavBar from "./components/NavigationBar/NavBar"
+import NavBar from "./components/navigationBar/NavBar"
 import GroupList from "./components/testPages/GroupList"
 import TopicList from "./components/testPages/TopicList"
+import Profile from "./components/profile/profile"
 import { strings } from "./utils/localization"
 import SignIn from "./components/SignIn"
 import { createTheme, ThemeProvider } from "@mui/material/styles"
 import DummyDashboard from "./components/testPages/DummyDashboard"
 import keycloak from "./keycloak"
-import {onSignInGetOrCreateUser} from "./Services/Axios/User/UserCRUDOperations"
+import {onSignInGetOrCreateUser} from "./Services/User/UserCRUDOperations"
 
 function App() {
   const dispatch = useDispatch()
@@ -79,8 +80,11 @@ function App() {
         <Routes>
           <Route path="/" element={<SignIn />} />
           <Route path="/dashboard" element={<DummyDashboard />} />
-          <Route path="/Groups" element={<GroupList />} />
-          <Route path="/Topics" element={<TopicList />} />
+          <Route path="/group" element={<GroupList />} />
+          <Route path="/topic" element={<TopicList />} />
+          <Route path="/profile" element={<Profile/>} />
+          <Route path="/timeline" />
+          <Route path="/calendar" />
 
         </Routes>
       </BrowserRouter>

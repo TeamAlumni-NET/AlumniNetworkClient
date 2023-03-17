@@ -20,6 +20,10 @@ const NavBar = ({ language, changeLanguageHandler }) => {
   const mobile = useMediaQuery("(max-width:800px)")
   const pc = useMediaQuery("(min-width:800px)")
 
+  const pathsArray = () => {
+    return ["dashboard", "group", "topic", "profile", "timeline", "calendar"]
+  }
+
   useEffect(() => {
     if (!isAuthenticated) {
       navigate("/")
@@ -31,13 +35,16 @@ const NavBar = ({ language, changeLanguageHandler }) => {
       <Box>
         <AppBar position="static">
           <Toolbar>
-            {mobile && <NavMenu />}
+            {mobile && <NavMenu paths={pathsArray()} />}
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               {strings.navbar.title}
             </Typography>
             {pc &&
               strings.navbar.navMenuList.map((item, key) => (
-                <MenuItem key={key} onClick={() => navigate(`/${item}`)}>
+                <MenuItem
+                  key={key}
+                  onClick={() => navigate(`/${pathsArray()[key]}`)}
+                >
                   {item}
                 </MenuItem>
               ))}
