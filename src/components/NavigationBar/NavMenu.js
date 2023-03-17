@@ -1,20 +1,17 @@
-import {
-  Button,
-  Drawer,
-  IconButton,
-  MenuItem,
-  Typography,
-} from "@mui/material";
-import { Box } from "@mui/system";
-import { useState } from "react";
-import { strings } from "../../utils/localization";
-import MenuIcon from "@mui/icons-material/Menu";
+import { Button, Drawer, IconButton, MenuItem, Typography } from "@mui/material"
+import { Box } from "@mui/system"
+import { useState } from "react"
+import { strings } from "../../utils/localization"
+import MenuIcon from "@mui/icons-material/Menu"
+import { useNavigate } from "react-router"
 /**
  * An element to display menu as hamburger drawer menu
  * @returns {JSX-Element}
  */
-const NavMenu = () => {
-  const [drawer, setDrawer] = useState(false);
+const NavMenu = ({ paths }) => {
+  const [drawer, setDrawer] = useState(false)
+  const navigate = useNavigate()
+
   /**
    * Toggles drawer to open or close
    * @param {string} anchor //side of drawer
@@ -26,10 +23,11 @@ const NavMenu = () => {
       event.type === "keydown" &&
       (event.key === "Tab" || event.key === "Shift")
     ) {
-      return;
+      return
     }
-    setDrawer({ ...drawer, [anchor]: open });
-  };
+    setDrawer({ ...drawer, [anchor]: open })
+  }
+
   return (
     <Box sx={{ mr: 2 }}>
       <IconButton
@@ -43,11 +41,13 @@ const NavMenu = () => {
       </IconButton>
       <Drawer open={drawer["left"]} onClose={toggleDrawer("left", false)}>
         {strings.navbar.navMenuList.map((item, key) => (
-          <MenuItem key={key}>{item}</MenuItem>
+          <MenuItem key={key} onClick={() => navigate(`/${paths[key]}`)}>
+            {item}
+          </MenuItem>
         ))}
       </Drawer>
     </Box>
-  );
-};
+  )
+}
 
-export default NavMenu;
+export default NavMenu
