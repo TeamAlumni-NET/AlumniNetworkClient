@@ -25,7 +25,11 @@ const DummyDashboard = () => {
 
       <TabPanel value={0}>Item One</TabPanel>
       <TabPanel value={1}>
-        <FullCalendar plugins={[daygrid]} initialView="dayGridMonth" />
+        <FullCalendar 
+          plugins={[daygrid]}
+          initialView="dayGridMonth"
+          firstDay={1}
+        />
       </TabPanel>
     </TabContext>
   )
