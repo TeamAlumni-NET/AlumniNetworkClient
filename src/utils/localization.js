@@ -13,13 +13,13 @@ export const strings = new LocalizedStrings({
     },
     groupList: {
       title: "Group List",
-      createNewGroup: "Create new group",
+      createNew: "Create new group",
       member: "Member",
       private: "Private",
     },
     topicList: {
       title: "Topic List",
-      createNewTopic: "Create new topic",
+      createNew: "Create new topic",
       member: "Member",
     },
     profilePage: {
@@ -38,13 +38,13 @@ export const strings = new LocalizedStrings({
     },
     groupList: {
       title: "Ryhmä listaus",
-      createNewGroup: "Luo uusi ryhmä",
+      createNew: "Luo uusi ryhmä",
       member: "Jäsen",
       private: "Yksityinen",
     },
     topicList: {
       title: "Aihe listaus",
-      createNewTopic: "Luo uusi aihe",
+      createNew: "Luo uusi aihe",
       member: "Jäsen",
     },
     profilePage: {
