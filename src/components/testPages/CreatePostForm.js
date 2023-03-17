@@ -7,13 +7,11 @@ import { Box } from '@mui/system'
 
 
 
-const CreatePostForm = () => {
-    const [date, setDate] = useState('')
 
+const CreatePostForm = () => {
     const [postTitle, setPostTitle] = useState('')
     const [content, setContent] = useState('')
 
-    const [userId, setUserId] = useState('')
     const [topicId, setTopicId] = useState('')
     const [groupId, setGroupId] = useState('')
     const [targetUserId, setTargetUserId] = useState('')
@@ -50,10 +48,22 @@ const CreatePostForm = () => {
             });
     }, [])
 
-    //console.log(groups)
-    //console.log(topics)
+   
+    const submitPost = {
+        timeStamp: Date(), //Tarkista muoto
+        postTitle: postTitle,
+        content: content,
+        userId: localStorage.userId,
+        topicId: topicId,
+        groupId: groupId
+        //targetUserId:
+        //parentPostId:
+        //eventId:
+    }
 
- 
+    const data = JSON.stringify(submitPost)
+
+   
 
   const stringList = {
     title: strings.createPostForm.title,
@@ -82,28 +92,44 @@ const CreatePostForm = () => {
               />
             </div>
 
+         
             <div>
-                <InputLabel variant='standard'>{stringList.group}</InputLabel>
+                <InputLabel id="group">{stringList.group}</InputLabel>
                 <Select
-                    value={groups}
-                    displayEmpty
-                >
+                    labelId="group"
+                    id="group"
+                    value={groupId}
+                    label="Group"
+                    autoWidth
+                    style={{ minWidth: '200px' }}
+                    onChange={e => setGroupId(e.target.value)}
+                >   
                     <MenuItem value="">
-                        <em>{stringList.none}</em>
+                        <em>None</em>
                     </MenuItem>
+                    {groups.map(group =>
+                        <MenuItem key={group.id} value={group.id}>{group.id} {group.name}</MenuItem>
+                    )}
                 </Select>
             </div>
 
             <div>
-                <InputLabel variant='standard'>{stringList.topic}</InputLabel>
+                <InputLabel id="topic">{stringList.topic}</InputLabel>
                 <Select
-                    value={topics}
-                    displayEmpty
-                >
-                <MenuItem value="">
-                        <em>{stringList.none}</em>
+                    labelId="topic"
+                    id="topic"
+                    value={topicId}
+                    label="Topic"
+                    autoWidth
+                    style={{ minWidth: '200px' }}
+                    onChange={e => setTopicId(e.target.value)}
+                >   
+                    <MenuItem value="">
+                        <em>None</em>
                     </MenuItem>
-
+                    {topics.map(topic =>
+                        <MenuItem key={topic.id} value={topic.id}>{topic.id} {topic.name}</MenuItem>
+                    )}
                 </Select>
             </div>
 
