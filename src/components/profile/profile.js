@@ -3,9 +3,7 @@ import Grid from '@mui/material/Grid'
 import Paper from '@mui/material/Paper'
 import Typography from '@mui/material/Typography'
 import { Box } from '@mui/material'
-import { useEffect, useState } from 'react'
-import keycloak from '../../keycloak'
-import { config } from '../../utils/config'
+import { useEffect} from 'react'
 import EditProfile from './EditProfile'
 import { getCurrentUser } from '../../reducers/userSlice'
 import { useDispatch, useSelector } from "react-redux"
@@ -21,18 +19,11 @@ const Img = styled('img')({
 function Profile () {
   const dispatch = useDispatch()
   const {user}=useSelector(state => state.user) 
-  const [show, setShow] = useState(false)
-  function toggleShow () {
-    setShow(!show)
-  }
-
-  
+   
   useEffect(() => {
     dispatch(getCurrentUser()) 
 
   }, [dispatch])
-  
-  console.log(user)
 
   return (
     <Paper
@@ -64,15 +55,9 @@ function Profile () {
             {(() => {
               if (JSON.parse(localStorage.getItem('currentUser')).id === user?.id) {
                 return (
-                  <EditProfile
-                    show={show}
-                    toggleShow={toggleShow}
-                    editData={user}
-                    //onDataUpdate={setUserDetails}
-                  />
+                  <EditProfile/>
                 )
               }
-
               return null
             })()}
           </Grid>

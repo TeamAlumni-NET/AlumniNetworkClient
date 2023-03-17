@@ -5,9 +5,9 @@ import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
 import { strings } from '../../utils/localization'
 import { TextareaAutosize } from '@mui/base'
-import keycloak from '../../keycloak'
-import { config } from '../../utils/config'
-import axios from 'axios'
+import { useDispatch, useSelector } from "react-redux"
+import { patchCurrentUser, getCurrentUser } from '../../reducers/userSlice'
+
 
 
 const style = {
@@ -22,20 +22,23 @@ const style = {
   p: 4
 }
 
-const EditProfile = props => {
-  const [editFirstName, setFirstName] = useState(props.editData.firstName)
-  const [editLastName, setLastName] = useState(props.editData.lastName)
-  const [editStatus, setStatus] = useState(props.editData.status)
-  const [editFunFact, setFunFact] = useState(props.editData.funFact)
-  const [editPictureUrl, setPictureUrl] = useState(props.editData.pictureUrl)
-  const [editBio, setBio] = useState(props.editData.bio)
+const EditProfile = () => {
+  const {user}=useSelector(state => state.user)
+  const dispatch = useDispatch()
+
+  const [editFirstName, setFirstName] = useState(user.firstName)
+  const [editLastName, setLastName] = useState(user.lastName)
+  const [editStatus, setStatus] = useState(user.status)
+  const [editFunFact, setFunFact] = useState(user.funFact)
+  const [editPictureUrl, setPictureUrl] = useState(user.pictureUrl)
+  const [editBio, setBio] = useState(user.bio)
 
   async function submit (e) {
     e.preventDefault()
 
     const dataToBackend = {
-      id: 4,
-      userName: props.editData.userName,
+      id: user.id,
+      userName: user.userName,
       firstName: editFirstName,
       lastName: editLastName,
       status: editStatus,
@@ -43,18 +46,12 @@ const EditProfile = props => {
       funFact: editFunFact,
       pictureUrl: editPictureUrl
     }
-    const apiUrl = config.url
-    const endpoint = '/api/users/' + props.editData.userName
-    const token = keycloak.token
-    const body = JSON.stringify(dataToBackend)
+   
 
     try {
-      await axios.patch(apiUrl + endpoint, body, {
-        headers: {
-          Authorization: `bearer ${token}`,
-          'Content-Type': 'application/json'
-        }
-      })
+      dispatch(patchCurrentUser(JSON.stringify(dataToBackend)))
+      
+      
     } catch (e) {
       handleClose()
       alert('Something went wrong')
@@ -63,7 +60,8 @@ const EditProfile = props => {
 
     handleClose()
     alert('Profile updated')
-    props.onDataUpdate(dataToBackend)
+    dispatch(getCurrentUser())
+    
     
   }
 
@@ -74,6 +72,9 @@ const EditProfile = props => {
   const handleClose = () => {
     setOpen(false)
   }
+
+ 
+
 
   return (
     <>
@@ -88,13 +89,13 @@ const EditProfile = props => {
               '& .MuiTextField-root': { m: 1, width: '25ch' }
             }}
           >
-            <h2>{props.editData.userName}</h2>
+            <h2>{user.userName}</h2>
             <div>
               <TextField
                 required
                 id='outlined-required'
                 label={strings.profilePage.firstName}
-                defaultValue={props.editData.firstName}
+                defaultValue={user.firstName}
                 onChange={e => setFirstName(e.target.value)}
               />
             </div>
@@ -103,7 +104,7 @@ const EditProfile = props => {
                 required
                 id='outlined-required'
                 label={strings.profilePage.lastName}
-                defaultValue={props.editData.lastName}
+                defaultValue={user.lastName}
                 onChange={e => setLastName(e.target.value)}
               />
             </div>
@@ -112,7 +113,7 @@ const EditProfile = props => {
                 outlined
                 id='outlined-required'
                 label={strings.profilePage.userStatus}
-                defaultValue={props.editData.status}
+                defaultValue={user.status}
                 onChange={e => setStatus(e.target.value)}
               />
             </div>
@@ -121,7 +122,7 @@ const EditProfile = props => {
                 outlined
                 id='outlined-required'
                 label={strings.profilePage.funFact}
-                defaultValue={props.editData.funFact}
+                defaultValue={user.funFact}
                 onChange={e => setFunFact(e.target.value)}
               />
             </div>
@@ -130,7 +131,7 @@ const EditProfile = props => {
                 outlined
                 id='outlined-required'
                 label={strings.profilePage.pictureUrl}
-                defaultValue={props.editData.pictureUrl}
+                defaultValue={user.pictureUrl}
                 onChange={e => setPictureUrl(e.target.value)}
               />
             </div>
@@ -141,7 +142,7 @@ const EditProfile = props => {
                 minRows={4}
                 id='outlined-required'
                 
-                defaultValue={props.editData.bio}
+                defaultValue={user.bio}
                 onChange={e => setBio(e.target.value)}
               />
             </div>
