@@ -9,11 +9,7 @@ import SignIn from "./components/SignIn"
 import { createTheme, ThemeProvider } from "@mui/material/styles"
 import DummyDashboard from "./components/testPages/DummyDashboard"
 import keycloak from "./keycloak"
-import {
-  getUserByUsername,
-  getUserById,
-  onSignInGetOrCreateUser,
-} from "./Services/Axios/User/UserCRUDOperations"
+import {onSignInGetOrCreateUser} from "./Services/Axios/User/UserCRUDOperations"
 
 function App() {
   const dispatch = useDispatch()
@@ -85,6 +81,7 @@ function App() {
           <Route path="/dashboard" element={<DummyDashboard />} />
           <Route path="/Groups" element={<GroupList />} />
           <Route path="/Topics" element={<TopicList />} />
+
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

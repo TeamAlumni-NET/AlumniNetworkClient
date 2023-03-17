@@ -1,5 +1,5 @@
 import { strings } from "../../utils/localization"
-import GroupTopicList from "../templateSites/GroupTopicList"
+import GroupTopicList from "../templateSites/groupTopicList/GroupTopicList"
 import { useDispatch, useSelector } from "react-redux"
 import { getTopicAsList } from "../../reducers/topicsSlice" 
 import { useEffect } from "react"
@@ -22,6 +22,7 @@ const TopicList = () => {
       <GroupTopicList 
         stringList={stringList}
         data={topics}
+        type="topic"
       />
     </>
   )
