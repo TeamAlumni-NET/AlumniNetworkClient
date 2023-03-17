@@ -7,6 +7,9 @@ import { useEffect, useState } from 'react'
 import keycloak from '../../keycloak'
 import { config } from '../../utils/config'
 import EditProfile from './EditProfile'
+import { getCurrentUser } from '../../reducers/userSlice'
+import { useDispatch, useSelector } from "react-redux"
+
 
 const Img = styled('img')({
   margin: 'auto',
@@ -16,33 +19,20 @@ const Img = styled('img')({
 })
 
 function Profile () {
+  const dispatch = useDispatch()
+  const {user}=useSelector(state => state.user) 
   const [show, setShow] = useState(false)
   function toggleShow () {
     setShow(!show)
   }
 
-  const data = localStorage.getItem('currentUser')
-  const parsedData = JSON.parse(data)
-  const username = parsedData.userName
- 
-
-  const apiUrl = config.url
-  const endpoint = '/api/users/user/' + username
-  const token = keycloak.token
-  const [userDetails, setUserDetails] = useState(null)
-
-  useEffect(() => {
-    const headers = {
-      Authorization: `bearer ${token}`,
-      'Content-Type': 'application/json'
-    }
-    fetch(apiUrl + endpoint, { headers })
-      .then(response => response.json())
-      .then(data => setUserDetails(data))
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
   
+  useEffect(() => {
+    dispatch(getCurrentUser()) 
+
+  }, [dispatch])
+  
+  console.log(user)
 
   return (
     <Paper
@@ -57,28 +47,28 @@ function Profile () {
     >
       <Grid container spacing={2}>
         <Grid item sx={{ width: 128, height: 128 }}>
-          <Img alt='complex' src={userDetails?.pictureUrl} />
+          <Img alt='complex' src={user?.pictureUrl} />
         </Grid>
         <Grid item xs={12} sm container>
           <Grid item xs container direction='column' spacing={2}>
             <Grid item xs>
               <Typography gutterBottom variant='subtitle1' component='div'>
-                {userDetails?.firstName} {userDetails?.lastName}
+                {user?.firstName} {user?.lastName}
               </Typography>
               <Typography variant='body2' gutterBottom>
-                {userDetails?.status}
+                {user?.status}
               </Typography>
             </Grid>
           </Grid>
           <Grid item>
             {(() => {
-              if (username === userDetails?.userName) {
+              if (JSON.parse(localStorage.getItem('currentUser')).id === user?.id) {
                 return (
                   <EditProfile
                     show={show}
                     toggleShow={toggleShow}
-                    editData={userDetails}
-                    onDataUpdate={setUserDetails}
+                    editData={user}
+                    //onDataUpdate={setUserDetails}
                   />
                 )
               }
@@ -91,7 +81,7 @@ function Profile () {
       <Grid container spacing={2}>
         <Grid item>
           <Typography gutterBottom variant='body2' component='div'>
-            {userDetails?.funFact}
+            {user?.funFact}
           </Typography>
         </Grid>
         <Grid
@@ -105,7 +95,7 @@ function Profile () {
           <Grid item xs>
             <Box sx={{ backgroundColor: 'lightgrey', height: 500 }}>
               <Typography variant='body2' gutterBottom>
-                {userDetails?.bio}
+                {user?.bio}
               </Typography>
             </Box>
           </Grid>
