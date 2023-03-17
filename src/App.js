@@ -10,16 +10,10 @@ import SignIn from "./components/SignIn"
 import { createTheme, ThemeProvider } from "@mui/material/styles"
 import DummyDashboard from "./components/testPages/DummyDashboard"
 import keycloak from "./keycloak"
-import {
-  getUserByUsername,
-  getUserById,
-  onSignInGetOrCreateUser,
-} from "./Services/Axios/User/UserCRUDOperations"
+import { onSignInGetOrCreateUser } from "./Services/Axios/User/UserCRUDOperations"
 
 function App() {
-  const dispatch = useDispatch()
   const [language, setLanguage] = useState("en")
-  const { username } = useSelector((state) => state.username)
 
   const theme = createTheme({
     palette: {
@@ -86,7 +80,7 @@ function App() {
           <Route path="/dashboard" element={<DummyDashboard />} />
           <Route path="/groupList" element={<GroupList />} />
           <Route path="/topicList" element={<TopicList />} />
-          <Route path="/profile" element={<Profile/>} />
+          <Route path="/Profile" element={<Profile />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
