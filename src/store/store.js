@@ -1,10 +1,9 @@
-
 import { configureStore } from "@reduxjs/toolkit"
 import authenticationReducer from "../reducers/authenticationSlice"
 import groupListReducer from "../reducers/groupsSlice"
 import topicListReducer from "../reducers/topicsSlice"
 import postListReducer from "../reducers/postsSlice"
-
+import eventListReducer from "../reducers/eventsSlice"
 /**
  * Storage for reducers
  */
@@ -14,5 +13,6 @@ export default configureStore({
     groupList: groupListReducer,
     topicList: topicListReducer,
     postsList: postListReducer,
-  }
+    eventList: eventListReducer,
+  },
 })

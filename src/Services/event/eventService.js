@@ -13,3 +13,15 @@ export const getEventsAsList = async () => {
     console.log(error.message)
   }
 }
+
+export const getUserEvents = async () => {
+  try {
+    const id = JSON.parse(localStorage.getItem("currentUser")).id
+    const res = await axios.get(config.url + "/api/events/user/" + id, {
+      headers: { Authorization: `bearer ${keycloak.token}` },
+    })
+    return res.data
+  } catch (e) {
+    console.log(e.message)
+  }
+}

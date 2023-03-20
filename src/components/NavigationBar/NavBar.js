@@ -43,7 +43,9 @@ const NavBar = ({ language, changeLanguageHandler }) => {
               strings.navbar.navMenuList.map((item, key) => (
                 <MenuItem
                   key={key}
-                  onClick={() => navigate(`/${pathsArray()[key]}`)}
+                  onClick={() =>
+                    navigate(`/${pathsArray()[key].toLowerCase()}`)
+                  }
                 >
                   {item}
                 </MenuItem>
