@@ -25,6 +25,13 @@ export const strings = new LocalizedStrings({
     profilePage: {
       edit: "Edit",
     },
+    timeline: {
+      title: "Timeline",
+      createNew: "Create new post",
+      search: "Search",
+      group: "In group: ",
+      topic: "In topic: ",
+    }
   },
   fi: {
     login: {
@@ -50,5 +57,12 @@ export const strings = new LocalizedStrings({
     profilePage: {
       edit: "Muokkaa",
     },
+    timeline: {
+      title: "Aikajana",
+      createNew: "Luo uusi postaus",
+      search: "Etsi",
+      group: "Ryhmässä: ",
+      topic: "Aiheessa: ",
+    }
   },
 })

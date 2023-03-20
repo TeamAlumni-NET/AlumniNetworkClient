@@ -2,9 +2,10 @@ import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import NavBar from "./components/navigationBar/NavBar"
-import GroupList from "./components/testPages/GroupList"
-import TopicList from "./components/testPages/TopicList"
+import GroupList from "./components/pages/group/GroupList"
+import TopicList from "./components/pages/topic/TopicList"
 import Profile from "./components/profile/profile"
+import Timeline from "./components/pages/timeline/Timeline"
 import { strings } from "./utils/localization"
 import SignIn from "./components/SignIn"
 import { createTheme, ThemeProvider } from "@mui/material/styles"
@@ -83,7 +84,7 @@ function App() {
           <Route path="/group" element={<GroupList />} />
           <Route path="/topic" element={<TopicList />} />
           <Route path="/profile" element={<Profile/>} />
-          <Route path="/timeline" />
+          <Route path="/timeline" element={<Timeline />}/>
           <Route path="/calendar" />
 
         </Routes>
