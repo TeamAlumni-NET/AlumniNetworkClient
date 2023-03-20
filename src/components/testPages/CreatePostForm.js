@@ -8,12 +8,14 @@ import { Box } from '@mui/system'
 
 
 
+
 const CreatePostForm = () => {
     const [postTitle, setPostTitle] = useState('')
     const [content, setContent] = useState('')
 
     const [topicId, setTopicId] = useState('')
     const [groupId, setGroupId] = useState('')
+    
     const [targetUserId, setTargetUserId] = useState('')
     const [parentPostId, setParentPostId] = useState('')
     const [eventId, setEventId] = useState('')
@@ -21,6 +23,8 @@ const CreatePostForm = () => {
 
     const [groups, setGroups] = useState([])
     const [topics, setTopics] = useState([])
+
+
     
     useEffect (() => {
         const headers = {
@@ -50,18 +54,27 @@ const CreatePostForm = () => {
 
    
     const submitPost = {
-        timeStamp: Date(), //Tarkista muoto
         postTitle: postTitle,
         content: content,
-        userId: localStorage.userId,
+        userId: JSON.parse(localStorage.getItem("currentUser")).id,
         topicId: topicId,
         groupId: groupId
+        //timeStamp: Date(), hoidetaan backissa
         //targetUserId:
         //parentPostId:
         //eventId:
     }
 
     const data = JSON.stringify(submitPost)
+
+   
+    function handleSubmit(event) {
+        event.preventDefault()
+        console.log(submitPost)
+    }
+        
+
+   
 
    
 
@@ -78,7 +91,7 @@ const CreatePostForm = () => {
   return (
     <Container>
         
-        <form>
+        <form onSubmit={handleSubmit}>
         <Box>
             <h1>{stringList.title}</h1>
             <div>
@@ -96,6 +109,7 @@ const CreatePostForm = () => {
             <div>
                 <InputLabel id="group">{stringList.group}</InputLabel>
                 <Select
+                    required
                     labelId="group"
                     id="group"
                     value={groupId}
@@ -116,6 +130,7 @@ const CreatePostForm = () => {
             <div>
                 <InputLabel id="topic">{stringList.topic}</InputLabel>
                 <Select
+                    
                     labelId="topic"
                     id="topic"
                     value={topicId}
@@ -146,11 +161,10 @@ const CreatePostForm = () => {
                 onChange={e => setContent(e.target.value)}
               />
             </div>
-            <Button>{stringList.post}</Button>
+            <Button type="submit">{stringList.post}</Button>
         </Box>
 
         </form>
-
         
     </Container>
   )
