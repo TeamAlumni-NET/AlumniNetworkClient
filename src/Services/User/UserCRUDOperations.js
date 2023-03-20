@@ -1,20 +1,21 @@
 import axios from "axios"
 import keycloak from "../../keycloak"
-import {config} from "../../utils/config"
+import { config } from "../../utils/config"
 
 export const onSignInGetOrCreateUser = async (username, token) => {
   const endpoint = "/api/users/user/" + username
   const createEndpoint = "/api/users/"
   try {
-    
-    const res = await axios.get(
-      config.url + endpoint,
-      {
-        headers: { Authorization: `bearer ${token}` },
-        username,
-      }
-    )
-    localStorage.setItem("currentUser", JSON.stringify(res.data))
+    const res = await axios.get(config.url + endpoint, {
+      headers: { Authorization: `bearer ${token}` },
+      username,
+    })
+    const currentUser = {
+      id: res.data.id,
+      userName: res.data.userName,
+    }
+
+    localStorage.setItem("currentUser", JSON.stringify(currentUser))
     return res.data
   } catch (e) {
     if (e.response.status === 404) {
@@ -31,7 +32,12 @@ export const onSignInGetOrCreateUser = async (username, token) => {
             username,
           }
         )
-        localStorage.setItem("currentUser", JSON.stringify(res.data.username))
+        const currentUser = {
+          id: res.data.id,
+          userName: res.data.userName,
+        }
+
+        localStorage.setItem("currentUser", JSON.stringify(currentUser))
         return await res.data
       } catch (e) {
         console.log(e.message)

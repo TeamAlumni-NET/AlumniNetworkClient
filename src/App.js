@@ -10,7 +10,7 @@ import SignIn from "./components/SignIn"
 import { createTheme, ThemeProvider } from "@mui/material/styles"
 import DummyDashboard from "./components/testPages/DummyDashboard"
 import keycloak from "./keycloak"
-import {onSignInGetOrCreateUser} from "./Services/User/UserCRUDOperations"
+import { onSignInGetOrCreateUser } from "./Services/User/UserCRUDOperations"
 
 
 function App() {
@@ -81,7 +81,7 @@ function App() {
           <Route path="/dashboard" element={<DummyDashboard />} />
           <Route path="/group" element={<GroupList />} />
           <Route path="/topic" element={<TopicList />} />
-          <Route path="/profile" element={<Profile/>} />
+          <Route path="/profile" element={<Profile />} />
           <Route path="/timeline" />
           <Route path="/calendar" />
         </Routes>
