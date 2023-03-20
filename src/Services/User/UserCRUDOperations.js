@@ -1,6 +1,6 @@
 import axios from "axios"
-import keycloak from "../../../keycloak"
-import { config } from "../../../utils/config"
+import keycloak from "../../keycloak"
+import {config} from "../../utils/config"
 
 export const onSignInGetOrCreateUser = async (username, token) => {
   const endpoint = "/api/users/user/" + username
