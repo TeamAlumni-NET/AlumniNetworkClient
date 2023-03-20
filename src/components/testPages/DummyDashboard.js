@@ -9,6 +9,7 @@ import { Container } from "@mui/system"
 import { useSelector, useDispatch } from "react-redux"
 import { getEventsList } from "../../reducers/eventsSlice"
 import CalendarInfo from "./CalendarInfo"
+import timeGridPlugin from "@fullcalendar/timegrid"
 
 const DummyDashboard = () => {
   const [value, setValue] = useState(0)
@@ -36,11 +37,16 @@ const DummyDashboard = () => {
         <TabPanel value={0}>Item One</TabPanel>
         <TabPanel value={1}>
           <FullCalendar
-            plugins={[daygrid]}
+            plugins={[daygrid, timeGridPlugin]}
             initialView="dayGridMonth"
             height={800}
             events={userEvents}
             firstDay={1}
+            headerToolbar={{
+              left: "prev,next today",
+              center: "title",
+              right: "dayGridMonth,timeGridWeek,timeGridDay",
+            }}
             eventClick={(e) => {
               setOpen(true)
               setEvent(e.event)
