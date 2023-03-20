@@ -21,10 +21,7 @@ const NavBar = ({ language, changeLanguageHandler }) => {
   const pc = useMediaQuery("(min-width:800px)")
 
   const pathsArray = () => {
-    strings.setLanguage("en")
-    const array = [...strings.navbar.navMenuList]
-    strings.setLanguage(window.localStorage.getItem("language") || "en")
-    return array
+    return ["dashboard", "group", "topic", "profile", "timeline", "calendar"]
   }
 
   useEffect(() => {

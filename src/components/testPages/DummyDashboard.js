@@ -5,6 +5,7 @@ import { strings } from "../../utils/localization"
 import FullCalendar from "@fullcalendar/react"
 import daygrid from "@fullcalendar/daygrid"
 import { TabContext, TabPanel } from "@mui/lab"
+import { Container } from "@mui/system"
 
 const DummyDashboard = () => {
   useEffect(() => {
@@ -17,17 +18,23 @@ const DummyDashboard = () => {
   }
 
   return (
-    <TabContext value={value}>
-      <Tabs value={value} onChange={handleChange} centered sx={{ mt: 4 }}>
-        <Tab label={strings.timeline[0]} />
-        <Tab label={strings.timeline[1]} />
-      </Tabs>
+    <Container>
+      <TabContext value={value}>
+        <Tabs value={value} onChange={handleChange} centered sx={{ mt: 4 }}>
+          <Tab label={strings.timeline[0]} />
+          <Tab label={strings.timeline[1]} />
+        </Tabs>
 
-      <TabPanel value={0}>Item One</TabPanel>
-      <TabPanel value={1}>
-        <FullCalendar plugins={[daygrid]} initialView="dayGridMonth" />
-      </TabPanel>
-    </TabContext>
+        <TabPanel value={0}>Item One</TabPanel>
+        <TabPanel value={1}>
+          <FullCalendar
+            plugins={[daygrid]}
+            initialView="dayGridMonth"
+            height={800}
+          />
+        </TabPanel>
+      </TabContext>
+    </Container>
   )
 }
 
