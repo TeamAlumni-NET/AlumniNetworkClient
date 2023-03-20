@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
-import NavBar from "./components/NavigationBar/NavBar"
+import NavBar from "./components/navigationBar/NavBar"
 import GroupList from "./components/testPages/GroupList"
 import TopicList from "./components/testPages/TopicList"
 import Profile from "./components/profile/profile"
@@ -78,9 +78,11 @@ function App() {
         <Routes>
           <Route path="/" element={<SignIn />} />
           <Route path="/dashboard" element={<DummyDashboard />} />
-          <Route path="/groupList" element={<GroupList />} />
-          <Route path="/topicList" element={<TopicList />} />
-          <Route path="/Profile" element={<Profile />} />
+          <Route path="/group" element={<GroupList />} />
+          <Route path="/topic" element={<TopicList />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/timeline" />
+          <Route path="/calendar" />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
