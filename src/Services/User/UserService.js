@@ -1,6 +1,6 @@
 import axios from 'axios'
-import { config } from '../../../utils/config'
-import keycloak from '../../../keycloak'
+import { config } from '../../utils/config'
+import keycloak from '../../keycloak'
 
 export const getUser = async () => {
   try {
