@@ -11,7 +11,7 @@ const Timeline = () => {
   const stringList = {
     title: strings.timeline.title,
     createNew: strings.timeline.createNew,
-    search: strings.timeline.search,
+    search: strings.common.search,
     group: strings.timeline.group,
     topic: strings.timeline.topic,
     startingAt: strings.timeline.startingAt
@@ -31,6 +31,7 @@ const Timeline = () => {
       <DetailsList
         stringList={stringList}
         data={timeline}
+        timeline={true}
       />
     </>
   )

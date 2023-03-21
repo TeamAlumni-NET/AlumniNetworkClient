@@ -47,6 +47,16 @@ function App() {
     shape: {
       borderRadius: 10,
     },
+    components:{
+      MuiCard: {
+        styleOverrides: {
+          root: {
+            marginBottom: "10px"
+          } 
+        }
+      }
+    }
+    
   })
 
   useEffect(() => {
@@ -69,26 +79,30 @@ function App() {
     strings.setLanguage(lang)
     localStorage.setItem("language", lang)
   }
-
-  return (
-    <ThemeProvider theme={theme}>
-      <BrowserRouter>
-        <NavBar
-          language={language}
-          changeLanguageHandler={changeLanguageHandler}
-        />
-        <Routes>
-          <Route path="/" element={<SignIn />} />
-          <Route path="/dashboard" element={<UserDashboard />} />
-          <Route path="/group" element={<GroupList />} />
-          <Route path="/topic" element={<TopicList />} />
-          <Route path="/profile" element={<Profile/>} />
-          <Route path="/timeline" element={<Timeline />}/>
-          <Route path="/calendar" />
-        </Routes>
-      </BrowserRouter>
-    </ThemeProvider>
-  )
+  try {
+    return (
+      <ThemeProvider theme={theme}>
+        <BrowserRouter>
+          <NavBar
+            language={language}
+            changeLanguageHandler={changeLanguageHandler}
+          />
+          <Routes>
+            <Route path="/" element={<SignIn />} />
+            <Route path="/dashboard" element={<UserDashboard />} />
+            <Route path="/group" element={<GroupList />} />
+            <Route path="/topic" element={<TopicList />} />
+            <Route path="/profile" element={<Profile/>} />
+            <Route path="/timeline" element={<Timeline />}/>
+            <Route path="/calendar" />
+          </Routes>
+        </BrowserRouter>
+      </ThemeProvider>
+    )
+  } catch (error) {
+    return <>error</>
+  }
+  
 }
 
 export default App
