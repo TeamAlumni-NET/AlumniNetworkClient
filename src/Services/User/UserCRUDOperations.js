@@ -14,7 +14,6 @@ export const onSignInGetOrCreateUser = async (username, token) => {
       id: res.data.id,
       userName: res.data.userName,
     }
-
     localStorage.setItem("currentUser", JSON.stringify(currentUser))
     return res.data
   } catch (e) {

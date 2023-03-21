@@ -2,7 +2,6 @@ import LocalizedStrings from "react-localization"
 
 export const strings = new LocalizedStrings({
   en: {
-    timeline: ["Timeline", "Calendar"],
     login: {
       logoUrl: "/media/logo/AlumniNetworkEn/png/logo-no-background.png",
     },
@@ -10,7 +9,7 @@ export const strings = new LocalizedStrings({
       title: "Network Alumni",
       login: "Log in",
       logout: "Log out",
-      navMenuList: ["Dashboard", "Groups", "Topics", "Calendar", "Profile"],
+      navMenuList: ["Timeline", "Groups", "Topics", "Calendar", "Profile"],
     },
     groupList: {
       title: "Group List",
@@ -27,15 +26,16 @@ export const strings = new LocalizedStrings({
       edit: "Edit",
     },
     timeline: {
+      calendar: "Calendar",
       title: "Timeline",
       createNew: "Create new post",
       search: "Search",
       group: "In group: ",
       topic: "In topic: ",
+      startingAt: "Starting at: ",
     }
   },
   fi: {
-    timeline: ["Aikajana", "Kalenteri"],
     login: {
       logoUrl: "/media/logo/AlumniNetworkFi/png/logo-no-background.png",
     },
@@ -43,7 +43,7 @@ export const strings = new LocalizedStrings({
       title: "Network Alumni",
       login: "Kirjaudu sisään",
       logout: "Kirjaudu ulos",
-      navMenuList: ["Kojelauta", "Ryhmät", "Aiheet", "Kalenteri", "Profiili"],
+      navMenuList: ["Aikajana", "Ryhmät", "Aiheet", "Kalenteri", "Profiili"],
     },
     groupList: {
       title: "Ryhmä listaus",
@@ -60,11 +60,13 @@ export const strings = new LocalizedStrings({
       edit: "Muokkaa",
     },
     timeline: {
+      calendar: "Kalenteri",
       title: "Aikajana",
       createNew: "Luo uusi postaus",
       search: "Etsi",
       group: "Ryhmässä: ",
       topic: "Aiheessa: ",
+      startingAt: "Alkaa:",
     }
   },
 })

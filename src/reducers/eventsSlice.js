@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
-import { getUserEvents } from "../Services/event/eventService"
+import { getUserEvents, getEventsAsList } from "../Services/event/eventService"
 
 export const getEventsList = createAsyncThunk(
   "eventList/getUserEvents",
@@ -9,15 +9,26 @@ export const getEventsList = createAsyncThunk(
   }
 )
 
+export const getTimelineEventsList = createAsyncThunk("eventList/getTimelineEvents",
+  async () => {
+    const response = await getEventsAsList()
+    return response
+  }
+)
+
 export const eventListSlice = createSlice({
   name: "events",
   initialState: {
     userEvents: [],
+    timelineEvents: []
   },
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getEventsList.fulfilled, (state, action) => {
       state.userEvents = action.payload
+    }),
+    builder.addCase(getTimelineEventsList.fulfilled, (state, action) => {
+      state.timelineEvents = action.payload
     })
   },
 })
