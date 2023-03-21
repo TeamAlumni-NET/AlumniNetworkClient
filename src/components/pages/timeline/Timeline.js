@@ -1,4 +1,4 @@
-import { getPostByTimeline } from "../../../Services/post/postService"
+import { getPostByTimeline } from "../../../services/post/postService"
 import DetailsList from "../../templateSites/detailList/DetailsList"
 import { strings } from "../../../utils/localization"
 import { useDispatch, useSelector } from "react-redux"

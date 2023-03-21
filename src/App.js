@@ -9,9 +9,9 @@ import Timeline from "./components/pages/timeline/Timeline"
 import { strings } from "./utils/localization"
 import SignIn from "./components/SignIn"
 import { createTheme, ThemeProvider } from "@mui/material/styles"
-import DummyDashboard from "./components/testPages/DummyDashboard"
+import UserDashboard from "./components/pages/userDasboard/UserDashboard"
 import keycloak from "./keycloak"
-import {onSignInGetOrCreateUser} from "./Services/User/UserCRUDOperations"
+import {onSignInGetOrCreateUser} from "./services/User/UserCRUDOperations"
 
 
 function App() {
@@ -79,7 +79,7 @@ function App() {
         />
         <Routes>
           <Route path="/" element={<SignIn />} />
-          <Route path="/dashboard" element={<DummyDashboard />} />
+          <Route path="/dashboard" element={<UserDashboard />} />
           <Route path="/group" element={<GroupList />} />
           <Route path="/topic" element={<TopicList />} />
           <Route path="/profile" element={<Profile/>} />

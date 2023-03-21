@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
-import { getPostByTimeline } from "../Services/post/postService"
+import { getPostByTimeline } from "../services/post/postService"
 
 export const getGroupAsList = createAsyncThunk(
   'timelineList/getPostsByTimeline',

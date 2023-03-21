@@ -21,7 +21,7 @@ const NavBar = ({ language, changeLanguageHandler }) => {
   const pc = useMediaQuery("(min-width:800px)")
 
   const pathsArray = () => {
-    return ["timeline", "group", "topic", "calendar", "profile"]
+    return ["timeline", "group", "topic", "calendar", "dashboard", "profile"]
   }
 
   useEffect(() => {
