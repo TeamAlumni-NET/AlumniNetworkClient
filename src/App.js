@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import NavBar from "./components/navigationBar/NavBar"
 import GroupList from "./components/pages/group/GroupList"
@@ -11,8 +10,8 @@ import SignIn from "./components/SignIn"
 import { createTheme, ThemeProvider } from "@mui/material/styles"
 import UserDashboard from "./components/pages/userDasboard/UserDashboard"
 import keycloak from "./keycloak"
-import {onSignInGetOrCreateUser} from "./services/User/UserCRUDOperations"
-
+import { onSignInGetOrCreateUser } from "./Services/User/UserCRUDOperations"
+import CalendarPage from "./components/pages/Calendar/CalendarPage"
 
 function App() {
   const [language, setLanguage] = useState("en")
@@ -82,9 +81,9 @@ function App() {
           <Route path="/dashboard" element={<UserDashboard />} />
           <Route path="/group" element={<GroupList />} />
           <Route path="/topic" element={<TopicList />} />
-          <Route path="/profile" element={<Profile/>} />
-          <Route path="/timeline" element={<Timeline />}/>
-          <Route path="/calendar" />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/timeline" element={<Timeline />} />
+          <Route path="/calendar" element={<CalendarPage />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
