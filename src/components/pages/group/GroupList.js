@@ -1,7 +1,7 @@
-import { strings } from "../../utils/localization"
-import GroupTopicList from "../templateSites/groupTopicList/GroupTopicList"
+import { strings } from "../../../utils/localization"
+import GroupTopicList from "../../templateSites/groupTopicList/GroupTopicList"
 import { useDispatch, useSelector } from "react-redux"
-import { getGroupAsList } from "../../reducers/groupsSlice"
+import { getGroupAsList } from "../../../reducers/groupsSlice"
 import { useEffect } from "react"
 
 const GroupList = () => {

@@ -1,12 +1,11 @@
 import axios from "axios"
 import keycloak from "../../keycloak"
-import {config} from "../../utils/config"
+import { config } from "../../utils/config"
 
 export const onSignInGetOrCreateUser = async (username, token) => {
   const endpoint = "/api/users/user/" + username
   const createEndpoint = "/api/users/"
   try {
-    
     const res = await axios.get(
       config.url + endpoint,
       {
@@ -36,11 +35,12 @@ export const onSignInGetOrCreateUser = async (username, token) => {
             username,
           }
         )
+        
         const currentUser = {
           id: res.data.id,
           userName: res.data.userName
         }
-    
+
         localStorage.setItem("currentUser", JSON.stringify(currentUser))
         return await res.data
       } catch (e) {
