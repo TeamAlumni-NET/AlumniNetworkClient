@@ -23,7 +23,20 @@ export const strings = new LocalizedStrings({
       member: "Member",
     },
     profilePage: {
+      firstName: "Firstname",
+      lastName: "Lastname",
+      userStatus: "Status",
+      funFact: "Fun Fact",
+      bio: "Bio",
+      pictureUrl: "Profilepicture's URL",
+    },
+    common: {
       edit: "Edit",
+      create: "Create",
+      save: "Save",
+      submit: "Submit",
+      close: "Close"
+
     },
     timeline: {
       calendar: "Calendar",
@@ -57,7 +70,20 @@ export const strings = new LocalizedStrings({
       member: "Jäsen",
     },
     profilePage: {
+      firstName: "Etunimi",
+      lastName: "Sukunimi",
+      userStatus: "Status",
+      funFact: "Hauska fakta",
+      bio: "kuvaus",
+      pictureUrl: "Profiilikuvan URL",
+    },
+    common: {
       edit: "Muokkaa",
+      create: "Luo",
+      save: "Tallenna",
+      submit: "Julkaise",
+      close: "Sulje"
+
     },
     timeline: {
       calendar: "Kalenteri",
