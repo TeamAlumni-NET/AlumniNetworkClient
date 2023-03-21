@@ -5,6 +5,7 @@ import NavBar from "./components/NavigationBar/NavBar"
 import GroupList from "./components/testPages/GroupList"
 import TopicList from "./components/testPages/TopicList"
 import Profile from "./components/profile/profile"
+import Post from "./components/threads/Post"
 import { strings } from "./utils/localization"
 import SignIn from "./components/SignIn"
 import { createTheme, ThemeProvider } from "@mui/material/styles"
@@ -85,6 +86,7 @@ function App() {
           <Route path="/profile" element={<Profile/>} />
           <Route path="/timeline" />
           <Route path="/calendar" />
+          <Route path="/post" element={<Post/>} />
 
         </Routes>
       </BrowserRouter>

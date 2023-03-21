@@ -38,7 +38,7 @@ const EditProfile = () => {
 
     const dataToBackend = {
       id: user.id,
-      userName: user.userName,
+      userName: user.username,
       firstName: editFirstName,
       lastName: editLastName,
       status: editStatus,
