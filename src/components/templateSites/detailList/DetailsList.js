@@ -60,20 +60,28 @@ const DetailsList = ({stringList, data, timeline}) => {
 
         return (
           <>
-            {post.title ? <Card key={post.id+post.title} sx={{width: "100%"}} onClick={() => navigate(`${url}/${post.title.replace(/\s/g, '_')}`)}>
+            {post.title ? <Card key={post.id+post.title} sx={{width: "100%"}} >
               <CardContent>
-                <Typography variant="body2">{post.user}</Typography>
-                <Typography variant="body1" sx={{marginLeft: "20%"}}>{post.title}</Typography>
+                <Typography variant="body2" onClick={() => navigate(`/profile/${post.user}`)}>{post.user}</Typography>
+                <Button
+                  variant="body1"
+                  sx={{marginLeft: "20%"}}
+                  onClick={() => navigate(`${url}/${post.title.replace(/\s/g, '_')}`)}
+                >{post.title}</Button>
                 {post.group ? <Typography variant="body2">{stringList.group}{post.group}</Typography>
                   :<Typography variant="body2">{stringList.topic}{post.topic}</Typography>}
               </CardContent>
               {search !== "" && post.posts.length > 0 && childPost(post.posts)}
             </Card>
-              : <Card key={post.id+post.name} sx={{width: "100%", background:"aliceblue"}} onClick={() => navigate(`/event/${post.name.replace(/\s/g, '_')}${post.id}`)}>
+              : <Card key={post.id+post.name} sx={{width: "100%", background:"aliceblue"}} >
                 <CardContent>
                   {post.group.length !== 0 ? <Typography variant="body2">{stringList.group}{post.group}</Typography>
                     :<Typography variant="body2">{stringList.topic}{post.topic}</Typography>}
-                  <Typography variant="body1" sx={{marginLeft: "20%"}}>{post.name}</Typography>
+                  <Button
+                    variant="body1"
+                    sx={{marginLeft: "20%"}}
+                    onClick={() => navigate(`/event/${post.name.replace(/\s/g, '_')}${post.id}`)}
+                  >{post.name}</Button>
                   <Typography variant="body2">{stringList.startingAt}</Typography>
                   <Typography variant="body2">{time}</Typography>
                 </CardContent>
