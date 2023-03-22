@@ -50,16 +50,18 @@ const DetailsList = ({stringList, data, timeline}) => {
     if (posts){
       return posts.map(post => {
         let time = ""
-        let type = "topic"
+        let url = ""
         if (post.startTime) {
           const rawTime = new Date(post.startTime)
           time = `${rawTime.getHours()}:${rawTime.getMinutes()} ${rawTime.getDate()}.${rawTime.getMonth()+1}.${rawTime.getFullYear()}`
         }
-        if (post.group) type="group"
+        if (post.group) url = `/group/${post.group}`
+        else if (post.topic) url = `/topic/${post.topic}`
+        
 
         return (
           <>
-            {post.title ? <Card key={post.id+post.title} sx={{width: "100%"}} onClick={() => navigate(`/${type}/${post.title.replace(/\s/g, '_')}`)}>
+            {post.title ? <Card key={post.id+post.title} sx={{width: "100%"}} onClick={() => navigate(`${url}/${post.title.replace(/\s/g, '_')}`)}>
               <CardContent>
                 <Typography variant="body2">{post.user}</Typography>
                 <Typography variant="body1" sx={{marginLeft: "20%"}}>{post.title}</Typography>
@@ -68,7 +70,7 @@ const DetailsList = ({stringList, data, timeline}) => {
               </CardContent>
               {search !== "" && post.posts.length > 0 && childPost(post.posts)}
             </Card>
-              : <Card key={post.id+post.name} sx={{width: "100%", background:"aliceblue"}} onClick={() => navigate(`/event/${post.name.replace(/\s/g, '_')}`)}>
+              : <Card key={post.id+post.name} sx={{width: "100%", background:"aliceblue"}} onClick={() => navigate(`/event/${post.name.replace(/\s/g, '_')}${post.id}`)}>
                 <CardContent>
                   {post.group.length !== 0 ? <Typography variant="body2">{stringList.group}{post.group}</Typography>
                     :<Typography variant="body2">{stringList.topic}{post.topic}</Typography>}
