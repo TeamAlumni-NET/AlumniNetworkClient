@@ -89,7 +89,7 @@ const EditProfile = () => {
               '& .MuiTextField-root': { m: 1, width: '25ch' }
             }}
           >
-            <h2>{user.userName}</h2>
+            <h2>{user.username}</h2>
             <div>
               <TextField
                 required

@@ -83,7 +83,7 @@ function App() {
           <Route path="/dashboard" element={<DummyDashboard />} />
           <Route path="/group" element={<GroupList />} />
           <Route path="/topic" element={<TopicList />} />
-          <Route path="/profile" element={<Profile/>} />
+          <Route path="/profile/:username" element={<Profile/>} />
           <Route path="/timeline" />
           <Route path="/calendar" />
           <Route path="/post" element={<Post/>} />

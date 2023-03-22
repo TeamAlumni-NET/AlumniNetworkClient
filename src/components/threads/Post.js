@@ -5,7 +5,8 @@ import {
   getCurrentPost,
   getcurrentPostUser
 } from '../../reducers/postSlice'
-import { Paper } from '@mui/material'
+import { Button, Paper, Typography } from '@mui/material'
+import { Link} from 'react-router-dom'
 function Post () {
   const dispatch = useDispatch()
   const { post, childPosts, postUser } = useSelector(state => state.post)
@@ -23,8 +24,8 @@ function Post () {
 
   useEffect(() => {
     dispatch(getCurrentPost(5))
-    dispatch(currentChildPosts(post.id))
-    dispatch(getcurrentPostUser(post.userId))
+    dispatch(currentChildPosts(5))
+    dispatch(getcurrentPostUser(1))
   }, [dispatch])
 
   return (
@@ -42,7 +43,9 @@ function Post () {
         <h3>{post?.title}</h3>
         <p>{post?.content}</p>
         <p>{timeFormat(post.timeStamp)}</p>
-        <p>{postUser?.username}</p>
+        <Button
+              component={Link}
+              to={`/profile/${postUser.username}`}>{postUser.username}</Button>
       </Paper>
       {childPosts.childPosts === undefined ? (
         <p>dddd</p>
@@ -61,7 +64,11 @@ function Post () {
           >
             <p>{child.content}</p>
             <p>{timeFormat(child.timeStamp)}</p>
-            <p>{child.username}</p>
+
+            <Button component={Link}
+            to={`/profile/${child.username}`}>
+              {child.username}
+            </Button>
           </Paper>
         ))
       )}

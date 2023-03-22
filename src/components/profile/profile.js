@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography'
 import { Box } from '@mui/material'
 import { useEffect} from 'react'
 import EditProfile from './EditProfile'
-import { getCurrentUser } from '../../reducers/userSlice'
+import { getCurrentUser, getProfileUser } from '../../reducers/userSlice'
 import { useDispatch, useSelector } from "react-redux"
 
 
@@ -18,10 +18,12 @@ const Img = styled('img')({
 
 function Profile () {
   const dispatch = useDispatch()
-  const {user}=useSelector(state => state.user) 
+  const {user, profileUser}=useSelector(state => state.user)
+
    
   useEffect(() => {
-    dispatch(getCurrentUser()) 
+    dispatch(getCurrentUser())
+    dispatch(getProfileUser("JaskaMan")) 
 
   }, [dispatch])
 
