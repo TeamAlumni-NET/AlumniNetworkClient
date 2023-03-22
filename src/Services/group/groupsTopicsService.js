@@ -14,6 +14,7 @@ export const getGroupTopicList = async (target) => {
   }
 }
 
+//Tarkista
 export const createGroup = async(data) => {
   try {
       const res = await axios.post(`${config.url}/api/groups`, data, {
