@@ -32,7 +32,9 @@ export const strings = new LocalizedStrings({
       topic: "Topic",
       content: "Content",
       none: "None",
-      post: "Post!"
+      post: "Post!",
+      newGroup: "Create New Group",
+      newTopic: "Create New Topic"
     },
   },
   fi: {
@@ -66,7 +68,9 @@ export const strings = new LocalizedStrings({
       topic: "Aihe",
       content: "Viesti",
       none: "Tyhjä",
-      post: "Julkaise!"
+      post: "Julkaise!",
+      newGroup: "Luo uusi ryhmä",
+      newTopic: "Luo uusi aihe"
     },
   },
 })

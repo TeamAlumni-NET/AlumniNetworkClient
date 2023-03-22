@@ -1,82 +1,44 @@
-import React, { useEffect, useState } from 'react'
-import { Button, InputLabel, MenuItem, Select, TextField, Container, Alert } from "@mui/material"
+import { useEffect, useState } from 'react'
+import { Button, FormControlLabel, InputLabel, MenuItem, Modal, Radio, RadioGroup, Select, TextField, Typography} from "@mui/material"
 import { strings } from "../../utils/localization"
-import keycloak from '../../keycloak'
 import { Box } from '@mui/system'
+import { getGroupAsList } from '../../reducers/groupsSlice'
+import { getTopicAsList } from '../../reducers/topicsSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import { postNewPost } from '../../reducers/postSlice'
 
 
+const CreatePostForm = (target, id) => {
+  const dispatch = useDispatch()
+  const {groups} = useSelector(state => state.groupList)
+  const {topics} = useSelector(state => state.topicList)
 
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
-
-
-const CreatePostForm = () => {
-    const [postTitle, setPostTitle] = useState('')
-    const [content, setContent] = useState('')
-
-    const [topicId, setTopicId] = useState('')
-    const [groupId, setGroupId] = useState('')
-    
-    const [targetUserId, setTargetUserId] = useState('')
-    const [parentPostId, setParentPostId] = useState('')
-    const [eventId, setEventId] = useState('')
-
-
-    const [groups, setGroups] = useState([])
-    const [topics, setTopics] = useState([])
-
-
-    
-    useEffect (() => {
-        const headers = {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + keycloak.token
-            }
-        fetch(process.env.REACT_APP_API_URL + `/api/groups`, {headers})
-            .then(response => response.json())
-            .then(data => setGroups(data))
-            .catch(error => { 
-                Alert.alert('Error', error);
-            });
-    }, [])
-
-    useEffect (() => {
-        const headers = {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + keycloak.token
-            }
-        fetch(process.env.REACT_APP_API_URL + `/api/topics`, {headers})
-            .then(response => response.json())
-            .then(data => setTopics(data))
-            .catch(error => { 
-                Alert.alert('Error', error);
-            });
-    }, [])
-
-   
-    const submitPost = {
-        postTitle: postTitle,
-        content: content,
-        userId: JSON.parse(localStorage.getItem("currentUser")).id,
-        topicId: topicId,
-        groupId: groupId
-        //timeStamp: Date(), hoidetaan backissa
-        //targetUserId:
-        //parentPostId:
-        //eventId:
-    }
-
-    const data = JSON.stringify(submitPost)
-
-   
-    function handleSubmit(event) {
-        event.preventDefault()
-        console.log(submitPost)
-    }
-        
-
-   
-
-   
+  const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+  };
+  
+  const [newPost, setNewPost] = useState({
+    title: "",
+    content: "",
+    topicId: null,
+    groupId: null,
+    targetUserId: null,
+    parentPostId: null,
+    eventId: null,
+    userId: JSON.parse(localStorage.getItem("currentUser")).id
+  })
 
   const stringList = {
     title: strings.createPostForm.title,
@@ -85,88 +47,190 @@ const CreatePostForm = () => {
     topic: strings.createPostForm.topic,
     content: strings.createPostForm.content,
     none: strings.createPostForm.none,
-    post: strings.createPostForm.post
+    post: strings.createPostForm.post,
+    newGroup: strings.createPostForm.newGroup,
+    newTopic: strings.createPostForm.newTopic
+  }
+
+  //Check if works... 
+  if (target == "event"){
+    setNewPost.eventId = id
+  } else if (target == "group"){
+    setNewPost.groupId = id
+  } else if (target == "topic"){
+    setNewPost.topicId = id
+  } else if (target == "targetUser"){
+    setNewPost.targetUserId = id
+  } else if (target == "parentPost"){
+    setNewPost.parentPostId = id
+  }
+
+  useEffect(() => {
+    dispatch(getGroupAsList())
+    dispatch(getTopicAsList())
+  }, [dispatch])
+
+  function handleSubmit(event) {
+    event.preventDefault()
+    dispatch(postNewPost(newPost))
+    console.log(newPost)
   }
 
   return (
-    <Container>
-        
-        <form onSubmit={handleSubmit}>
-        <Box>
-            <h1>{stringList.title}</h1>
-            <div>
+    <>
+      <form onSubmit={handleSubmit} style={{padding: 20}}>
+        <Box sx={{  
+          display: 'flex',
+          flexDirection: 'column',
+        }} >
+
+          <h1>{stringList.title}</h1>
+          <div>
             <InputLabel variant='standard'>{stringList.postTitle}</InputLabel>
-              <TextField
-                required
-                id='outlined-required'
-                label={stringList.postTitle}
-                defaultValue=""
-                onChange={e => setPostTitle(e.target.value)}
-              />
-            </div>
+            <TextField
+              required
+              id='outlined-required'
+              defaultValue=""
+              onChange={e => setNewPost(newPost => ({
+                ...newPost,
+                title: e.target.value,
+              }))}
+            />
+          </div>
 
-         
-            <div>
-                <InputLabel id="group">{stringList.group}</InputLabel>
-                <Select
-                    required
-                    labelId="group"
-                    id="group"
-                    value={groupId}
-                    label="Group"
-                    autoWidth
-                    style={{ minWidth: '200px' }}
-                    onChange={e => setGroupId(e.target.value)}
-                >   
-                    <MenuItem value="">
-                        <em>None</em>
-                    </MenuItem>
-                    {groups.map(group =>
-                        <MenuItem key={group.id} value={group.id}>{group.id} {group.name}</MenuItem>
-                    )}
-                </Select>
-            </div>
+          <InputLabel id="group">{stringList.group}</InputLabel>
+          <Box sx={{  
+            display: 'flex',
+            flexDirection: 'row',
+          }}>
+            
+            <Select
+              style={{ minWidth: '200px' }}
+              required
+              autoWidth
+              disabled = {newPost.topicId !== null}
+              labelId="group"
+              value={newPost.groupId}
+              onChange={e => setNewPost(newPost => ({
+                ...newPost,
+                groupId: e.target.value,
+              }))}
+            >   
+              {groups.map(group =>
+                <MenuItem key={group.id} value={group.id}>{group.name}</MenuItem>
+              )}
+            </Select>
 
-            <div>
-                <InputLabel id="topic">{stringList.topic}</InputLabel>
-                <Select
-                    
-                    labelId="topic"
-                    id="topic"
-                    value={topicId}
-                    label="Topic"
-                    autoWidth
-                    style={{ minWidth: '200px' }}
-                    onChange={e => setTopicId(e.target.value)}
-                >   
-                    <MenuItem value="">
-                        <em>None</em>
-                    </MenuItem>
-                    {topics.map(topic =>
-                        <MenuItem key={topic.id} value={topic.id}>{topic.id} {topic.name}</MenuItem>
-                    )}
-                </Select>
-            </div>
+          <Box sx={{  
+            display: 'flex',
+            flexDirection: 'row',
+            pl:5,
+            }}></Box>
+            <Button size="small" onClick={handleOpen}>{stringList.newGroup}</Button>
+          </Box>
 
-            <div>
-            <InputLabel variant='standard'>{stringList.content}</InputLabel>
-              <TextField
-                required
-                minRows={4}
-                fullWidth
-                multiline
-                id='outlined-required'
-                label={stringList.content}
-                defaultValue=""
-                onChange={e => setContent(e.target.value)}
-              />
-            </div>
-            <Button type="submit">{stringList.post}</Button>
+          <InputLabel id="topic">{stringList.topic}</InputLabel>
+        <Box sx={{  
+            display: 'flex',
+            flexDirection: 'row',
+            }}>
+            
+            <Select
+              style={{ minWidth: '200px' }}
+              required
+              autoWidth
+              disabled = {newPost.groupId !== null}
+              labelId="topic"
+              value={newPost.topicId}
+              onChange={e => setNewPost(newPost => ({
+                    ...newPost,
+                    topicId: e.target.value,
+              }))}
+            >   
+              {topics.map(topic =>
+                <MenuItem key={topic.id} value={topic.id}>{topic.name}</MenuItem>
+              )}
+            </Select>
+
+            <Box sx={{  
+                display: 'flex',
+                flexDirection: 'row',
+                pl:5,
+                }}>
+                
+                <Button size="small">{stringList.newTopic}</Button>
+            </Box>
         </Box>
 
-        </form>
-        
-    </Container>
+        <div>
+        <InputLabel variant='standard'>{stringList.content}</InputLabel>
+            <TextField
+              required
+              fullWidth
+              multiline
+              minRows={5}
+              id='outlined-required'
+              defaultValue=""
+              onChange={e => setNewPost(newPost => ({
+                ...newPost,
+                content: e.target.value,
+              }))}
+            />
+        </div>
+
+        </Box>
+        <Button type="submit">{stringList.post}</Button>
+
+        <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+>
+        <Box sx={style}>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+             {stringList.newGroup}
+            </Typography>
+             <form>
+                    
+                <div>
+                    <InputLabel variant='standard'>Group name</InputLabel>
+                    <TextField
+                    required
+                    id='outlined-required'
+                    defaultValue=""
+                    //onChange={}
+                    />
+                </div>
+                <div>
+                    <InputLabel variant='standard'>Group description</InputLabel>
+                    <TextField
+                    required
+                    id='outlined-required'
+                    defaultValue=""
+                    //onChange={}
+                    />
+                </div>
+                <div>
+                <InputLabel variant='standard'>Privacy</InputLabel>
+                <RadioGroup
+                    aria-labelledby="demo-radio-buttons-group-label"
+                    defaultValue="female"
+                    name="radio-buttons-group"
+                >
+                    <FormControlLabel value="public" control={<Radio />} label="Public" />
+                    <FormControlLabel value="private" control={<Radio />} label="Private" />
+                </RadioGroup>
+                </div>
+
+            </form>
+            <Button onClick={handleClose}>Add group</Button>
+        </Box>
+        </Modal>
+
+    </form>        
+    </>
   )
 }
+
 export default CreatePostForm  

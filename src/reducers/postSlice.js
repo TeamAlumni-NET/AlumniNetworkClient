@@ -10,14 +10,14 @@ export const postNewPost = createAsyncThunk(
 )
 
 export const postSlice = createSlice({
-    name: "post",
+    name: "posts",
     initialState: {
         post: {}
     },
     reducers: {},
     extraReducers: builder => {
-        builder.addCase(postNewPost.fulfilled), (statet, action) => {
-            statet.post = action.payload
+        builder.addCase(postNewPost.fulfilled), (state, action) => {
+            state.post = action.payload
         }
     }
 })

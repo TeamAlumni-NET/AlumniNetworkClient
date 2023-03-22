@@ -5,7 +5,7 @@ import keycloak from '../../keycloak'
 
 export const postPost = async(data) => {
     try {
-        const res = await axios.put(`${config.url}/api/posts`, data, {
+        const res = await axios.post(`${config.url}/api/posts`, data, {
             headers: {
                 Authorization: `bearer ${keycloak.token}`,
                 'Content-Type': 'application/json'

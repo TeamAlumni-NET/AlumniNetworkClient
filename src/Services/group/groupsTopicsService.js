@@ -13,3 +13,17 @@ export const getGroupTopicList = async (target) => {
     console.log(error.message)
   }
 }
+
+export const createGroup = async(data) => {
+  try {
+      const res = await axios.post(`${config.url}/api/groups`, data, {
+          headers: {
+              Authorization: `bearer ${keycloak.token}`,
+              'Content-Type': 'application/json'
+          }
+      })
+      return res.data
+  } catch (error) {
+      console.log(error.message)
+  }
+}
