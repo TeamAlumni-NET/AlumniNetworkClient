@@ -10,7 +10,7 @@ import SignIn from "./components/SignIn"
 import { createTheme, ThemeProvider } from "@mui/material/styles"
 import UserDashboard from "./components/pages/userDasboard/UserDashboard"
 import keycloak from "./keycloak"
-import { onSignInGetOrCreateUser } from "./Services/User/UserCRUDOperations"
+import { onSignInGetOrCreateUser } from "./services/User/UserCRUDOperations"
 import CalendarPage from "./components/pages/Calendar/CalendarPage"
 import CreatePostForm from "./components/testPages/CreatePostForm"
 
@@ -47,6 +47,16 @@ function App() {
     shape: {
       borderRadius: 10,
     },
+    components:{
+      MuiCard: {
+        styleOverrides: {
+          root: {
+            marginBottom: "10px"
+          } 
+        }
+      }
+    }
+    
   })
 
   useEffect(() => {
