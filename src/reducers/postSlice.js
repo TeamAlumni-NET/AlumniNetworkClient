@@ -1,5 +1,6 @@
+import { getPopperUnstyledUtilityClass } from "@mui/base"
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
-import { getPost, getChildPosts } from "../Services/Post/PostService"
+import { getPost, getChildPosts, getPostUser } from "../Services/Post/PostService"
 
 export const getCurrentPost = createAsyncThunk(
   "post/getPost",
@@ -18,11 +19,23 @@ export const currentChildPosts = createAsyncThunk(
 )
 
 
+export const getcurrentPostUser = createAsyncThunk(
+  "post/getPostuser",
+  async(id)=>{
+    const response = await getPostUser(id)
+    return response
+  }
+)
+
+
+
+
 export const postSlice = createSlice({
   name: "post",
   initialState: {
     post: {},
-    childPosts: []
+    childPosts: [],
+    postUser: [],
   },
   reducers:{},
   extraReducers: builder => {
@@ -31,6 +44,9 @@ export const postSlice = createSlice({
     }),
     builder.addCase(currentChildPosts.fulfilled, (state, action) => {
       state.childPosts = action.payload
+    }),
+    builder.addCase(getcurrentPostUser.fulfilled, (state, action) =>{
+      state.postUser = action.payload
     })
 
   }

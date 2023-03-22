@@ -22,9 +22,24 @@ export const getChildPosts = async id =>{
         Authorization: `bearer ${keycloak.token}`
       }
     })
-    console.log(res.data)
+  
     return res.data
   } catch (error) {
     console.log(error)
   }
 }
+
+export const getPostUser = async (id) => {
+  try {
+    const res = await axios.get(`${config.url}/api/users/${id}`, {
+      headers: {
+        Authorization: `bearer ${keycloak.token}`
+      }
+    })
+    return res.data
+  } catch (error) {
+    console.log(error.message)
+  }
+
+}
+
