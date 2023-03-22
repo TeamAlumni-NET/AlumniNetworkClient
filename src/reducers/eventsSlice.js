@@ -3,7 +3,7 @@ import {
   getUserEvents,
   getEventsAsList,
   getUserSuggestedEvents,
-} from "../Services/event/eventService"
+} from "../services/event/eventService"
 
 export const getEventsList = createAsyncThunk(
   "eventList/getUserEvents",

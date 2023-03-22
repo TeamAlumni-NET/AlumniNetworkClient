@@ -44,11 +44,12 @@ export const strings = new LocalizedStrings({
       submit: "Submit",
       close: "Close",
       calendar: "Calendar",
+      search: "Search",
     },
     timeline: {
       title: "Timeline",
       createNew: "Create new post",
-      search: "Search",
+      
       group: "In group: ",
       topic: "In topic: ",
       startingAt: "Starting at: ",
@@ -104,11 +105,11 @@ export const strings = new LocalizedStrings({
       submit: "Julkaise",
       close: "Sulje",
       calendar: "Kalenteri",
+      search: "Etsi"
     },
     timeline: {
       title: "Aikajana",
       createNew: "Luo uusi postaus",
-      search: "Etsi",
       group: "Ryhmässä: ",
       topic: "Aiheessa: ",
       startingAt: "Alkaa:",

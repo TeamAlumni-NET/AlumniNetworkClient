@@ -31,5 +31,6 @@ module.exports = {
     "no-empty-function": "warn",
     "react/prop-types": "off",
     "no-empty-pattern": "warn",
+    "react-hooks/exhaustive-deps": "off"
   }
 }
