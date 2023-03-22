@@ -3,8 +3,6 @@ import authenticationReducer from "../reducers/authenticationSlice"
 import groupListReducer from "../reducers/groupsSlice"
 import topicListReducer from "../reducers/topicsSlice"
 import postReducer from "../reducers/postSlice"
-
-
 import postListReducer from "../reducers/postsSlice"
 import eventListReducer from "../reducers/eventsSlice"
 import userReducer from "../reducers/userSlice"

@@ -110,7 +110,8 @@ const CreatePostForm = (target, id) => {
               autoWidth
               disabled = {newPost.topicId !== null}
               labelId="group"
-              value={newPost.groupId}
+              value={newPost.groupId || ""}
+              defaultValue=""
               onChange={e => setNewPost(newPost => ({
                 ...newPost,
                 groupId: e.target.value,
@@ -141,7 +142,8 @@ const CreatePostForm = (target, id) => {
               autoWidth
               disabled = {newPost.groupId !== null}
               labelId="topic"
-              value={newPost.topicId}
+              value={newPost.topicId || ""}
+              defaultValue=""
               onChange={e => setNewPost(newPost => ({
                     ...newPost,
                     topicId: e.target.value,
