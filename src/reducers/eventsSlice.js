@@ -1,5 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
-import { getUserEvents, getEventsAsList } from "../services/event/eventService"
+import {
+  getUserEvents,
+  getEventsAsList,
+  getUserSuggestedEvents,
+} from "../services/event/eventService"
 
 export const getEventsList = createAsyncThunk(
   "eventList/getUserEvents",
@@ -9,9 +13,18 @@ export const getEventsList = createAsyncThunk(
   }
 )
 
-export const getTimelineEventsList = createAsyncThunk("eventList/getTimelineEvents",
+export const getTimelineEventsList = createAsyncThunk(
+  "eventList/getTimelineEvents",
   async () => {
     const response = await getEventsAsList()
+    return response
+  }
+)
+
+export const getUserSuggestedEventsList = createAsyncThunk(
+  "eventList/getUserSuggestedEvents",
+  async () => {
+    const response = await getUserSuggestedEvents()
     return response
   }
 )
@@ -20,16 +33,20 @@ export const eventListSlice = createSlice({
   name: "events",
   initialState: {
     userEvents: [],
-    timelineEvents: []
+    timelineEvents: [],
+    userSuggestedEvents: [],
   },
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getEventsList.fulfilled, (state, action) => {
       state.userEvents = action.payload
     }),
-    builder.addCase(getTimelineEventsList.fulfilled, (state, action) => {
-      state.timelineEvents = action.payload
-    })
+      builder.addCase(getTimelineEventsList.fulfilled, (state, action) => {
+        state.timelineEvents = action.payload
+      }),
+      builder.addCase(getUserSuggestedEventsList.fulfilled, (state, action) => {
+        state.userSuggestedEvents = action.payload
+      })
   },
 })
 

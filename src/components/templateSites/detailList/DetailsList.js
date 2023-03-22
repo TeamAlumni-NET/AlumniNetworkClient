@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react"
 
 const DetailsList = ({stringList, data, timeline}) => {
-  const [showCreateNew, setShowCreateNew] = useState(false)
   const navigate = useNavigate()
   const [search, setSearch] = useState("")
   const [posts, setPosts] = useState(data)
@@ -97,18 +96,16 @@ const DetailsList = ({stringList, data, timeline}) => {
           <div style={{display: "flex", flexDirection: "column"}}>
             <TextField variant="outlined" label={stringList.search} onChange={handleChange}/>
             <div>
-              {!timeline && <Button onClick={() => setShowCreateNew(true)} color="secondary">{stringList.calendar}</Button>}
-              <Button onClick={() => setShowCreateNew(true)}>{stringList.createNew}</Button>
-              {!timeline && <Button onClick={() => setShowCreateNew(true)}>{stringList.join}</Button>}
-              {!timeline && <Button onClick={() => setShowCreateNew(true)}>{stringList.invite}</Button>}
+              {!timeline && <Button color="secondary">{stringList.calendar}</Button>}
+              <Button onClick={() => navigate(`/createPostForm`)}>{stringList.createNew}</Button>
+              {!timeline && <Button>{stringList.join}</Button>}
+              {!timeline && <Button>{stringList.invite}</Button>}
             </div>
           </div>
           
         </div>
         {list()}
       </Container>
-      {showCreateNew && 
-      <>Create new post link</>}
     </>
   )
 }

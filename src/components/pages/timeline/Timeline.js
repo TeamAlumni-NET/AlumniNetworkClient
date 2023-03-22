@@ -1,4 +1,3 @@
-import { getPostByTimeline } from "../../../services/post/postService"
 import DetailsList from "../../templateSites/detailList/DetailsList"
 import { strings } from "../../../utils/localization"
 import { useDispatch, useSelector } from "react-redux"
@@ -14,21 +13,18 @@ const Timeline = () => {
     search: strings.common.search,
     group: strings.timeline.group,
     topic: strings.timeline.topic,
-    startingAt: strings.timeline.startingAt
+    startingAt: strings.timeline.startingAt,
   }
-  const {postsTimeline} = useSelector(state => state.postsList)
-  const {timelineEvents} = useSelector(state => state.eventList)
+  const { postsTimeline } = useSelector((state) => state.postsList)
+  const { timelineEvents } = useSelector((state) => state.eventList)
   const timeline = postsTimeline.concat(timelineEvents)
-  
 
   useEffect(() => {
-    console.log("contact to backend");
     dispatch(getGroupAsList())
     dispatch(getTimelineEventsList())
   }, [dispatch])
 
   useEffect(() => {
-    console.log("Setting data");
     timeline.sort((a,b) => new Date(a.timeStamp) - new Date(b.timeStamp)).reverse()
   }, [postsTimeline, timelineEvents])
 

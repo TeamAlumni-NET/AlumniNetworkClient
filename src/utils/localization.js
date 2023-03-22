@@ -9,7 +9,14 @@ export const strings = new LocalizedStrings({
       title: "Network Alumni",
       login: "Log in",
       logout: "Log out",
-      navMenuList: ["Timeline", "Groups", "Topics", "Calendar", "Dashboard", "Profile"],
+      navMenuList: [
+        "Timeline",
+        "Groups",
+        "Topics",
+        "Calendar",
+        "Dashboard",
+        "Profile",
+      ],
     },
     groupList: {
       title: "Group List",
@@ -47,11 +54,13 @@ export const strings = new LocalizedStrings({
       topic: "In topic: ",
       startingAt: "Starting at: ",
     },
-    dashboard:{
+    dashboard: {
       userDashboard: "User dashboard",
-      posts: "Posts"
-    }
-    
+      posts: "Posts",
+    },
+    calendar: {
+      text: "Find events to attend via your intrests!",
+    },
   },
   fi: {
     login: {
@@ -61,7 +70,14 @@ export const strings = new LocalizedStrings({
       title: "Network Alumni",
       login: "Kirjaudu sisään",
       logout: "Kirjaudu ulos",
-      navMenuList: ["Aikajana", "Ryhmät", "Aiheet", "Kalenteri", "Kojelauta","Profiili"],
+      navMenuList: [
+        "Aikajana",
+        "Ryhmät",
+        "Aiheet",
+        "Kalenteri",
+        "Kojelauta",
+        "Profiili",
+      ],
     },
     groupList: {
       title: "Ryhmä listaus",
@@ -90,7 +106,6 @@ export const strings = new LocalizedStrings({
       close: "Sulje",
       calendar: "Kalenteri",
       search: "Etsi"
-
     },
     timeline: {
       title: "Aikajana",
@@ -99,9 +114,9 @@ export const strings = new LocalizedStrings({
       topic: "Aiheessa: ",
       startingAt: "Alkaa:",
     },
-    dashboard:{
+    dashboard: {
       userDashboard: "Käyttäjän kojelauta",
-      posts: "Postaukset"
-    }
+      posts: "Postaukset",
+    },
   },
 })
