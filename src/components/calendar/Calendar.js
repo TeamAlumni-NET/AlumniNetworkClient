@@ -4,7 +4,7 @@ import timeGridPlugin from "@fullcalendar/timegrid"
 import { useState } from "react"
 import CalendarInfo from "./CalendarInfo"
 
-const Calendar = ({ events }) => {
+const Calendar = ({ events, height = 800 }) => {
   const [open, setOpen] = useState(false)
   const [event, setEvent] = useState()
 
@@ -13,7 +13,7 @@ const Calendar = ({ events }) => {
       <FullCalendar
         plugins={[daygrid, timeGridPlugin]}
         initialView="dayGridMonth"
-        height={800}
+        height={height}
         events={events}
         firstDay={1}
         headerToolbar={{
