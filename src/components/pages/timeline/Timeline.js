@@ -19,12 +19,18 @@ const Timeline = () => {
   const {postsTimeline} = useSelector(state => state.postsList)
   const {timelineEvents} = useSelector(state => state.eventList)
   const timeline = postsTimeline.concat(timelineEvents)
-  timeline.sort((a,b) => new Date(a.timeStamp) - new Date(b.timeStamp)).reverse()
+  
 
   useEffect(() => {
+    console.log("contact to backend");
     dispatch(getGroupAsList())
     dispatch(getTimelineEventsList())
   }, [dispatch])
+
+  useEffect(() => {
+    console.log("Setting data");
+    timeline.sort((a,b) => new Date(a.timeStamp) - new Date(b.timeStamp)).reverse()
+  }, [postsTimeline, timelineEvents])
 
   return (
     <>
