@@ -3,30 +3,30 @@ import { getGroupTopicList } from "../Services/group/groupsTopicsService"
 import { createGroup } from "../Services/group/groupsTopicsService"
 
 export const getGroupAsList = createAsyncThunk(
-  'groupList/getGroupsList',
+  "groupList/getGroupsList",
   async () => {
-    const response = await getGroupTopicList('groups')
+    const response = await getGroupTopicList("groups")
     return response
   }
 )
 
 export const groupListSlice = createSlice({
-  name: 'groupsAsList',
-  initialState:{
-    groups: []
+  name: "groupsAsList",
+  initialState: {
+    groups: [],
   },
-  reducers: {
-  },
-  extraReducers: builder => {
+  reducers: {},
+  extraReducers: (builder) => {
     builder.addCase(getGroupAsList.fulfilled, (state, action) => {
       state.groups = action.payload
     })
-  }
+  },
 })
 
 
 export const {} = groupListSlice.actions
 export default groupListSlice.reducer
+
 
 /*
 export const createNewGroup = createAsyncThunk(

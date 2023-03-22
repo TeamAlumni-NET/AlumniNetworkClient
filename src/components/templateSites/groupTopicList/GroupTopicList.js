@@ -1,4 +1,3 @@
-
 import { Card, CardContent, Typography, Button, Container } from "@mui/material"
 import { useNavigate } from "react-router-dom"
 import { useState } from "react"
