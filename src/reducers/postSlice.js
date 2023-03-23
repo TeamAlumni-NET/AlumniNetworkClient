@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
-import { postPost } from "../Services/post/postService"
+import { postPost } from "../services/post/postService"
 
 export const postNewPost = createAsyncThunk(
     "post/postPost",

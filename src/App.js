@@ -10,9 +10,10 @@ import SignIn from "./components/SignIn"
 import { createTheme, ThemeProvider } from "@mui/material/styles"
 import UserDashboard from "./components/pages/userDasboard/UserDashboard"
 import keycloak from "./keycloak"
-import { onSignInGetOrCreateUser } from "./services/User/UserCRUDOperations"
+import { onSignInGetOrCreateUser } from "./services/user/UserCRUDOperations"
 import CalendarPage from "./components/pages/Calendar/CalendarPage"
 import CreatePostForm from "./components/testPages/CreatePostForm"
+
 
 function App() {
   const [language, setLanguage] = useState("en")
