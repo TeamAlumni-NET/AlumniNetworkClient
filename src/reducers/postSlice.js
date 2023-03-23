@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
-import { getPost, getChildPosts, getPostUser } from "../services/post/postService"
+import { getPost, getChildPosts} from "../services/post/postService"
 
 export const getCurrentPost = createAsyncThunk(
   "post/getPost",
@@ -17,24 +17,11 @@ export const currentChildPosts = createAsyncThunk(
   }
 )
 
-
-export const getcurrentPostUser = createAsyncThunk(
-  "post/getPostuser",
-  async(id)=>{
-    const response = await getPostUser(id)
-    return response
-  }
-)
-
-
-
-
 export const postSlice = createSlice({
   name: "post",
   initialState: {
     post: {},
     childPosts: [],
-    postUser: [],
   },
   reducers:{},
   extraReducers: builder => {
@@ -43,11 +30,7 @@ export const postSlice = createSlice({
     }),
     builder.addCase(currentChildPosts.fulfilled, (state, action) => {
       state.childPosts = action.payload
-    }),
-    builder.addCase(getcurrentPostUser.fulfilled, (state, action) =>{
-      state.postUser = action.payload
     })
-
   }
 })
 export const {} = postSlice.actions

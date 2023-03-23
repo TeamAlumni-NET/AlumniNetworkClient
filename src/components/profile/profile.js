@@ -60,7 +60,7 @@ function Profile () {
           </Grid>
           <Grid item>
             {(() => {
-              if (JSON.parse(localStorage.getItem('currentUser')).id === profileUser?.id) {
+              if (user.id === profileUser?.id) {
                 return (
                   <EditProfile/>
                 )
@@ -71,7 +71,7 @@ function Profile () {
         </Grid>
       </Grid>
       <Grid container spacing={2}>
-        <Grid item>
+        <Grid item maxWidth={'25%'}>
           <Typography gutterBottom variant='body2' component='div'>
             {profileUser?.funFact}
           </Typography>
