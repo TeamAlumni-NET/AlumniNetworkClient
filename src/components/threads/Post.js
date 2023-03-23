@@ -29,12 +29,13 @@ function Post () {
   }, [dispatch])
 
   return (
-    <div>
+    <div
+    style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}
+    >
       <Paper
         sx={{
           p: 2,
-          margin: 'auto',
-          maxWidth: '75%',
+          width: '75%',
           flexGrow: 1,
           backgroundColor: theme =>
             theme.palette.mode === 'dark' ? '#1A2027' : '#fff'
@@ -56,8 +57,8 @@ function Post () {
             key={child.id}
             sx={{
               p: 2,
-              margin: 'auto',
-              maxWidth: '75%',
+              marginTop: '2%',
+              width: '75%',
               flexGrow: 1,
               backgroundColor: theme =>
                 theme.palette.mode === 'dark' ? '#1A2027' : '#fff'

@@ -85,7 +85,7 @@ function Profile () {
           sx={{ height: 600 }}
         >
           <Grid item xs>
-            <Box sx={{ backgroundColor: 'lightgrey', height: 500 }}>
+            <Box sx={{ backgroundColor: 'lightgrey', height: 400 }}>
               <Typography variant='body2' gutterBottom>
                 {profileUser?.bio}
               </Typography>
