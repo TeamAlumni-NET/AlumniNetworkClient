@@ -79,32 +79,6 @@ function App() {
     strings.setLanguage(lang)
     localStorage.setItem("language", lang)
   }
-<<<<<<< HEAD
-  try {
-    return (
-      <ThemeProvider theme={theme}>
-        <BrowserRouter>
-          <NavBar
-            language={language}
-            changeLanguageHandler={changeLanguageHandler}
-          />
-          <Routes>
-            <Route path="/" element={<SignIn />} />
-            <Route path="/dashboard" element={<UserDashboard />} />
-            <Route path="/group" element={<GroupList />} />
-            <Route path="/topic" element={<TopicList />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/timeline" element={<Timeline />} />
-            <Route path="/calendar" element={<CalendarPage />} />
-            <Route path="/group/:name/:id" element={<Group />} />
-          </Routes>
-        </BrowserRouter>
-      </ThemeProvider>
-    )
-  } catch (error) {
-    return <>error</>
-  }
-=======
 
   return (
     <ThemeProvider theme={theme}>
@@ -122,11 +96,13 @@ function App() {
           <Route path="/timeline" element={<Timeline />} />
           <Route path="/calendar" element={<CalendarPage />} />
           <Route path="/post/:id" element={<Post/>} />
+          <Route path="/group/:name/:id" element={<Group />} />
+
+
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
   )
->>>>>>> 793241caf66942007df3a6ca254e6df53748b62d
 }
 
 export default App
