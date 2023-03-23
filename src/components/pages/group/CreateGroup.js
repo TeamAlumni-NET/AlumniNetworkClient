@@ -1,10 +1,17 @@
-import { Box, Button, FormControlLabel, InputLabel, Modal, Radio, RadioGroup, TextField, Typography } from "@mui/material";
+
+import { Box, Button, FormControlLabel, InputLabel, Modal, TextField, Typography, Checkbox} from "@mui/material";
 
 import { useState } from "react";
 import { strings } from "../../../utils/localization";
 
 
 const CreateGroup = () => {
+    const [newGroup, setNewGroup] = useState({
+        groupName: "",
+        groupDescription: "",
+        private: false,       
+      })
+
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -31,6 +38,15 @@ const CreateGroup = () => {
         addGroup: strings.createGroup.addGroup
       }
 
+      const handleCheckBoxChange = e => {
+        console.log(e.target.checked)
+        setNewGroup(newGroup=> ({
+            ...newGroup,
+            private: e.target.checked
+      }))}
+
+      console.log(newGroup)
+
     return (
         <>
         <Button size="small" onClick={handleOpen}>{stringList.newGroup}</Button>
@@ -51,7 +67,10 @@ const CreateGroup = () => {
                     required
                     id='outlined-required'
                     defaultValue=""
-                    //onChange={}
+                    onChange={e => setNewGroup(newGroup=> ({
+                        ...newGroup,
+                        groupName: e.target.value,
+                      }))}
                     />
                 </div>
                 <div>
@@ -63,19 +82,18 @@ const CreateGroup = () => {
                     minRows={2}
                     id='outlined-required'
                     defaultValue=""
-                    //onChange={}
+                    onChange={e => setNewGroup(newGroup=> ({
+                        ...newGroup,
+                        groupDescription: e.target.value,
+                      }))}
                     />
                 </div>
+
                 <div>
-                <InputLabel variant='standard'>{stringList.privacy}</InputLabel>
-                <RadioGroup
-                    aria-labelledby="demo-radio-buttons-group-label"
-                    defaultValue="female"
-                    name="radio-buttons-group"
-                >
-                    <FormControlLabel value="public" control={<Radio />} label={stringList.public} />
-                    <FormControlLabel value="private" control={<Radio />} label={stringList.private} />
-                </RadioGroup>
+                <FormControlLabel label={stringList.privacy} control={
+                <Checkbox checked={newGroup.private} onChange={handleCheckBoxChange}/> 
+                }
+                />
                 </div>
 
             </form>

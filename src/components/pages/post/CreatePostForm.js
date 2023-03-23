@@ -9,12 +9,15 @@ import { postNewPost } from '../../../reducers/postSlice'
 import CreateGroup from '../group/CreateGroup'
 import CreateTopic from '../topic/CreateTopic'
 import snarkdown from 'snarkdown'
+import CreateGroupTopic from '../../templateSites/groupTopicList/CreateGroupTopic'
 
 
 const CreatePostForm = (target, id) => {
   const dispatch = useDispatch()
   const {groups} = useSelector(state => state.groupList)
   const {topics} = useSelector(state => state.topicList)
+  const [showCreateNew, setShowCreateNew] = useState(false)
+  const [type, setType] = useState("group")
 
   
   const [newPost, setNewPost] = useState({
@@ -119,7 +122,7 @@ const CreatePostForm = (target, id) => {
             flexDirection: 'row',
             pl:5,
             }}>
-              <CreateGroup/>
+              <Button size="small" onClick={() => {setShowCreateNew(true); setType("group")}}>{strings.createGroup.newGroup}</Button>
             </Box>
             
           </Box>
@@ -153,7 +156,7 @@ const CreatePostForm = (target, id) => {
             flexDirection: 'row',
             pl:5,
             }}>
-              <CreateTopic/>
+              <Button size="small" onClick={() => {setShowCreateNew(true); setType("topic")}}>{strings.createTopic.newTopic}</Button>
             </Box>
 
         </Box>
@@ -175,6 +178,14 @@ const CreatePostForm = (target, id) => {
         </div>
 
         </Box>
+
+        {showCreateNew &&
+          <CreateGroupTopic
+            type={type}
+             showCreateNew={showCreateNew}
+            setShowCreateNew={setShowCreateNew}
+        />}
+
         <Button type="submit">{stringList.post}</Button>
 
     </form>        
