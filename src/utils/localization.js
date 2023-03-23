@@ -72,6 +72,21 @@ export const strings = new LocalizedStrings({
       newGroup: "Create New Group",
       newTopic: "Create New Topic"
     },
+    createGroup: {
+      newGroup: "Create New Group",
+      groupName: "Group Name",
+      groupDescription: "Group Description",
+      privacy: "Privacy",
+      public: "Public",
+      private: "Private",
+      addGroup: "Add Group"
+    },
+    createTopic: {
+      newTopic: "Create New Topic",
+      topicName: "Topic Name",
+      topicDescription: "Topic Description",
+      addTopic: "Add Topic"
+    }
   },
   fi: {
     login: {
@@ -140,5 +155,20 @@ export const strings = new LocalizedStrings({
       newGroup: "Luo uusi ryhmä",
       newTopic: "Luo uusi aihe"
     },
+    createGroup: {
+      newGroup: "Luo uusi ryhmä",
+      groupName: "Ryhmän nimi",
+      groupDescription: "Ryhmän kuvaus",
+      privacy: "Yksityisyys",
+      public: "Julkinen",
+      private: "Yksityinen",
+      addGroup: "Lisää ryhmä"
+    },
+    createTopic: {
+      newTopic: "Luo uusi aihe",
+      topicName: "Aiheen Nimi",
+      topicDescription: "Aiheen kuvaus",
+      addTopic: "Lisää Aihe"
+    }
   },
 })

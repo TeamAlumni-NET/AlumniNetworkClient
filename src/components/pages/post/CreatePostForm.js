@@ -1,11 +1,14 @@
 import { useEffect, useState } from 'react'
-import { Button, FormControlLabel, InputLabel, MenuItem, Modal, Radio, RadioGroup, Select, TextField, Typography} from "@mui/material"
-import { strings } from "../../utils/localization"
+import { Button, InputLabel, MenuItem, Select, TextField} from "@mui/material"
+import { strings } from "../../../utils/localization"
 import { Box } from '@mui/system'
-import { getGroupAsList } from '../../reducers/groupsSlice'
-import { getTopicAsList } from '../../reducers/topicsSlice'
+import { getGroupAsList } from '../../../reducers/groupsSlice'
+import { getTopicAsList } from '../../../reducers/topicsSlice'
 import { useDispatch, useSelector } from 'react-redux'
-import { postNewPost } from '../../reducers/postSlice'
+import { postNewPost } from '../../../reducers/postSlice'
+import CreateGroup from '../group/CreateGroup'
+import CreateTopic from '../topic/CreateTopic'
+import snarkdown from 'snarkdown'
 
 
 const CreatePostForm = (target, id) => {
@@ -13,21 +16,6 @@ const CreatePostForm = (target, id) => {
   const {groups} = useSelector(state => state.groupList)
   const {topics} = useSelector(state => state.topicList)
 
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-
-  const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 4,
-  };
   
   const [newPost, setNewPost] = useState({
     title: "",
@@ -47,9 +35,7 @@ const CreatePostForm = (target, id) => {
     topic: strings.createPostForm.topic,
     content: strings.createPostForm.content,
     none: strings.createPostForm.none,
-    post: strings.createPostForm.post,
-    newGroup: strings.createPostForm.newGroup,
-    newTopic: strings.createPostForm.newTopic
+    post: strings.createPostForm.post
   }
 
   //Check if works... 
@@ -75,6 +61,12 @@ const CreatePostForm = (target, id) => {
     dispatch(postNewPost(newPost))
     console.log(newPost)
   }
+
+  /*test snarkdown
+  let md = '_this_ is **easy** to `use`.';
+  let html = snarkdown(md);
+  console.log(html);
+  */
 
   return (
     <>
@@ -126,8 +118,10 @@ const CreatePostForm = (target, id) => {
             display: 'flex',
             flexDirection: 'row',
             pl:5,
-            }}></Box>
-            <Button size="small" onClick={handleOpen}>{stringList.newGroup}</Button>
+            }}>
+              <CreateGroup/>
+            </Box>
+            
           </Box>
 
           <InputLabel id="topic">{stringList.topic}</InputLabel>
@@ -155,13 +149,13 @@ const CreatePostForm = (target, id) => {
             </Select>
 
             <Box sx={{  
-                display: 'flex',
-                flexDirection: 'row',
-                pl:5,
-                }}>
-                
-                <Button size="small">{stringList.newTopic}</Button>
+            display: 'flex',
+            flexDirection: 'row',
+            pl:5,
+            }}>
+              <CreateTopic/>
             </Box>
+
         </Box>
 
         <div>
@@ -182,53 +176,6 @@ const CreatePostForm = (target, id) => {
 
         </Box>
         <Button type="submit">{stringList.post}</Button>
-
-        <Modal
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
->
-        <Box sx={style}>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-             {stringList.newGroup}
-            </Typography>
-             <form>
-                    
-                <div>
-                    <InputLabel variant='standard'>Group name</InputLabel>
-                    <TextField
-                    required
-                    id='outlined-required'
-                    defaultValue=""
-                    //onChange={}
-                    />
-                </div>
-                <div>
-                    <InputLabel variant='standard'>Group description</InputLabel>
-                    <TextField
-                    required
-                    id='outlined-required'
-                    defaultValue=""
-                    //onChange={}
-                    />
-                </div>
-                <div>
-                <InputLabel variant='standard'>Privacy</InputLabel>
-                <RadioGroup
-                    aria-labelledby="demo-radio-buttons-group-label"
-                    defaultValue="female"
-                    name="radio-buttons-group"
-                >
-                    <FormControlLabel value="public" control={<Radio />} label="Public" />
-                    <FormControlLabel value="private" control={<Radio />} label="Private" />
-                </RadioGroup>
-                </div>
-
-            </form>
-            <Button onClick={handleClose}>Add group</Button>
-        </Box>
-        </Modal>
 
     </form>        
     </>

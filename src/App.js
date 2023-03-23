@@ -12,7 +12,7 @@ import UserDashboard from "./components/pages/userDasboard/UserDashboard"
 import keycloak from "./keycloak"
 import { onSignInGetOrCreateUser } from "./services/user/UserCRUDOperations"
 import CalendarPage from "./components/pages/Calendar/CalendarPage"
-import CreatePostForm from "./components/testPages/CreatePostForm"
+import CreatePostForm from "./components/pages/post/CreatePostForm"
 
 
 function App() {
