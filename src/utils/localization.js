@@ -62,7 +62,8 @@ export const strings = new LocalizedStrings({
       text: "Find events to attend via your intrests!",
     },
     postThread:{
-      reply: "Reply to"
+      reply: "Reply to",
+      wrongPostId: "This post doesn't exist"
     },
   },
   fi: {
@@ -122,7 +123,8 @@ export const strings = new LocalizedStrings({
       posts: "Postaukset",
     },
     postThread:{
-      reply: "Vastaus käyttäjälle"
+      reply: "Vastaus käyttäjälle",
+      wrongPostId: "Tälläistä julkaisua ei ole olemassa"
     }
   },
 })
