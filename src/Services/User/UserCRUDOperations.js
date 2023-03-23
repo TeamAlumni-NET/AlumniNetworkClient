@@ -12,7 +12,11 @@ export const onSignInGetOrCreateUser = async (username, token) => {
     })
     const currentUser = {
       id: res.data.id,
+<<<<<<< HEAD
       userName: res.data.username,
+=======
+      userName: res.data.username
+>>>>>>> 793241caf66942007df3a6ca254e6df53748b62d
     }
 
     localStorage.setItem("currentUser", JSON.stringify(currentUser))

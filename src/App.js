@@ -5,12 +5,13 @@ import GroupList from "./components/pages/group/GroupList"
 import TopicList from "./components/pages/topic/TopicList"
 import Profile from "./components/profile/profile"
 import Timeline from "./components/pages/timeline/Timeline"
+import Post from "./components/threads/Post"
 import { strings } from "./utils/localization"
 import SignIn from "./components/SignIn"
 import { createTheme, ThemeProvider } from "@mui/material/styles"
 import UserDashboard from "./components/pages/userDasboard/UserDashboard"
 import keycloak from "./keycloak"
-import { onSignInGetOrCreateUser } from "./services/User/UserCRUDOperations"
+import { onSignInGetOrCreateUser } from "./services/user/UserCRUDOperations"
 import CalendarPage from "./components/pages/Calendar/CalendarPage"
 import Group from "./components/pages/group/Group"
 
@@ -78,6 +79,7 @@ function App() {
     strings.setLanguage(lang)
     localStorage.setItem("language", lang)
   }
+<<<<<<< HEAD
   try {
     return (
       <ThemeProvider theme={theme}>
@@ -102,6 +104,29 @@ function App() {
   } catch (error) {
     return <>error</>
   }
+=======
+
+  return (
+    <ThemeProvider theme={theme}>
+      <BrowserRouter>
+        <NavBar
+          language={language}
+          changeLanguageHandler={changeLanguageHandler}
+        />
+        <Routes>
+          <Route path="/" element={<SignIn />} />
+          <Route path="/dashboard" element={<UserDashboard />} />
+          <Route path="/group" element={<GroupList />} />
+          <Route path="/topic" element={<TopicList />} />
+          <Route path="/profile/:username" element={<Profile />} />
+          <Route path="/timeline" element={<Timeline />} />
+          <Route path="/calendar" element={<CalendarPage />} />
+          <Route path="/post/:id" element={<Post/>} />
+        </Routes>
+      </BrowserRouter>
+    </ThemeProvider>
+  )
+>>>>>>> 793241caf66942007df3a6ca254e6df53748b62d
 }
 
 export default App

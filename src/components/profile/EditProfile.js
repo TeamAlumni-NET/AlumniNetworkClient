@@ -6,7 +6,13 @@ import TextField from "@mui/material/TextField"
 import { strings } from "../../utils/localization"
 import { TextareaAutosize } from "@mui/base"
 import { useDispatch, useSelector } from "react-redux"
+<<<<<<< HEAD
 import { patchCurrentUser, getCurrentUser } from "../../reducers/userSlice"
+=======
+import { patchCurrentUser, getCurrentUser, getProfileUser } from '../../reducers/userSlice'
+
+
+>>>>>>> 793241caf66942007df3a6ca254e6df53748b62d
 
 const style = {
   position: "absolute",
@@ -56,6 +62,12 @@ const EditProfile = () => {
     handleClose()
     alert("Profile updated")
     dispatch(getCurrentUser())
+<<<<<<< HEAD
+=======
+    dispatch(getProfileUser(user.username))
+    
+    
+>>>>>>> 793241caf66942007df3a6ca254e6df53748b62d
   }
 
   const [open, setOpen] = useState(false)
