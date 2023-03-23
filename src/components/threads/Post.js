@@ -8,8 +8,7 @@ function Post () {
   const dispatch = useDispatch()
   const { post, childPosts } = useSelector(state => state.post)
 
-
-  var idFromUrl = window.location.pathname.split("/")
+  var idFromUrl = window.location.pathname.split('/')
 
   const timeFormat = timeStamp => {
     const formatTime = new Date(timeStamp).toLocaleString('en-Fi', {
@@ -32,25 +31,29 @@ function Post () {
     <div
       style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
     >
-      <Paper
-        sx={{
-          p: 2,
-          width: '75%',
-          flexGrow: 1,
-          backgroundColor: theme =>
-            theme.palette.mode === 'dark' ? '#1A2027' : '#fff'
-        }}
-      >
-        <Avatar alt='User' src={post.picture} />
-        <Typography variant='subtitle1' fontWeight={'bold'}>
-          {post?.title}
-        </Typography>
-        <Typography variant='body'>{post?.content}</Typography>
-        <Typography>{timeFormat(post.timeStamp)}</Typography>
-        <Button component={Link} to={`/profile/${post.user}`}>
-          {post.user}
-        </Button>
-      </Paper>
+      {post === undefined ? (
+        <Typography>{strings.postThread.wrongPostId}</Typography>
+      ) : (
+        <Paper
+          sx={{
+            p: 2,
+            width: '75%',
+            flexGrow: 1,
+            backgroundColor: theme =>
+              theme.palette.mode === 'dark' ? '#1A2027' : '#fff'
+          }}
+        >
+          <Avatar alt='User' src={post.picture} />
+          <Typography variant='subtitle1' fontWeight={'bold'}>
+            {post?.title}
+          </Typography>
+          <Typography variant='body'>{post?.content}</Typography>
+          <Typography>{timeFormat(post.timeStamp)}</Typography>
+          <Button component={Link} to={`/profile/${post.user}`}>
+            {post.user}
+          </Button>
+        </Paper>
+      )}
       {childPosts.childPosts === undefined ? (
         <p>No comments</p>
       ) : (
