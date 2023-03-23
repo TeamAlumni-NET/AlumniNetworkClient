@@ -7,91 +7,154 @@ import {
   TextField,
 } from "@mui/material"
 import { useNavigate } from "react-router-dom"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 const DetailsList = ({ stringList, data, timeline }) => {
-  const [showCreateNew, setShowCreateNew] = useState(false)
   const navigate = useNavigate()
   const [search, setSearch] = useState("")
+  const [posts, setPosts] = useState(data)
 
-  // const listData = () => {
-  //   return data.map((value) => value)
-  // }
+  useEffect(() => {
+    if (search === "") setPosts(data)
+    else {
+      setPosts(
+        data.filter(
+          (value) =>
+            value.title?.toLowerCase().includes(search) ||
+            value.name?.toLowerCase().includes(search) ||
+            value.content?.toLowerCase().includes(search) ||
+            value.user?.toLowerCase().includes(search) ||
+            value.childPosts?.filter(
+              (childPost) =>
+                childPost.content?.toLowerCase().includes(search) ||
+                childPost.user?.toLowerCase().includes(search)
+            ).length !== 0
+        )
+      )
+    }
+  }, [search, data])
 
-  // listData()
+  const handleChange = (e) => {
+    setSearch(e.target.value.toLowerCase())
+  }
+
+  const childPost = (currentPost) => {
+    const listOfPosts = currentPost.filter(
+      (p) =>
+        p.content?.toLowerCase().includes(search) ||
+        p.user?.toLowerCase().includes(search)
+    )
+
+    const childPostList = (post) => {
+      return post.map((childPost) => {
+        return (
+          <>
+            <Typography variant="body2">
+              {childPost.user}: {childPost.content}
+            </Typography>
+          </>
+        )
+      })
+    }
+    if (listOfPosts.length === 0) return <></>
+
+    return <CardContent>{childPostList(listOfPosts)}</CardContent>
+  }
 
   const list = () => {
-    if (data) {
-      return data.map((d) => {
-        if (!d.group && !d.topic) return <>Loading</>
+    if (posts.length > 0) {
+      if (!posts[0].group && !posts[0].topic) return <>Loading</>
+      return posts.map((post) => {
         let time = ""
-        let type = "topic"
-        if (d.startTime) {
-          const rawTime = new Date(d.startTime)
+        let url = ""
+        if (post.startTime) {
+          const rawTime = new Date(post.startTime)
           time = `${rawTime.getHours()}:${rawTime.getMinutes()} ${rawTime.getDate()}.${
             rawTime.getMonth() + 1
           }.${rawTime.getFullYear()}`
         }
-        if (d.group) type = "group"
+        if (post.group) url = `/group/${post.group}`
+        else if (post.topic) url = `/topic/${post.topic}`
+
         return (
           <>
-            {d.title ? (
-              <Card
-                key={d.id + d.title}
-                sx={{ width: "100%" }}
-                onClick={() =>
-                  navigate(`/${type}/${d.title.replace(/\s/g, "_")}`)
-                }
-              >
+            {post.title ? (
+              <Card key={post.id + post.title} sx={{ width: "100%" }}>
                 <CardContent>
-                  <Typography variant="body2">{d.user}</Typography>
-                  <Typography variant="body1" sx={{ marginLeft: "20%" }}>
-                    {d.title}
+                  <Typography
+                    variant="body2"
+                    onClick={() => navigate(`/profile/${post.user}`)}
+                  >
+                    {post.user}
                   </Typography>
-                  {d.group ? (
+                  <Button
+                    variant="body1"
+                    sx={{ marginLeft: "20%" }}
+                    onClick={() => {
+                      navigate(`${url}/${post.title.replace(/\s/g, "_")}`)
+                    }}
+                  >
+                    {post.title}
+                  </Button>
+                  {post.group ? (
                     <Typography variant="body2">
                       {stringList.group}
-                      {d.group}
+                      {post.group}
                     </Typography>
                   ) : (
                     <Typography variant="body2">
                       {stringList.topic}
-                      {d.topic}
+                      {post.topic}
                     </Typography>
                   )}
                 </CardContent>
+                {search !== "" &&
+                  post.childPosts.length > 0 &&
+                  childPost(post.childPosts)}
               </Card>
             ) : (
               <Card
-                key={d.id + d.name}
+                key={post.id + post.name}
                 sx={{ width: "100%", background: "aliceblue" }}
-                onClick={() => navigate(`/event/${d.name.replace(/\s/g, "_")}`)}
               >
                 <CardContent>
-                  {d.group.length !== 0 ? (
+                  {post.group.length !== 0 ? (
                     <Typography variant="body2">
                       {stringList.group}
-                      {d.group}
+                      {post.group}
                     </Typography>
                   ) : (
                     <Typography variant="body2">
                       {stringList.topic}
-                      {d.topic}
+                      {post.topic}
                     </Typography>
                   )}
-                  <Typography variant="body1" sx={{ marginLeft: "20%" }}>
-                    {d.name}
-                  </Typography>
+                  <Button
+                    variant="body1"
+                    sx={{ marginLeft: "20%" }}
+                    onClick={() =>
+                      navigate(
+                        `/event/${post.name.replace(/\s/g, "_")}${post.id}`
+                      )
+                    }
+                  >
+                    {post.name}
+                  </Button>
                   <Typography variant="body2">
                     {stringList.startingAt}
                   </Typography>
                   <Typography variant="body2">{time}</Typography>
                 </CardContent>
+                {search !== "" &&
+                  post.childPosts.length > 0 &&
+                  childPost(post.childPosts)}
               </Card>
             )}
           </>
         )
       })
+    } else {
+      return <>No posts</>
     }
   }
 
@@ -104,35 +167,25 @@ const DetailsList = ({ stringList, data, timeline }) => {
         >
           <Typography variant="h2">{stringList.title}</Typography>
           <div style={{ display: "flex", flexDirection: "column" }}>
-            <TextField variant="outlined" label={stringList.search} />
+            <TextField
+              variant="outlined"
+              label={stringList.search}
+              onChange={handleChange}
+            />
             <div>
               {!timeline && (
-                <Button
-                  onClick={() => setShowCreateNew(true)}
-                  color="secondary"
-                >
-                  {stringList.calendar}
-                </Button>
+                <Button color="secondary">{stringList.calendar}</Button>
               )}
-              <Button onClick={() => setShowCreateNew(true)}>
+              <Button onClick={() => navigate(`/createPostForm`)}>
                 {stringList.createNew}
               </Button>
-              {!timeline && (
-                <Button onClick={() => setShowCreateNew(true)}>
-                  {stringList.join}
-                </Button>
-              )}
-              {!timeline && (
-                <Button onClick={() => setShowCreateNew(true)}>
-                  {stringList.invite}
-                </Button>
-              )}
+              {!timeline && <Button>{stringList.join}</Button>}
+              {!timeline && <Button>{stringList.invite}</Button>}
             </div>
           </div>
         </div>
         {list()}
       </Container>
-      {showCreateNew && <>Create new post link</>}
     </>
   )
 }

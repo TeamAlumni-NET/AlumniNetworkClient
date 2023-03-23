@@ -8,19 +8,18 @@ import { strings } from "../../../utils/localization"
 import { getGroupTopicList } from "../../../services/group/groupsTopicsService"
 
 const Group = () => {
-  const { name } = useParams()
+  const { name, id } = useParams()
   const dispatch = useDispatch()
   const { postsGroup } = useSelector((state) => state.postsList)
-  const { groups } = useSelector((state) => state.groupList)
 
   const stringList = {
-    title: "Groups " + strings.group.title,
+    title: " " + strings.group.title,
     createNew: strings.group.createNew,
     search: strings.common.search,
     group: strings.group.group,
   }
   useEffect(() => {
-    dispatch(getGroupPostsList(2))
+    dispatch(getGroupPostsList(id))
   }, [dispatch])
   return (
     <Container>

@@ -14,7 +14,6 @@ const GroupList = () => {
     private: strings.groupList.private,
     createNew: strings.groupList.createNew,
   }
-  console.log(groups)
   useEffect(() => {
     dispatch(getGroupAsList())
   }, [dispatch])

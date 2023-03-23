@@ -94,7 +94,7 @@ function App() {
             <Route path="/profile" element={<Profile />} />
             <Route path="/timeline" element={<Timeline />} />
             <Route path="/calendar" element={<CalendarPage />} />
-            <Route path="/group/:name" element={<Group />} />
+            <Route path="/group/:name/:id" element={<Group />} />
           </Routes>
         </BrowserRouter>
       </ThemeProvider>
