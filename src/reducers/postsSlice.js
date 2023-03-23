@@ -1,26 +1,37 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
-import { getPostByTimeline } from "../Services/post/postService"
+import { getGroupPosts, getPostByTimeline } from "../services/post/postService"
 
-export const getGroupAsList = createAsyncThunk(
+export const getPostsAsList = createAsyncThunk(
   "timelineList/getPostsByTimeline",
   async () => {
     const response = await getPostByTimeline()
     return response
   }
 )
+export const getGroupPostsList = createAsyncThunk(
+  "groupList/getGroupsList",
+  async (id) => {
+    const response = await getGroupPosts(id)
+    return response
+  }
+)
 
-export const groupListSlice = createSlice({
+export const postListSlice = createSlice({
   name: "posts",
   initialState: {
     postsTimeline: [],
+    postsGroup: [],
   },
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(getGroupAsList.fulfilled, (state, action) => {
+    builder.addCase(getPostsAsList.fulfilled, (state, action) => {
       state.postsTimeline = action.payload
+    }),
+    builder.addCase(getGroupPostsList.fulfilled, (state, action) => {
+      state.postsGroup = action.payload
     })
   },
 })
 
-export const {} = groupListSlice.actions
-export default groupListSlice.reducer
+export const {} = postListSlice.actions
+export default postListSlice.reducer
