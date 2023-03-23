@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
-import { getPost, getChildPosts, getPostUser } from "../Services/post/PostService"
+import { getPost, getChildPosts, getPostUser } from "../services/post/PostService"
 
 export const getCurrentPost = createAsyncThunk(
   "post/getPost",

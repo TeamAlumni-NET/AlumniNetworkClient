@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
-import { getGroupTopicList } from "../Services/group/groupsTopicsService"
+import { getGroupTopicList } from "../services/group/groupsTopicsService"
 
 export const getGroupAsList = createAsyncThunk(
   'groupList/getGroupsList',

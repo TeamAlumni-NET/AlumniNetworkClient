@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
-import { getUser, patchUser, getUserByUsername} from "../Services/user/UserService"
+import { getUser, patchUser, getUserByUsername} from "../services/user/UserService"
 
 export const getCurrentUser = createAsyncThunk(
   "user/getUser",
