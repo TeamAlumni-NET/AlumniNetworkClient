@@ -1,5 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 import { getGroupPosts, getPostForTimeline } from "../services/post/postService"
+
+
 export const getPostsAsList = createAsyncThunk(
   "timelineList/getPostsByTimeline",
   async () => {
@@ -8,7 +10,7 @@ export const getPostsAsList = createAsyncThunk(
   }
 )
 export const getGroupPostsList = createAsyncThunk(
-  "groupList/getGroupsList",
+  "postList/getGroupPostsListA",
   async (id) => {
     const response = await getGroupPosts(id)
     return response

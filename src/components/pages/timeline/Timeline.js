@@ -3,7 +3,7 @@ import DetailsList from "../../templateSites/detailList/DetailsList"
 import { strings } from "../../../utils/localization"
 import { useDispatch, useSelector } from "react-redux"
 import { useEffect } from "react"
-import { postListSlice } from "../../../reducers/postsSlice"
+import { getPostsAsList } from "../../../reducers/postsSlice"
 import { getTimelineEventsList } from "../../../reducers/eventsSlice"
 
 const Timeline = () => {
@@ -22,7 +22,7 @@ const Timeline = () => {
 
   console.log(timeline)
   useEffect(() => {
-    dispatch(postListSlice())
+    dispatch(getPostsAsList())
     dispatch(getTimelineEventsList())
   }, [dispatch])
 

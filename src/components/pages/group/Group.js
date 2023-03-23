@@ -21,6 +21,7 @@ const Group = () => {
   useEffect(() => {
     dispatch(getGroupPostsList(id))
   }, [dispatch])
+  
   return (
     <Container>
       <DetailsList stringList={stringList} data={postsGroup} timeline={false} />
