@@ -38,6 +38,9 @@ export const strings = new LocalizedStrings({
       close: "Close"
 
     },
+    postThread:{
+      reply: "Reply to"
+    },
   },
   fi: {
     login: {
@@ -76,5 +79,8 @@ export const strings = new LocalizedStrings({
       close: "Sulje"
 
     },
+    postThread:{
+      reply: "Vastaus käyttäjälle"
+    }
   },
 })

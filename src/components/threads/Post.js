@@ -5,8 +5,9 @@ import {
   getCurrentPost,
   getcurrentPostUser
 } from '../../reducers/postSlice'
-import { Button, Paper, Typography } from '@mui/material'
+import { Button, Paper, Typography, Avatar } from '@mui/material'
 import { Link } from 'react-router-dom'
+import { strings } from '../../utils/localization'
 function Post () {
   const dispatch = useDispatch()
   const { post, childPosts, postUser } = useSelector(state => state.post)
@@ -23,6 +24,7 @@ function Post () {
   }
 
   useEffect(() => {
+    //hardcoded
     dispatch(getCurrentPost(5))
     dispatch(currentChildPosts(5))
     dispatch(getcurrentPostUser(1))
@@ -40,6 +42,7 @@ function Post () {
             theme.palette.mode === 'dark' ? '#1A2027' : '#fff'
         }}
       >
+        <Avatar alt="Remy Sharp" src={postUser.pictureUrl} />
         <Typography variant='subtitle1' fontWeight={'bold'} >{post?.title}</Typography>
         <Typography variant='body'>{post?.content}</Typography>
         <Typography>{timeFormat(post.timeStamp)}</Typography>
@@ -48,7 +51,7 @@ function Post () {
         </Button>
       </Paper>
       {childPosts.childPosts === undefined ? (
-        <p>Something went wrong</p>
+        <p>No comments</p>
       ) : (
         childPosts.childPosts.map(child => (
           <Paper
@@ -62,6 +65,10 @@ function Post () {
                 theme.palette.mode === 'dark' ? '#1A2027' : '#fff'
             }}
           >
+            <Avatar alt="Remy Sharp" src={child.pictureUrl} />
+            {child.targetUser !== null ?(
+              <Typography variant='subtitle1' fontWeight={'bold'}>{strings.postThread.reply} {child.targetUser}</Typography>
+            ) :("")}
             <p>{child.content}</p>
             <p>{timeFormat(child.timeStamp)}</p>
 
