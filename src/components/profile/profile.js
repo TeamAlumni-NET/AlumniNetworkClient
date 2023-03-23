@@ -9,6 +9,7 @@ import { getCurrentUser, getProfileUser } from '../../reducers/userSlice'
 import { useDispatch, useSelector } from "react-redux"
 
 
+
 const Img = styled('img')({
   margin: 'auto',
   display: 'block',
@@ -20,10 +21,14 @@ function Profile () {
   const dispatch = useDispatch()
   const {user, profileUser}=useSelector(state => state.user)
 
+  var usernameFromUrl = window.location.pathname.split("/")
+  
+  
+
    
   useEffect(() => {
     dispatch(getCurrentUser())
-    dispatch(getProfileUser("JaskaMan")) 
+    dispatch(getProfileUser(usernameFromUrl.slice(-1).toString())) 
 
   }, [dispatch])
 
@@ -40,22 +45,22 @@ function Profile () {
     >
       <Grid container spacing={2}>
         <Grid item sx={{ width: 128, height: 128 }}>
-          <Img alt='complex' src={user?.pictureUrl} />
+          <Img alt='complex' src={profileUser?.pictureUrl} />
         </Grid>
         <Grid item xs={12} sm container>
           <Grid item xs container direction='column' spacing={2}>
             <Grid item xs>
               <Typography gutterBottom variant='subtitle1' component='div'>
-                {user?.firstName} {user?.lastName}
+                {profileUser?.firstName} {profileUser?.lastName}
               </Typography>
               <Typography variant='body2' gutterBottom>
-                {user?.status}
+                {profileUser?.status}
               </Typography>
             </Grid>
           </Grid>
           <Grid item>
             {(() => {
-              if (JSON.parse(localStorage.getItem('currentUser')).id === user?.id) {
+              if (JSON.parse(localStorage.getItem('currentUser')).id === profileUser?.id) {
                 return (
                   <EditProfile/>
                 )
@@ -68,7 +73,7 @@ function Profile () {
       <Grid container spacing={2}>
         <Grid item>
           <Typography gutterBottom variant='body2' component='div'>
-            {user?.funFact}
+            {profileUser?.funFact}
           </Typography>
         </Grid>
         <Grid
@@ -82,7 +87,7 @@ function Profile () {
           <Grid item xs>
             <Box sx={{ backgroundColor: 'lightgrey', height: 500 }}>
               <Typography variant='body2' gutterBottom>
-                {user?.bio}
+                {profileUser?.bio}
               </Typography>
             </Box>
           </Grid>

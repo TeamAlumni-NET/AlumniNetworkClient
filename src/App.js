@@ -11,7 +11,7 @@ import SignIn from "./components/SignIn"
 import { createTheme, ThemeProvider } from "@mui/material/styles"
 import DummyDashboard from "./components/testPages/DummyDashboard"
 import keycloak from "./keycloak"
-import {onSignInGetOrCreateUser} from "./Services/User/UserCRUDOperations"
+import {onSignInGetOrCreateUser} from "./Services/user/UserCRUDOperations"
 
 function App() {
   const dispatch = useDispatch()

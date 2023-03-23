@@ -6,11 +6,11 @@ import {
   getcurrentPostUser
 } from '../../reducers/postSlice'
 import { Button, Paper, Typography } from '@mui/material'
-import { Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 function Post () {
   const dispatch = useDispatch()
   const { post, childPosts, postUser } = useSelector(state => state.post)
-
+ 
   const timeFormat = timeStamp => {
     const formatTime = new Date(timeStamp).toLocaleString('en-Fi', {
       month: '2-digit',
@@ -40,15 +40,15 @@ function Post () {
             theme.palette.mode === 'dark' ? '#1A2027' : '#fff'
         }}
       >
-        <h3>{post?.title}</h3>
-        <p>{post?.content}</p>
-        <p>{timeFormat(post.timeStamp)}</p>
-        <Button
-              component={Link}
-              to={`/profile/${postUser.username}`}>{postUser.username}</Button>
+        <Typography variant='subtitle1' fontWeight={'bold'} >{post?.title}</Typography>
+        <Typography variant='body'>{post?.content}</Typography>
+        <Typography>{timeFormat(post.timeStamp)}</Typography>
+        <Button component={Link} to={`/profile/${postUser.username}`}>
+          {postUser.username}
+        </Button>
       </Paper>
       {childPosts.childPosts === undefined ? (
-        <p>dddd</p>
+        <p>Something went wrong</p>
       ) : (
         childPosts.childPosts.map(child => (
           <Paper
@@ -65,8 +65,7 @@ function Post () {
             <p>{child.content}</p>
             <p>{timeFormat(child.timeStamp)}</p>
 
-            <Button component={Link}
-            to={`/profile/${child.username}`}>
+            <Button component={Link} to={`/profile/${child.username}`}>
               {child.username}
             </Button>
           </Paper>

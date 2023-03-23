@@ -6,7 +6,7 @@ import TextField from '@mui/material/TextField'
 import { strings } from '../../utils/localization'
 import { TextareaAutosize } from '@mui/base'
 import { useDispatch, useSelector } from "react-redux"
-import { patchCurrentUser, getCurrentUser } from '../../reducers/userSlice'
+import { patchCurrentUser, getCurrentUser, getProfileUser } from '../../reducers/userSlice'
 
 
 
@@ -61,6 +61,7 @@ const EditProfile = () => {
     handleClose()
     alert('Profile updated')
     dispatch(getCurrentUser())
+    dispatch(getProfileUser(user.username))
     
     
   }
