@@ -95,7 +95,7 @@ function App() {
           <Route path="/profile/:username" element={<Profile />} />
           <Route path="/timeline" element={<Timeline />} />
           <Route path="/calendar" element={<CalendarPage />} />
-          <Route path="/post" element={<Post/>} />
+          <Route path="/post/:id" element={<Post/>} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
