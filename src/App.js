@@ -1,22 +1,21 @@
 import { useEffect, useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
-import NavBar from "./components/NavigationBar/NavBar"
-import GroupList from "./components/testPages/GroupList"
-import TopicList from "./components/testPages/TopicList"
+import NavBar from "./components/navigationBar/NavBar"
+import GroupList from "./components/pages/group/GroupList"
+import TopicList from "./components/pages/topic/TopicList"
 import Profile from "./components/profile/profile"
+import Timeline from "./components/pages/timeline/Timeline"
 import Post from "./components/threads/Post"
 import { strings } from "./utils/localization"
 import SignIn from "./components/SignIn"
 import { createTheme, ThemeProvider } from "@mui/material/styles"
-import DummyDashboard from "./components/testPages/DummyDashboard"
+import UserDashboard from "./components/pages/userDasboard/UserDashboard"
 import keycloak from "./keycloak"
-import {onSignInGetOrCreateUser} from "./services/user/UserCRUDOperations"
+import { onSignInGetOrCreateUser } from "./services/User/UserCRUDOperations"
+import CalendarPage from "./components/pages/Calendar/CalendarPage"
 
 function App() {
-  const dispatch = useDispatch()
   const [language, setLanguage] = useState("en")
-  const { username } = useSelector((state) => state.username)
 
   const theme = createTheme({
     palette: {
@@ -48,6 +47,16 @@ function App() {
     shape: {
       borderRadius: 10,
     },
+    components:{
+      MuiCard: {
+        styleOverrides: {
+          root: {
+            marginBottom: "10px"
+          } 
+        }
+      }
+    }
+    
   })
 
   useEffect(() => {
@@ -80,14 +89,13 @@ function App() {
         />
         <Routes>
           <Route path="/" element={<SignIn />} />
-          <Route path="/dashboard" element={<DummyDashboard />} />
+          <Route path="/dashboard" element={<UserDashboard />} />
           <Route path="/group" element={<GroupList />} />
           <Route path="/topic" element={<TopicList />} />
-          <Route path="/profile/:username" element={<Profile/>} />
-          <Route path="/timeline" />
-          <Route path="/calendar" />
+          <Route path="/profile/:username" element={<Profile />} />
+          <Route path="/timeline" element={<Timeline />} />
+          <Route path="/calendar" element={<CalendarPage />} />
           <Route path="/post" element={<Post/>} />
-
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

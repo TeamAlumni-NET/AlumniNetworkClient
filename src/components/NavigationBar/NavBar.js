@@ -21,7 +21,7 @@ const NavBar = ({ language, changeLanguageHandler }) => {
   const pc = useMediaQuery("(min-width:800px)")
 
   const pathsArray = () => {
-    return ["dashboard", "group", "topic", "profile", "timeline", "calendar"]
+    return ["timeline", "group", "topic", "calendar", "dashboard", "profile"]
   }
 
   useEffect(() => {
@@ -43,7 +43,9 @@ const NavBar = ({ language, changeLanguageHandler }) => {
               strings.navbar.navMenuList.map((item, key) => (
                 <MenuItem
                   key={key}
-                  onClick={() => navigate(`/${pathsArray()[key]}`)}
+                  onClick={() =>
+                    navigate(`/${pathsArray()[key].toLowerCase()}`)
+                  }
                 >
                   {item}
                 </MenuItem>

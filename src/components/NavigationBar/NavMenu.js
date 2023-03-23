@@ -41,7 +41,10 @@ const NavMenu = ({ paths }) => {
       </IconButton>
       <Drawer open={drawer["left"]} onClose={toggleDrawer("left", false)}>
         {strings.navbar.navMenuList.map((item, key) => (
-          <MenuItem key={key} onClick={() => navigate(`/${paths[key]}`)}>
+          <MenuItem
+            key={key}
+            onClick={() => navigate(`/${paths[key].toLowerCase()}`)}
+          >
             {item}
           </MenuItem>
         ))}

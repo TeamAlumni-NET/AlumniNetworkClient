@@ -1,4 +1,3 @@
-
 import { Card, CardContent, Typography, Button, Container } from "@mui/material"
 import { useNavigate } from "react-router-dom"
 import { useState } from "react"
@@ -18,8 +17,8 @@ const GroupTopicList = ({stringList, data, type}) => {
               <Typography variant="body2">{d.description}</Typography>
             </CardContent>
             <CardContent>
-              {d.isPrivate && <Typography>{stringList.private}</Typography>}
-              {d.isMember && <Typography>{stringList.member}</Typography>}
+              {d.isPrivate ? <Typography>{stringList.private}</Typography>
+                : d.isMember && <Typography>{stringList.member}</Typography>}
             </CardContent>
           </Card>
         )
