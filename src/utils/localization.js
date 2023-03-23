@@ -61,6 +61,7 @@ export const strings = new LocalizedStrings({
     calendar: {
       text: "Find events to attend via your intrests!",
     },
+
     createPostForm: {
       title: "Create new post",
       postTitle: "Post Title",
@@ -86,7 +87,11 @@ export const strings = new LocalizedStrings({
       topicName: "Topic Name",
       topicDescription: "Topic Description",
       addTopic: "Add Topic"
-    }
+    },
+    postThread:{
+      reply: "Reply to"
+    },
+
   },
   fi: {
     login: {
@@ -144,6 +149,7 @@ export const strings = new LocalizedStrings({
       userDashboard: "Käyttäjän kojelauta",
       posts: "Postaukset",
     },
+
     createPostForm: {
       title: "Luo uusi viesti",
       postTitle: "Otsikko",
@@ -169,6 +175,9 @@ export const strings = new LocalizedStrings({
       topicName: "Aiheen Nimi",
       topicDescription: "Aiheen kuvaus",
       addTopic: "Lisää Aihe"
+    },
+    postThread:{
+      reply: "Vastaus käyttäjälle"
     }
   },
 })

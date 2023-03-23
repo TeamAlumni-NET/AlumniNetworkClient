@@ -6,7 +6,7 @@ import TextField from '@mui/material/TextField'
 import { strings } from '../../utils/localization'
 import { TextareaAutosize } from '@mui/base'
 import { useDispatch, useSelector } from "react-redux"
-import { patchCurrentUser, getCurrentUser } from '../../reducers/userSlice'
+import { patchCurrentUser, getCurrentUser, getProfileUser } from '../../reducers/userSlice'
 
 
 
@@ -38,7 +38,7 @@ const EditProfile = () => {
 
     const dataToBackend = {
       id: user.id,
-      userName: user.userName,
+      userName: user.username,
       firstName: editFirstName,
       lastName: editLastName,
       status: editStatus,
@@ -61,6 +61,7 @@ const EditProfile = () => {
     handleClose()
     alert('Profile updated')
     dispatch(getCurrentUser())
+    dispatch(getProfileUser(user.username))
     
     
   }
@@ -89,7 +90,7 @@ const EditProfile = () => {
               '& .MuiTextField-root': { m: 1, width: '25ch' }
             }}
           >
-            <h2>{user.userName}</h2>
+            <h2>{user.username}</h2>
             <div>
               <TextField
                 required

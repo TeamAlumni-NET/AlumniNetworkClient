@@ -5,6 +5,7 @@ import GroupList from "./components/pages/group/GroupList"
 import TopicList from "./components/pages/topic/TopicList"
 import Profile from "./components/profile/profile"
 import Timeline from "./components/pages/timeline/Timeline"
+import Post from "./components/threads/Post"
 import { strings } from "./utils/localization"
 import SignIn from "./components/SignIn"
 import { createTheme, ThemeProvider } from "@mui/material/styles"
@@ -93,10 +94,11 @@ function App() {
           <Route path="/dashboard" element={<UserDashboard />} />
           <Route path="/group" element={<GroupList />} />
           <Route path="/topic" element={<TopicList />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/profile/:username" element={<Profile />} />
           <Route path="/timeline" element={<Timeline />} />
           <Route path="/calendar" element={<CalendarPage />} />
           <Route path="/createPostForm" element={<CreatePostForm />} />
+          <Route path="/post/:id" element={<Post/>} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

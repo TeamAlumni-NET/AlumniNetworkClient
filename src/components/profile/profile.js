@@ -5,8 +5,9 @@ import Typography from '@mui/material/Typography'
 import { Box } from '@mui/material'
 import { useEffect} from 'react'
 import EditProfile from './EditProfile'
-import { getCurrentUser } from '../../reducers/userSlice'
+import { getCurrentUser, getProfileUser } from '../../reducers/userSlice'
 import { useDispatch, useSelector } from "react-redux"
+
 
 
 const Img = styled('img')({
@@ -18,10 +19,16 @@ const Img = styled('img')({
 
 function Profile () {
   const dispatch = useDispatch()
-  const {user}=useSelector(state => state.user) 
+  const {user, profileUser}=useSelector(state => state.user)
+
+  var usernameFromUrl = window.location.pathname.split("/")
+  
+  
+
    
   useEffect(() => {
-    dispatch(getCurrentUser()) 
+    dispatch(getCurrentUser())
+    dispatch(getProfileUser(usernameFromUrl.slice(-1).toString())) 
 
   }, [dispatch])
 
@@ -38,22 +45,22 @@ function Profile () {
     >
       <Grid container spacing={2}>
         <Grid item sx={{ width: 128, height: 128 }}>
-          <Img alt='complex' src={user?.pictureUrl} />
+          <Img alt='complex' src={profileUser?.pictureUrl} />
         </Grid>
         <Grid item xs={12} sm container>
           <Grid item xs container direction='column' spacing={2}>
             <Grid item xs>
               <Typography gutterBottom variant='subtitle1' component='div'>
-                {user?.firstName} {user?.lastName}
+                {profileUser?.firstName} {profileUser?.lastName}
               </Typography>
               <Typography variant='body2' gutterBottom>
-                {user?.status}
+                {profileUser?.status}
               </Typography>
             </Grid>
           </Grid>
           <Grid item>
             {(() => {
-              if (JSON.parse(localStorage.getItem('currentUser')).id === user?.id) {
+              if (user.id === profileUser?.id) {
                 return (
                   <EditProfile/>
                 )
@@ -64,9 +71,9 @@ function Profile () {
         </Grid>
       </Grid>
       <Grid container spacing={2}>
-        <Grid item>
+        <Grid item maxWidth={'25%'}>
           <Typography gutterBottom variant='body2' component='div'>
-            {user?.funFact}
+            {profileUser?.funFact}
           </Typography>
         </Grid>
         <Grid
@@ -78,9 +85,9 @@ function Profile () {
           sx={{ height: 600 }}
         >
           <Grid item xs>
-            <Box sx={{ backgroundColor: 'lightgrey', height: 500 }}>
+            <Box sx={{ backgroundColor: 'lightgrey', height: 400 }}>
               <Typography variant='body2' gutterBottom>
-                {user?.bio}
+                {profileUser?.bio}
               </Typography>
             </Box>
           </Grid>

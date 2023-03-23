@@ -31,3 +31,16 @@ export const patchUser = async(body) => {
     console.log(error.message)
   }
 }
+
+export const getUserByUsername = async (username) =>{
+  try {
+    const res = await axios.get(`${config.url}/api/users/user/${username}`, {
+      headers: {
+        Authorization: `bearer ${keycloak.token}`
+      }
+    })
+    return res.data
+  } catch (error) {
+    console.log(error.message)
+  }
+}
