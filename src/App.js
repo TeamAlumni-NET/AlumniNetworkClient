@@ -13,6 +13,7 @@ import UserDashboard from "./components/pages/userDasboard/UserDashboard"
 import keycloak from "./keycloak"
 import { onSignInGetOrCreateUser } from "./services/user/UserCRUDOperations"
 import CalendarPage from "./components/pages/Calendar/CalendarPage"
+import Group from "./components/pages/group/Group"
 
 function App() {
   const [language, setLanguage] = useState("en")
@@ -47,16 +48,15 @@ function App() {
     shape: {
       borderRadius: 10,
     },
-    components:{
+    components: {
       MuiCard: {
         styleOverrides: {
           root: {
-            marginBottom: "10px"
-          } 
-        }
-      }
-    }
-    
+            marginBottom: "10px",
+          },
+        },
+      },
+    },
   })
 
   useEffect(() => {
@@ -65,7 +65,7 @@ function App() {
         keycloak.tokenParsed.preferred_username,
         keycloak.token
       )
-
+    console.log(keycloak.token)
     if (keycloak.token) get()
   }, [Boolean(keycloak.token)])
 
@@ -79,6 +79,32 @@ function App() {
     strings.setLanguage(lang)
     localStorage.setItem("language", lang)
   }
+<<<<<<< HEAD
+  try {
+    return (
+      <ThemeProvider theme={theme}>
+        <BrowserRouter>
+          <NavBar
+            language={language}
+            changeLanguageHandler={changeLanguageHandler}
+          />
+          <Routes>
+            <Route path="/" element={<SignIn />} />
+            <Route path="/dashboard" element={<UserDashboard />} />
+            <Route path="/group" element={<GroupList />} />
+            <Route path="/topic" element={<TopicList />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/timeline" element={<Timeline />} />
+            <Route path="/calendar" element={<CalendarPage />} />
+            <Route path="/group/:name/:id" element={<Group />} />
+          </Routes>
+        </BrowserRouter>
+      </ThemeProvider>
+    )
+  } catch (error) {
+    return <>error</>
+  }
+=======
 
   return (
     <ThemeProvider theme={theme}>
@@ -100,6 +126,7 @@ function App() {
       </BrowserRouter>
     </ThemeProvider>
   )
+>>>>>>> 793241caf66942007df3a6ca254e6df53748b62d
 }
 
 export default App

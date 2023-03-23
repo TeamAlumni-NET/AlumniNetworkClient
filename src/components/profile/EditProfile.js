@@ -1,29 +1,33 @@
-import { useState } from 'react'
-import Box from '@mui/material/Box'
-import Modal from '@mui/material/Modal'
-import Button from '@mui/material/Button'
-import TextField from '@mui/material/TextField'
-import { strings } from '../../utils/localization'
-import { TextareaAutosize } from '@mui/base'
+import { useState } from "react"
+import Box from "@mui/material/Box"
+import Modal from "@mui/material/Modal"
+import Button from "@mui/material/Button"
+import TextField from "@mui/material/TextField"
+import { strings } from "../../utils/localization"
+import { TextareaAutosize } from "@mui/base"
 import { useDispatch, useSelector } from "react-redux"
+<<<<<<< HEAD
+import { patchCurrentUser, getCurrentUser } from "../../reducers/userSlice"
+=======
 import { patchCurrentUser, getCurrentUser, getProfileUser } from '../../reducers/userSlice'
 
 
+>>>>>>> 793241caf66942007df3a6ca254e6df53748b62d
 
 const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
   width: 400,
-  bgcolor: 'background.paper',
-  border: '1px solid #000',
+  bgcolor: "background.paper",
+  border: "1px solid #000",
   boxShadow: 24,
-  p: 4
+  p: 4,
 }
 
 const EditProfile = () => {
-  const {user}=useSelector(state => state.user)
+  const { user } = useSelector((state) => state.user)
   const dispatch = useDispatch()
 
   const [editFirstName, setFirstName] = useState(user.firstName)
@@ -33,7 +37,7 @@ const EditProfile = () => {
   const [editPictureUrl, setPictureUrl] = useState(user.pictureUrl)
   const [editBio, setBio] = useState(user.bio)
 
-  async function submit (e) {
+  async function submit(e) {
     e.preventDefault()
 
     const dataToBackend = {
@@ -44,26 +48,26 @@ const EditProfile = () => {
       status: editStatus,
       bio: editBio,
       funFact: editFunFact,
-      pictureUrl: editPictureUrl
+      pictureUrl: editPictureUrl,
     }
-   
 
     try {
       dispatch(patchCurrentUser(JSON.stringify(dataToBackend)))
-      
-      
     } catch (e) {
       handleClose()
-      alert('Something went wrong')
+      alert("Something went wrong")
       return
     }
 
     handleClose()
-    alert('Profile updated')
+    alert("Profile updated")
     dispatch(getCurrentUser())
+<<<<<<< HEAD
+=======
     dispatch(getProfileUser(user.username))
     
     
+>>>>>>> 793241caf66942007df3a6ca254e6df53748b62d
   }
 
   const [open, setOpen] = useState(false)
@@ -74,83 +78,78 @@ const EditProfile = () => {
     setOpen(false)
   }
 
- 
-
-
   return (
     <>
       <Button onClick={handleOpen}>{strings.common.edit}</Button>
       <form onSubmit={submit}>
         <Modal open={open} onClose={handleClose}>
           <Box
-            component='form'
+            component="form"
             sx={{
               ...style,
               width: 400,
-              '& .MuiTextField-root': { m: 1, width: '25ch' }
+              "& .MuiTextField-root": { m: 1, width: "25ch" },
             }}
           >
             <h2>{user.username}</h2>
             <div>
               <TextField
                 required
-                id='outlined-required'
+                id="outlined-required"
                 label={strings.profilePage.firstName}
                 defaultValue={user.firstName}
-                onChange={e => setFirstName(e.target.value)}
+                onChange={(e) => setFirstName(e.target.value)}
               />
             </div>
             <div>
               <TextField
                 required
-                id='outlined-required'
+                id="outlined-required"
                 label={strings.profilePage.lastName}
                 defaultValue={user.lastName}
-                onChange={e => setLastName(e.target.value)}
+                onChange={(e) => setLastName(e.target.value)}
               />
             </div>
             <div>
               <TextField
                 outlined
-                id='outlined-required'
+                id="outlined-required"
                 label={strings.profilePage.userStatus}
                 defaultValue={user.status}
-                onChange={e => setStatus(e.target.value)}
+                onChange={(e) => setStatus(e.target.value)}
               />
             </div>
             <div>
               <TextField
                 outlined
-                id='outlined-required'
+                id="outlined-required"
                 label={strings.profilePage.funFact}
                 defaultValue={user.funFact}
-                onChange={e => setFunFact(e.target.value)}
+                onChange={(e) => setFunFact(e.target.value)}
               />
             </div>
             <div>
               <TextField
                 outlined
-                id='outlined-required'
+                id="outlined-required"
                 label={strings.profilePage.pictureUrl}
                 defaultValue={user.pictureUrl}
-                onChange={e => setPictureUrl(e.target.value)}
+                onChange={(e) => setPictureUrl(e.target.value)}
               />
             </div>
             <label>{strings.profilePage.bio}</label>
             <div>
               <TextareaAutosize
-                
                 minRows={4}
-                id='outlined-required'
-                
+                id="outlined-required"
                 defaultValue={user.bio}
-                onChange={e => setBio(e.target.value)}
+                onChange={(e) => setBio(e.target.value)}
               />
             </div>
-            <Button type='submit' variant='primary'>
+            <Button type="submit" variant="primary">
               {strings.common.save}
             </Button>
-            <Button variant='secondary' onClick={handleClose}>
+            <Button variant="secondary" onClick={handleClose}>
               {strings.common.close}
             </Button>
           </Box>
