@@ -14,7 +14,7 @@ const DetailsList = ({stringList, data, timeline}) => {
     || value.name?.toLowerCase().includes(search)
     || value.content?.toLowerCase().includes(search)
     || value.user?.toLowerCase().includes(search)
-    || value.posts?.filter(childPost => 
+    || value.childPosts?.filter(childPost => 
       childPost.content?.toLowerCase().includes(search) 
       ||  childPost.user?.toLowerCase().includes(search)).length !== 0))
     }
@@ -71,7 +71,7 @@ const DetailsList = ({stringList, data, timeline}) => {
                 {post.group ? <Typography variant="body2">{stringList.group}{post.group}</Typography>
                   :<Typography variant="body2">{stringList.topic}{post.topic}</Typography>}
               </CardContent>
-              {search !== "" && post.posts.length > 0 && childPost(post.posts)}
+              {search !== "" && post.childPosts.length > 0 && childPost(post.childPosts)}
             </Card>
               : <Card key={post.id+post.name} sx={{width: "100%", background:"aliceblue"}} >
                 <CardContent>
@@ -85,7 +85,7 @@ const DetailsList = ({stringList, data, timeline}) => {
                   <Typography variant="body2">{stringList.startingAt}</Typography>
                   <Typography variant="body2">{time}</Typography>
                 </CardContent>
-                {search !== "" && post.posts.length > 0 && childPost(post.posts)}
+                {search !== "" && post.childPosts.length > 0 && childPost(post.childPosts)}
               </Card>
             }
           </>
