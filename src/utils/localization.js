@@ -61,6 +61,9 @@ export const strings = new LocalizedStrings({
     calendar: {
       text: "Find events to attend via your intrests!",
     },
+    postThread:{
+      reply: "Reply to"
+    },
   },
   fi: {
     login: {
@@ -118,5 +121,8 @@ export const strings = new LocalizedStrings({
       userDashboard: "Käyttäjän kojelauta",
       posts: "Postaukset",
     },
+    postThread:{
+      reply: "Vastaus käyttäjälle"
+    }
   },
 })

@@ -5,12 +5,13 @@ import GroupList from "./components/pages/group/GroupList"
 import TopicList from "./components/pages/topic/TopicList"
 import Profile from "./components/profile/profile"
 import Timeline from "./components/pages/timeline/Timeline"
+import Post from "./components/threads/Post"
 import { strings } from "./utils/localization"
 import SignIn from "./components/SignIn"
 import { createTheme, ThemeProvider } from "@mui/material/styles"
 import UserDashboard from "./components/pages/userDasboard/UserDashboard"
 import keycloak from "./keycloak"
-import { onSignInGetOrCreateUser } from "./services/User/UserCRUDOperations"
+import { onSignInGetOrCreateUser } from "./services/user/UserCRUDOperations"
 import CalendarPage from "./components/pages/Calendar/CalendarPage"
 
 function App() {
@@ -91,9 +92,10 @@ function App() {
           <Route path="/dashboard" element={<UserDashboard />} />
           <Route path="/group" element={<GroupList />} />
           <Route path="/topic" element={<TopicList />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/profile/:username" element={<Profile />} />
           <Route path="/timeline" element={<Timeline />} />
           <Route path="/calendar" element={<CalendarPage />} />
+          <Route path="/post/:id" element={<Post/>} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
