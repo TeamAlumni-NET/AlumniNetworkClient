@@ -1,6 +1,6 @@
 import { FormControl, InputLabel, MenuItem, Select, TextField } from "@mui/material"
 import { width } from "@mui/system";
-import { LocalizationProvider, DatePicker, StaticDateTimePicker, fiFI } from '@mui/x-date-pickers';
+import { LocalizationProvider, DatePicker, StaticDateTimePicker, fiFI, StaticDatePicker } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import dayjs from 'dayjs';
 
@@ -22,7 +22,7 @@ const CreateEventPage = () =>{
       <InputLabel>Moi</InputLabel>
       <div style={{width:"200px"}}>
         <LocalizationProvider dateAdapter={AdapterDayjs} localeText={fiFI}>
-          <DatePicker defaultValue={dayjs(new Date())}/>
+          <StaticDatePicker defaultValue={dayjs(new Date())}/>
         </LocalizationProvider>
       </div>
 

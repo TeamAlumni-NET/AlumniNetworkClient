@@ -14,6 +14,7 @@ import keycloak from "./keycloak"
 import { onSignInGetOrCreateUser } from "./services/user/UserCRUDOperations"
 import CalendarPage from "./components/pages/Calendar/CalendarPage"
 import Group from "./components/pages/group/Group"
+import CreateEventPage from "./components/pages/event/CreateEventPage"
 
 function App() {
   const [language, setLanguage] = useState("en")
@@ -97,6 +98,7 @@ function App() {
           <Route path="/calendar" element={<CalendarPage />} />
           <Route path="/post/:id" element={<Post/>} />
           <Route path="/group/:name/:id" element={<Group />} />
+          <Route path="/createEvent" element={<CreateEventPage />} />
 
 
         </Routes>
