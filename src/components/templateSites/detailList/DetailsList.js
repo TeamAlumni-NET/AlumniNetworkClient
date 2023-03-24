@@ -8,11 +8,15 @@ import {
 } from "@mui/material"
 import { useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react"
+import { strings } from "../../../utils/localization"
+import CalendarDrawerView from "../../calendar/CalendarDrawerView"
+import JoinOrLeave from "./JoinOrLeave"
 
-const DetailsList = ({ stringList, data, timeline }) => {
+const DetailsList = ({ stringList, data, timeline, events, group }) => {
   const navigate = useNavigate()
   const [search, setSearch] = useState("")
   const [posts, setPosts] = useState(data)
+  const [open, setOpen] = useState(false)
 
   useEffect(() => {
     if (search === "") setPosts(data)
@@ -60,9 +64,7 @@ const DetailsList = ({ stringList, data, timeline }) => {
 
     return <CardContent>{childPostList(listOfPosts)}</CardContent>
   }
-
   const list = () => {
-    console.log(posts);
     if (posts.length > 0) {
       if (!posts[0].group && !posts[0].topic) return <>Loading</>
       return posts.map((post) => {
@@ -158,7 +160,6 @@ const DetailsList = ({ stringList, data, timeline }) => {
       return <>No posts</>
     }
   }
-
   return (
     <>
       <Container sx={{ width: "70vw" }}>
@@ -175,13 +176,25 @@ const DetailsList = ({ stringList, data, timeline }) => {
             />
             <div>
               {!timeline && (
-                <Button color="secondary">{stringList.calendar}</Button>
+                <Button color="secondary" onClick={() => setOpen(true)}>
+                  {strings.common.calendar}
+                </Button>
               )}
               <Button onClick={() => navigate(`/createPostForm`)}>
                 {stringList.createNew}
               </Button>
-              {!timeline && <Button>{stringList.join}</Button>}
-              {!timeline && <Button>{stringList.invite}</Button>}
+              <CalendarDrawerView
+                events={events}
+                open={open}
+                setOpen={setOpen}
+                title={stringList.title}
+              />
+              <JoinOrLeave
+                group={group}
+                type={
+                  window.location.href.indexOf("group") > -1 ? "groups" : "topics"
+                }
+              />
             </div>
           </div>
         </div>
