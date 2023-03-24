@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Button, InputLabel, MenuItem, Select, TextField} from "@mui/material"
+import { Autocomplete, Button, InputLabel, MenuItem, Select, TextField} from "@mui/material"
 import { strings } from "../../../utils/localization"
 import { Box } from '@mui/system'
 import { getGroupAsList } from '../../../reducers/groupsSlice'
@@ -18,6 +18,10 @@ const CreatePostForm = (target, id) => {
   const {topics} = useSelector(state => state.topicList)
   const [showCreateNew, setShowCreateNew] = useState(false)
   const [type, setType] = useState("group")
+  const [createGroupTopic, setCreateGroupTopic] = useState('')
+  const isForm = true
+
+  
 
   
   const [newPost, setNewPost] = useState({
@@ -98,24 +102,17 @@ const CreatePostForm = (target, id) => {
             display: 'flex',
             flexDirection: 'row',
           }}>
+
+          <Autocomplete
+            disablePortal
+            id="combo-box-demo"
+            options={groups}
+            getOptionLabel={option => option.name}
+            sx={{ width: 300 }}
+            renderInput={(params) => <TextField {...params} label="Groups" />}
+          />
             
-            <Select
-              style={{ minWidth: '200px' }}
-              required
-              autoWidth
-              disabled = {newPost.topicId !== null}
-              labelId="group"
-              value={newPost.groupId || ""}
-              defaultValue=""
-              onChange={e => setNewPost(newPost => ({
-                ...newPost,
-                groupId: e.target.value,
-              }))}
-            >   
-              {groups.map(group =>
-                <MenuItem key={group.id} value={group.id}>{group.name}</MenuItem>
-              )}
-            </Select>
+            
 
           <Box sx={{  
             display: 'flex',
@@ -146,6 +143,7 @@ const CreatePostForm = (target, id) => {
                     topicId: e.target.value,
               }))}
             >   
+            <MenuItem key={0} value={null}>{stringList.none}</MenuItem>
               {topics.map(topic =>
                 <MenuItem key={topic.id} value={topic.id}>{topic.name}</MenuItem>
               )}
@@ -184,6 +182,8 @@ const CreatePostForm = (target, id) => {
             type={type}
              showCreateNew={showCreateNew}
             setShowCreateNew={setShowCreateNew}
+            setCreateGroupTopic={setCreateGroupTopic}
+            isForm={isForm}
         />}
 
         <Button type="submit">{stringList.post}</Button>
@@ -194,3 +194,24 @@ const CreatePostForm = (target, id) => {
 }
 
 export default CreatePostForm  
+
+/*
+<Select
+              style={{ minWidth: '200px' }}
+              required
+              autoWidth
+              disabled = {newPost.topicId !== null}
+              labelId="group"
+              value={newPost.groupId || ""}
+              defaultValue=""
+              onChange={e => setNewPost(newPost => ({
+                ...newPost,
+                groupId: e.target.value,
+              }))}
+            >   
+            <MenuItem key={0} value={null}>{stringList.none}</MenuItem>
+              {groups.map(group =>
+                <MenuItem key={group.id} value={group.id}>{group.name}</MenuItem>
+              )}
+            </Select>
+*/
