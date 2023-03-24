@@ -6,7 +6,7 @@ import { useEffect } from "react"
 
 const GroupList = () => {
   const dispatch = useDispatch()
-  const {groups} = useSelector(state => state.groupList)
+  const { groups } = useSelector((state) => state.groupList)
 
   const stringList = {
     title: strings.groupList.title,
@@ -20,11 +20,7 @@ const GroupList = () => {
 
   return (
     <>
-      <GroupTopicList 
-        stringList={stringList}
-        data={groups}
-        type="group"
-      />
+      <GroupTopicList stringList={stringList} data={groups} type="group" />
     </>
   )
 }

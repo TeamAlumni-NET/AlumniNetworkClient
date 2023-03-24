@@ -14,6 +14,7 @@ import keycloak from "./keycloak"
 import { onSignInGetOrCreateUser } from "./services/user/UserCRUDOperations"
 import CalendarPage from "./components/pages/Calendar/CalendarPage"
 import CreatePostForm from "./components/pages/post/CreatePostForm"
+import Group from "./components/pages/group/Group"
 
 
 function App() {
@@ -49,16 +50,15 @@ function App() {
     shape: {
       borderRadius: 10,
     },
-    components:{
+    components: {
       MuiCard: {
         styleOverrides: {
           root: {
-            marginBottom: "10px"
-          } 
-        }
-      }
-    }
-    
+            marginBottom: "10px",
+          },
+        },
+      },
+    },
   })
 
   useEffect(() => {
@@ -67,7 +67,7 @@ function App() {
         keycloak.tokenParsed.preferred_username,
         keycloak.token
       )
-
+    console.log(keycloak.token)
     if (keycloak.token) get()
   }, [Boolean(keycloak.token)])
 
@@ -99,6 +99,9 @@ function App() {
           <Route path="/calendar" element={<CalendarPage />} />
           <Route path="/createPostForm" element={<CreatePostForm />} />
           <Route path="/post/:id" element={<Post/>} />
+          <Route path="/group/:name/:id" element={<Group />} />
+
+
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

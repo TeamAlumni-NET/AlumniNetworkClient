@@ -1,29 +1,40 @@
 import { useEffect, useState } from 'react'
-import { Autocomplete, Button, InputLabel, MenuItem, Select, TextField} from "@mui/material"
+import { Autocomplete, Button, InputLabel, MenuItem, Select, TextField, createFilterOptions } from "@mui/material"
 import { strings } from "../../../utils/localization"
 import { Box } from '@mui/system'
 import { getGroupAsList } from '../../../reducers/groupsSlice'
 import { getTopicAsList } from '../../../reducers/topicsSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { postNewPost } from '../../../reducers/postSlice'
-import CreateGroup from '../group/CreateGroup'
-import CreateTopic from '../topic/CreateTopic'
 import snarkdown from 'snarkdown'
 import CreateGroupTopic from '../../templateSites/groupTopicList/CreateGroupTopic'
 
 
+
 const CreatePostForm = (target, id) => {
   const dispatch = useDispatch()
-  const {groups} = useSelector(state => state.groupList)
-  const {topics} = useSelector(state => state.topicList)
+  const filter = createFilterOptions()
+  const { groups } = useSelector(state => state.groupList)
+  const { topics } = useSelector(state => state.topicList)
   const [showCreateNew, setShowCreateNew] = useState(false)
   const [type, setType] = useState("group")
   const [createGroupTopic, setCreateGroupTopic] = useState('')
   const isForm = true
 
-  
+  const { groupModal, setGroupModal } = useState({
+    name: "",
+    description: "",
+    isPrivate: false
+  })
 
-  
+  const { topicModal, setTopicModal } = useState({
+    name: "",
+    description: ""
+  })
+
+  const [testValue, setTestValue] = useState(null)
+
+
   const [newPost, setNewPost] = useState({
     title: "",
     content: "",
@@ -46,15 +57,15 @@ const CreatePostForm = (target, id) => {
   }
 
   //Check if works... 
-  if (target == "event"){
+  if (target == "event") {
     setNewPost.eventId = id
-  } else if (target == "group"){
+  } else if (target == "group") {
     setNewPost.groupId = id
-  } else if (target == "topic"){
+  } else if (target == "topic") {
     setNewPost.topicId = id
-  } else if (target == "targetUser"){
+  } else if (target == "targetUser") {
     setNewPost.targetUserId = id
-  } else if (target == "parentPost"){
+  } else if (target == "parentPost") {
     setNewPost.parentPostId = id
   }
 
@@ -75,10 +86,59 @@ const CreatePostForm = (target, id) => {
   console.log(html);
   */
 
+
+
+  const autoCompleteRender = (type) => {
+    return (
+      <Autocomplete
+        sx={{ width: 300 }}
+        options={type === "group" ? groups : topics}
+        getOptionLabel={option => {
+          if (typeof option === "string") {
+            return option
+          }
+          if (option.inputValue) {
+            return option.inputValue
+          }
+          return option.name
+        }}
+        renderInput={(params) => <TextField {...params} label="" />}
+        selectOnFocus
+        clearOnBlur
+        onChange={(event, newValue) => {
+          if (typeof newValue === 'string') {
+            setTimeout(() => {
+              setType(type)
+              setShowCreateNew(true)
+              setCreateGroupTopic(newValue)
+            });
+          } else if (newValue && newValue.inputValue) {
+            setType(type)
+            setShowCreateNew(true)
+            setCreateGroupTopic(newValue)
+          } else {
+            setTestValue(newValue)
+          }
+        }}
+        filterOptions={(options, params) => {
+          const filtered = filter(options, params)
+          if (params.inputValue !== "") {
+            filtered.push({
+              inputValue: params.inputValue,
+              name: `add ${params.inputValue}`
+            })
+          }
+          return filtered
+        }}
+        renderOption={(props, option) => <li{...props}>{option.name}</li>}
+      />
+    )
+  }
+
   return (
     <>
-      <form onSubmit={handleSubmit} style={{padding: 20}}>
-        <Box sx={{  
+      <form onSubmit={handleSubmit} style={{ padding: 20 }}>
+        <Box sx={{
           display: 'flex',
           flexDirection: 'column',
         }} >
@@ -98,69 +158,43 @@ const CreatePostForm = (target, id) => {
           </div>
 
           <InputLabel id="group">{stringList.group}</InputLabel>
-          <Box sx={{  
+          <Box sx={{
             display: 'flex',
             flexDirection: 'row',
           }}>
 
-          <Autocomplete
-            disablePortal
-            id="combo-box-demo"
-            options={groups}
-            getOptionLabel={option => option.name}
-            sx={{ width: 300 }}
-            renderInput={(params) => <TextField {...params} label="Groups" />}
-          />
-            
-            
+            {autoCompleteRender("group")}
 
-          <Box sx={{  
-            display: 'flex',
-            flexDirection: 'row',
-            pl:5,
+            <Box sx={{
+              display: 'flex',
+              flexDirection: 'row',
+              pl: 5,
             }}>
-              <Button size="small" onClick={() => {setShowCreateNew(true); setType("group")}}>{strings.createGroup.newGroup}</Button>
+              <Button size="small" onClick={() => { setShowCreateNew(true); setType("group") }}>{strings.createGroup.newGroup}</Button>
             </Box>
-            
+
           </Box>
 
           <InputLabel id="topic">{stringList.topic}</InputLabel>
-        <Box sx={{  
+          <Box sx={{
             display: 'flex',
             flexDirection: 'row',
-            }}>
-            
-            <Select
-              style={{ minWidth: '200px' }}
-              required
-              autoWidth
-              disabled = {newPost.groupId !== null}
-              labelId="topic"
-              value={newPost.topicId || ""}
-              defaultValue=""
-              onChange={e => setNewPost(newPost => ({
-                    ...newPost,
-                    topicId: e.target.value,
-              }))}
-            >   
-            <MenuItem key={0} value={null}>{stringList.none}</MenuItem>
-              {topics.map(topic =>
-                <MenuItem key={topic.id} value={topic.id}>{topic.name}</MenuItem>
-              )}
-            </Select>
+          }}>
 
-            <Box sx={{  
-            display: 'flex',
-            flexDirection: 'row',
-            pl:5,
+            {autoCompleteRender("topic")}
+
+            <Box sx={{
+              display: 'flex',
+              flexDirection: 'row',
+              pl: 5,
             }}>
-              <Button size="small" onClick={() => {setShowCreateNew(true); setType("topic")}}>{strings.createTopic.newTopic}</Button>
+              <Button size="small" onClick={() => { setShowCreateNew(true); setType("topic") }}>{strings.createTopic.newTopic}</Button>
             </Box>
 
-        </Box>
+          </Box>
 
-        <div>
-        <InputLabel variant='standard'>{stringList.content}</InputLabel>
+          <div>
+            <InputLabel variant='standard'>{stringList.content}</InputLabel>
             <TextField
               required
               fullWidth
@@ -173,27 +207,29 @@ const CreatePostForm = (target, id) => {
                 content: e.target.value,
               }))}
             />
-        </div>
+          </div>
 
         </Box>
 
         {showCreateNew &&
           <CreateGroupTopic
             type={type}
-             showCreateNew={showCreateNew}
+            showCreateNew={showCreateNew}
             setShowCreateNew={setShowCreateNew}
-            setCreateGroupTopic={setCreateGroupTopic}
             isForm={isForm}
-        />}
+            setGroupModal={setGroupModal}
+            setTopicModal={setTopicModal}
+            createGroupTopic={createGroupTopic}
+          />}
 
         <Button type="submit">{stringList.post}</Button>
 
-    </form>        
+      </form>
     </>
   )
 }
 
-export default CreatePostForm  
+export default CreatePostForm
 
 /*
 <Select

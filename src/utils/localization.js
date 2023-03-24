@@ -24,6 +24,11 @@ export const strings = new LocalizedStrings({
       member: "Member",
       private: "Private",
     },
+    group: {
+      title: "Posts",
+      createNew: "Create new post",
+      group: "In group: ",
+    },
     topicList: {
       title: "Topic List",
       createNew: "Create new topic",
@@ -49,7 +54,6 @@ export const strings = new LocalizedStrings({
     timeline: {
       title: "Timeline",
       createNew: "Create new post",
-      
       group: "In group: ",
       topic: "In topic: ",
       startingAt: "Starting at: ",
@@ -89,7 +93,8 @@ export const strings = new LocalizedStrings({
       addTopic: "Add Topic"
     },
     postThread:{
-      reply: "Reply to"
+      reply: "Reply to",
+      wrongPostId: "This post doesn't exist"
     },
 
   },
@@ -116,6 +121,11 @@ export const strings = new LocalizedStrings({
       member: "Jäsen",
       private: "Yksityinen",
     },
+    group: {
+      title: "Postit",
+      createNew: "Luo uusi posti",
+      group: "Ryhmässä: ",
+    },
     topicList: {
       title: "Aihe listaus",
       createNew: "Luo uusi aihe",
@@ -136,7 +146,7 @@ export const strings = new LocalizedStrings({
       submit: "Julkaise",
       close: "Sulje",
       calendar: "Kalenteri",
-      search: "Etsi"
+      search: "Etsi",
     },
     timeline: {
       title: "Aikajana",
@@ -177,7 +187,8 @@ export const strings = new LocalizedStrings({
       addTopic: "Lisää Aihe"
     },
     postThread:{
-      reply: "Vastaus käyttäjälle"
+      reply: "Vastaus käyttäjälle",
+      wrongPostId: "Tälläistä julkaisua ei ole olemassa"
     }
   },
 })

@@ -1,10 +1,9 @@
-import { Box, Button, FormControlLabel, InputLabel, Modal, TextField, Typography, Checkbox} from "@mui/material"
+import { Box, Button, FormControlLabel, InputLabel, Modal, TextField, Typography, Checkbox } from "@mui/material"
 import { useState } from "react"
 import { strings } from "../../../utils/localization"
 
 
-
-const CreateGroupTopic = ({type, showCreateNew, setShowCreateNew}) => {
+const CreateGroupTopic = ({ type, showCreateNew, setShowCreateNew, setTopicModal, setGroupModal, createGroupTopic }) => {
 
   let stringList = {}
 
@@ -12,8 +11,22 @@ const CreateGroupTopic = ({type, showCreateNew, setShowCreateNew}) => {
 
   const [newGroupTopic, setNewGroupTopic] = useState({
     name: "",
-    description: ""    
+    description: ""
   })
+
+  if (type === "topic") {
+    setNewGroupTopic(newGroupTopic => ({
+      ...newGroupTopic,
+      name: createGroupTopic
+    }))
+  } else {
+    setNewGroupTopic(newGroupTopic => ({
+      ...newGroupTopic,
+      name: createGroupTopic
+    }))
+  }
+
+  console.log("outoa")
 
   const style = {
     position: 'absolute',
@@ -43,7 +56,7 @@ const CreateGroupTopic = ({type, showCreateNew, setShowCreateNew}) => {
         description: strings.createGroup.groupDescription,
         private: strings.createGroup.private,
         add: strings.createGroup.addGroup
-      } 
+      }
     } else {
       stringList = {
         new: strings.createTopic.newTopic,
@@ -55,66 +68,67 @@ const CreateGroupTopic = ({type, showCreateNew, setShowCreateNew}) => {
 
   }
 
+
   setStringList()
   return (
     <>
-    
-        <Modal
-            open={showCreateNew}
-            onClose={handleClose}   
-        >
+
+      <Modal
+        open={showCreateNew}
+        onClose={handleClose}
+      >
 
         <Box sx={style}>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-             {stringList.new}
-            </Typography>
-             <form>
-                    
-                <div>
-                    <InputLabel variant='standard'>{stringList.name}</InputLabel>
-                    <TextField
-                    required
-                    id='outlined-required'
-                    defaultValue=""
-                    onChange={e => setNewGroupTopic(newGroupTopic=> ({
-                        ...newGroupTopic,
-                        name: e.target.value,
-                      }))}
-                    />
-                </div>
-                
-                <div>
-                    <InputLabel variant='standard'>{stringList.description}</InputLabel>
-                    <TextField
-                    required
-                    multiline
-                    fullWidth
-                    minRows={2}
-                    id='outlined-required'
-                    defaultValue=""
-                    onChange={e => setNewGroupTopic(newGroupTopic=> ({
-                        ...newGroupTopic,
-                        description: e.target.value,
-                      }))}
-                    />
-                </div>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            {stringList.new}
+          </Typography>
+          <form>
 
-                {
-                  type === "group" && 
-                  <div>
-                  <FormControlLabel label={stringList.private} control={
-                  <Checkbox checked={privacy} onChange={handleCheckBoxChange}/> 
-                  }
-                  />
-                  </div>
+            <div>
+              <InputLabel variant='standard'>{stringList.name}</InputLabel>
+              <TextField
+                required
+                id='outlined-required'
+                defaultValue={newGroupTopic.name}
+                onChange={e => setNewGroupTopic(newGroupTopic => ({
+                  ...newGroupTopic,
+                  name: e.target.value,
+                }))}
+              />
+            </div>
+
+            <div>
+              <InputLabel variant='standard'>{stringList.description}</InputLabel>
+              <TextField
+                required
+                multiline
+                fullWidth
+                minRows={2}
+                id='outlined-required'
+                defaultValue=""
+                onChange={e => setNewGroupTopic(newGroupTopic => ({
+                  ...newGroupTopic,
+                  description: e.target.value,
+                }))}
+              />
+            </div>
+
+            {
+              type === "group" &&
+              <div>
+                <FormControlLabel label={stringList.private} control={
+                  <Checkbox checked={privacy} onChange={handleCheckBoxChange} />
                 }
+                />
+              </div>
+            }
 
-            </form>
-            <Button onClick={handleClose}>{stringList.add}</Button>
-            <Button onClick={handleClose}>{strings.common.close}</Button>
+          </form>
+          <Button onClick={handleClose}>{stringList.add}</Button>
+          <Button onClick={handleClose}>{strings.common.close}</Button>
         </Box>
-        </Modal>
-        </>
+      </Modal>
+    </>
   )
 }
 

@@ -25,7 +25,6 @@ const CalendarInfo = ({ open, setOpen, event }) => {
   const handleClose = () => {
     setOpen(false)
   }
-  console.log()
   return (
     <Dialog
       fullScreen={fullScreen}

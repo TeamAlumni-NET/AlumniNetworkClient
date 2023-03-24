@@ -6,16 +6,13 @@ export const onSignInGetOrCreateUser = async (username, token) => {
   const endpoint = "/api/users/user/" + username
   const createEndpoint = "/api/users/"
   try {
-    const res = await axios.get(
-      config.url + endpoint,
-      {
-        headers: { Authorization: `bearer ${token}` },
-        username,
-      }
-    )
+    const res = await axios.get(config.url + endpoint, {
+      headers: { Authorization: `bearer ${token}` },
+      username,
+    })
     const currentUser = {
       id: res.data.id,
-      userName: res.data.username
+      userName: res.data.username,
     }
 
     localStorage.setItem("currentUser", JSON.stringify(currentUser))
@@ -35,10 +32,10 @@ export const onSignInGetOrCreateUser = async (username, token) => {
             username,
           }
         )
-        
+
         const currentUser = {
           id: res.data.id,
-          userName: res.data.userName
+          userName: res.data.username,
         }
 
         localStorage.setItem("currentUser", JSON.stringify(currentUser))

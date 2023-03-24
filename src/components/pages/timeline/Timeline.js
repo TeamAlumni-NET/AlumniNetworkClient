@@ -1,8 +1,9 @@
+import { getPostByTimeline } from "../../../services/post/postService"
 import DetailsList from "../../templateSites/detailList/DetailsList"
 import { strings } from "../../../utils/localization"
 import { useDispatch, useSelector } from "react-redux"
 import { useEffect } from "react"
-import { getGroupAsList } from "../../../reducers/postsSlice"
+import { getPostsAsList } from "../../../reducers/postsSlice"
 import { getTimelineEventsList } from "../../../reducers/eventsSlice"
 
 const Timeline = () => {
@@ -19,8 +20,9 @@ const Timeline = () => {
   const { timelineEvents } = useSelector((state) => state.eventList)
   const timeline = postsTimeline.concat(timelineEvents)
 
+  console.log(timeline)
   useEffect(() => {
-    dispatch(getGroupAsList())
+    dispatch(getPostsAsList())
     dispatch(getTimelineEventsList())
   }, [dispatch])
 
