@@ -5,21 +5,21 @@ import {
   Button,
   Container,
   TextField,
-} from "@mui/material"
-import { useNavigate } from "react-router-dom"
-import { useEffect, useState } from "react"
-import { strings } from "../../../utils/localization"
-import CalendarDrawerView from "../../calendar/CalendarDrawerView"
-import JoinOrLeave from "./JoinOrLeave"
+} from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { strings } from "../../../utils/localization";
+import CalendarDrawerView from "../../calendar/CalendarDrawerView";
+import JoinOrLeave from "./JoinOrLeave";
 
 const DetailsList = ({ stringList, data, timeline, events, group }) => {
-  const navigate = useNavigate()
-  const [search, setSearch] = useState("")
-  const [posts, setPosts] = useState(data)
-  const [open, setOpen] = useState(false)
+  const navigate = useNavigate();
+  const [search, setSearch] = useState("");
+  const [posts, setPosts] = useState(data);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    if (search === "") setPosts(data)
+    if (search === "") setPosts(data);
     else {
       setPosts(
         data.filter(
@@ -34,20 +34,20 @@ const DetailsList = ({ stringList, data, timeline, events, group }) => {
                 childPost.user?.toLowerCase().includes(search)
             ).length !== 0
         )
-      )
+      );
     }
-  }, [search, data])
+  }, [search, data]);
 
   const handleChange = (e) => {
-    setSearch(e.target.value.toLowerCase())
-  }
+    setSearch(e.target.value.toLowerCase());
+  };
 
   const childPost = (currentPost) => {
     const listOfPosts = currentPost.filter(
       (p) =>
         p.content?.toLowerCase().includes(search) ||
         p.user?.toLowerCase().includes(search)
-    )
+    );
 
     const childPostList = (post) => {
       return post.map((childPost) => {
@@ -57,27 +57,27 @@ const DetailsList = ({ stringList, data, timeline, events, group }) => {
               {childPost.user}: {childPost.content}
             </Typography>
           </>
-        )
-      })
-    }
-    if (listOfPosts.length === 0) return <></>
+        );
+      });
+    };
+    if (listOfPosts.length === 0) return <></>;
 
-    return <CardContent>{childPostList(listOfPosts)}</CardContent>
-  }
+    return <CardContent>{childPostList(listOfPosts)}</CardContent>;
+  };
   const list = () => {
     if (posts.length > 0) {
-      if (!posts[0].group && !posts[0].topic) return <>Loading</>
+      if (!posts[0].group && !posts[0].topic) return <>Loading</>;
       return posts.map((post) => {
-        let time = ""
-        let url = ""
+        let time = "";
+        let url = "";
         if (post.startTime) {
-          const rawTime = new Date(post.startTime)
+          const rawTime = new Date(post.startTime);
           time = `${rawTime.getHours()}:${rawTime.getMinutes()} ${rawTime.getDate()}.${
             rawTime.getMonth() + 1
-          }.${rawTime.getFullYear()}`
+          }.${rawTime.getFullYear()}`;
         }
-        if (post.group) url = `/group/${post.group}`
-        else if (post.topic) url = `/topic/${post.topic}`
+        if (post.group) url = `/group/${post.group}`;
+        else if (post.topic) url = `/topic/${post.topic}`;
 
         return (
           <>
@@ -94,7 +94,7 @@ const DetailsList = ({ stringList, data, timeline, events, group }) => {
                     variant="body1"
                     sx={{ marginLeft: "20%" }}
                     onClick={() => {
-                      navigate(`${url}/${post.title.replace(/\s/g, "_")}`)
+                      navigate(`${url}/${post.title.replace(/\s/g, "_")}`);
                     }}
                   >
                     {post.title}
@@ -154,12 +154,12 @@ const DetailsList = ({ stringList, data, timeline, events, group }) => {
               </Card>
             )}
           </>
-        )
-      })
+        );
+      });
     } else {
-      return <>No posts</>
+      return <>No posts</>;
     }
-  }
+  };
   return (
     <>
       <Container sx={{ width: "70vw" }}>
@@ -190,9 +190,10 @@ const DetailsList = ({ stringList, data, timeline, events, group }) => {
                 title={stringList.title}
               />
               <JoinOrLeave
-                group={group}
                 type={
-                  window.location.href.indexOf("group") > -1 ? "groups" : "topics"
+                  window.location.href.indexOf("group") > -1
+                    ? "groups"
+                    : "topics"
                 }
               />
             </div>
@@ -201,6 +202,6 @@ const DetailsList = ({ stringList, data, timeline, events, group }) => {
         {list()}
       </Container>
     </>
-  )
-}
-export default DetailsList
+  );
+};
+export default DetailsList;
