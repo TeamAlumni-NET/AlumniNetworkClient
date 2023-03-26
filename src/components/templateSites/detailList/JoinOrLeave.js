@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import { Button, IconButton } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useEffect } from "react";
 import {
@@ -9,6 +9,10 @@ import { strings } from "../../../utils/localization";
 import { useDispatch, useSelector } from "react-redux";
 import { getGroupAsList } from "../../../reducers/groupsSlice";
 import { useParams } from "react-router-dom";
+import { getTopicAsList } from "../../../reducers/topicsSlice";
+
+import GroupRemoveIcon from "@mui/icons-material/GroupRemove";
+import GroupAddIcon from "@mui/icons-material/GroupAdd";
 
 /**
  * A component to render
@@ -19,36 +23,60 @@ import { useParams } from "react-router-dom";
  */
 const JoinOrLeave = ({ type }) => {
   const { groups } = useSelector((state) => state.groupList);
+  const { topics } = useSelector((state) => state.topicList);
   const dispatch = useDispatch();
   const { name, id } = useParams();
-  const currGroup = groups.filter((g) => g.id === Number(id))[0];
+  const [currGroup, currTopic] = [
+    groups?.filter((g) => g.id === Number(id))[0],
+    topics?.filter((t) => t.id === Number(id))[0],
+  ];
+
+  const currResource = type === "groups" ? currGroup : currTopic; //Current topic/group
+
+  /**
+   * fetches data based on type
+   * @param {string} currType //Group or Topic based on url
+   */
+  const currResourceFetch = (currType) => {
+    if (currType === "groups") dispatch(getGroupAsList());
+    else dispatch(getTopicAsList());
+  };
 
   useEffect(() => {
-    dispatch(getGroupAsList());
+    currResourceFetch(type);
   }, [dispatch]);
 
   /**
    * Handles join/leave buttons.
    * Adds/Removes user to/from
-   * current group.
+   * current group/topic.
    */
   const handleClick = () => {
-    if (!currGroup?.isMember) {
-      addUserToGroupTopic(type, currGroup.id).then(() =>
-        dispatch(getGroupAsList())
-      );
+    if (!currResource?.isMember) {
+      addUserToGroupTopic(type, id).then(() => {
+        currResourceFetch(type);
+      });
     }
-    RevomeUserToGroupTopic(type, currGroup.id).then(() =>
-      dispatch(getGroupAsList())
-    );
+    RevomeUserToGroupTopic(type, id).then(() => {
+      currResourceFetch(type);
+    });
   };
 
   return (
-    <Box>
-      {currGroup?.isMember ? (
+    <Box sx={{ width: "auto" }}>
+      {/* {currResource?.isMember ? (
         <Button onClick={() => handleClick()}>{strings.common.leave}</Button>
       ) : (
         <Button onClick={() => handleClick()}>{strings.common.join}</Button>
+      )} */}
+      {currResource?.isMember ? (
+        <IconButton onClick={() => handleClick()}>
+          <GroupRemoveIcon />
+        </IconButton>
+      ) : (
+        <IconButton onClick={() => handleClick()}>
+          <GroupAddIcon />
+        </IconButton>
       )}
     </Box>
   );
