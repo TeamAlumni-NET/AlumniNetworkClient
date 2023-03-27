@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Autocomplete, Button, InputLabel, TextField, createFilterOptions, Dialog } from "@mui/material"
+import { Autocomplete, Button, InputLabel, TextField, createFilterOptions, Dialog, DialogActions } from "@mui/material"
 import { strings } from "../../../utils/localization"
 import { Box } from '@mui/system'
 import { getGroupAsList } from '../../../reducers/groupsSlice'
@@ -21,7 +21,7 @@ const initialState = {
   userId: JSON.parse(localStorage.getItem("currentUser")).id
 }
 
-const CreatePostForm = (defaultdata, openDialog, setOpenDialog) => {
+const CreatePostForm = ({defaultdata, openDialog, setOpenDialog}) => {
   const dispatch = useDispatch()
   const filter = createFilterOptions()
   const { groups } = useSelector(state => state.groupList)
@@ -32,9 +32,10 @@ const CreatePostForm = (defaultdata, openDialog, setOpenDialog) => {
 
   const [newPost, setNewPost] = useState(initialState)
 
-  defaultdata.map(data => {
-    console.log(data)
-  })
+  console.log(defaultdata, openDialog)
+  for (const [key, value] in Object.entries(defaultdata)) {
+    console.log(key, value);
+  }
   //Check if works... 
   /*
   if (defaultdata === "event") {
@@ -212,8 +213,11 @@ const CreatePostForm = (defaultdata, openDialog, setOpenDialog) => {
             createGroupTopic={createNewGroupTopic}
             setCreateGroupTopic={setCreateNewGroupTopic}
           />}
-
-        <Button onClick={handleSubmit}>{strings.createPostForm.post}</Button>
+        <DialogActions>
+          <Button onClick={handleSubmit} ></Button>
+          <Button onClick={handleSubmit}>{strings.createPostForm.post}</Button>
+        </DialogActions>
+        
       </form>
     </Dialog>
   )
