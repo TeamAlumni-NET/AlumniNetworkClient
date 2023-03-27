@@ -28,11 +28,18 @@ export const strings = new LocalizedStrings({
       title: "Posts",
       createNew: "Create new post",
       group: "In group: ",
+      groups: "Group/s: ",
     },
     topicList: {
       title: "Topic List",
       createNew: "Create new topic",
       member: "Member",
+    },
+    topic: {
+      title: "Posts",
+      createNew: "Create new post",
+      topics: "Topic/s: ",
+      topic: "In topic: ",
     },
     profilePage: {
       firstName: "Firstname",
@@ -53,6 +60,7 @@ export const strings = new LocalizedStrings({
       invite: "Invite",
       join: "Join",
       leave: "Leave",
+      start: "Starts",
     },
     timeline: {
       title: "Timeline",
@@ -100,11 +108,18 @@ export const strings = new LocalizedStrings({
       title: "Postit",
       createNew: "Luo uusi posti",
       group: "Ryhmässä: ",
+      groups: "Ryhmä/t: ",
     },
     topicList: {
       title: "Aihe listaus",
       createNew: "Luo uusi aihe",
       member: "Jäsen",
+    },
+    topic: {
+      title: "Postit",
+      createNew: "Luo uusi posti",
+      topic: "Aiheessa: ",
+      topics: "Aiheessa: ",
     },
     profilePage: {
       firstName: "Etunimi",
@@ -125,6 +140,7 @@ export const strings = new LocalizedStrings({
       invite: "Kutsu",
       join: "Liity",
       leave: "Poistu",
+      start: "Alkaa",
     },
     timeline: {
       title: "Aikajana",

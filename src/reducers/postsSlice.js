@@ -3,6 +3,7 @@ import {
   getGroupPosts,
   getPostForTimeline,
   getTopicPosts,
+  getUserDashboardPosts,
 } from "../services/post/postService"
 
 export const getPostsAsList = createAsyncThunk(
@@ -26,6 +27,13 @@ export const getTopicPostsList = createAsyncThunk(
     return response
   }
 )
+export const getDashboardPostsList = createAsyncThunk(
+  "postDashboardList/getDashboardPostsList",
+  async () => {
+    const response = await getUserDashboardPosts()
+    return response
+  }
+)
 
 export const postListSlice = createSlice({
   name: "posts",
@@ -33,6 +41,7 @@ export const postListSlice = createSlice({
     postsTimeline: [],
     postsGroup: [],
     postsTopic: [],
+    postsDashboard: [],
   },
   reducers: {},
   extraReducers: (builder) => {
@@ -44,6 +53,9 @@ export const postListSlice = createSlice({
       }),
       builder.addCase(getTopicPostsList.fulfilled, (state, action) => {
         state.postsTopic = action.payload
+      }),
+      builder.addCase(getDashboardPostsList.fulfilled, (state, action) => {
+        state.postsDashboard = action.payload
       })
   },
 })
