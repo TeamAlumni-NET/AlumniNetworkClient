@@ -20,7 +20,6 @@ const Timeline = () => {
   const { timelineEvents } = useSelector((state) => state.eventList)
   const timeline = postsTimeline.concat(timelineEvents)
 
-  console.log(timeline)
   useEffect(() => {
     dispatch(getPostsAsList())
     dispatch(getTimelineEventsList())

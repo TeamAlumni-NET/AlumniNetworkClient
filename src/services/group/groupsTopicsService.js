@@ -17,19 +17,20 @@ export const getGroupTopicList = async (target) => {
   }
 }
 
-
 //Tarkista
-export const createGroup = async(data) => {
+export const createGroupTopic = async(data, target) => {
+  console.log(data, target);
+  const userId = JSON.parse(localStorage.getItem("currentUser")).id
   try {
-      const res = await axios.post(`${config.url}/api/groups`, data, {
-          headers: {
-              Authorization: `bearer ${keycloak.token}`,
-              'Content-Type': 'application/json'
-          }
-      })
-      return res.data
+    const res = await axios.post(`${config.url}/api/${target}?userId=${userId}`, data, {
+      headers: {
+        Authorization: `bearer ${keycloak.token}`,
+        'Content-Type': 'application/json'
+      }
+    })
+    return res.data
   } catch (error) {
-      console.log(error.message)
+    console.log(error.message)
   }
 }
 

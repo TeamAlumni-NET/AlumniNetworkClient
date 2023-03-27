@@ -62,7 +62,6 @@ const DetailsList = ({ stringList, data, timeline }) => {
   }
 
   const list = () => {
-    console.log(posts);
     if (posts.length > 0) {
       if (!posts[0].group && !posts[0].topic) return <>Loading</>
       return posts.map((post) => {

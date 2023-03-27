@@ -97,11 +97,8 @@ function App() {
           <Route path="/profile/:username" element={<Profile />} />
           <Route path="/timeline" element={<Timeline />} />
           <Route path="/calendar" element={<CalendarPage />} />
-          <Route path="/createPostForm" element={<CreatePostForm />} />
           <Route path="/post/:id" element={<Post/>} />
           <Route path="/group/:name/:id" element={<Group />} />
-
-
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

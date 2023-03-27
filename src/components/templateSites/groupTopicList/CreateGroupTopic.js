@@ -2,31 +2,36 @@ import { Box, Button, FormControlLabel, InputLabel, Modal, TextField, Typography
 import { useState } from "react"
 import { strings } from "../../../utils/localization"
 
-
-const CreateGroupTopic = ({ type, showCreateNew, setShowCreateNew, setTopicModal, setGroupModal, createGroupTopic }) => {
-
+/**
+ * 
+ * @param {*} type
+ * @param {*} showCreateNew 
+ * @param {*} setShowCreateNew 
+ * @param {*} createGroupTopic 
+ * @param {*} setCreateGroupTopic
+ * @returns 
+ */
+const CreateGroupTopic = ({ type, showCreateNew, setShowCreateNew, createGroupTopic, setCreateGroupTopic }) => {
   let stringList = {}
-
   const [privacy, setPrivacy] = useState(false)
-
   const [newGroupTopic, setNewGroupTopic] = useState({
     name: "",
     description: ""
   })
 
-  if (type === "topic") {
-    setNewGroupTopic(newGroupTopic => ({
-      ...newGroupTopic,
-      name: createGroupTopic
-    }))
-  } else {
-    setNewGroupTopic(newGroupTopic => ({
-      ...newGroupTopic,
-      name: createGroupTopic
-    }))
+  if (newGroupTopic.name === "" ) {
+    if (type === "topic") {
+      setNewGroupTopic(newGroupTopic => ({
+        ...newGroupTopic,
+        name: createGroupTopic
+      }))
+    } else {
+      setNewGroupTopic(newGroupTopic => ({
+        ...newGroupTopic,
+        name: createGroupTopic
+      }))
+    }
   }
-
-  console.log("outoa")
 
   const style = {
     position: 'absolute',
@@ -38,14 +43,6 @@ const CreateGroupTopic = ({ type, showCreateNew, setShowCreateNew, setTopicModal
     border: '2px solid #000',
     boxShadow: 24,
     p: 4,
-  };
-
-  const handleClose = () => {
-    setShowCreateNew(false)
-  }
-
-  const handleCheckBoxChange = e => {
-    setPrivacy(e.target.checked)
   }
 
   const setStringList = () => {
@@ -65,11 +62,34 @@ const CreateGroupTopic = ({ type, showCreateNew, setShowCreateNew, setTopicModal
         add: strings.createTopic.addTopic
       }
     }
-
   }
 
+  const handleClose = () => {
+    setShowCreateNew(false)
+  }
 
+  const handleCheckBoxChange = e => {
+    e.preventDefault()
+    setPrivacy(e.target.checked)
+  }
+
+  const handleSubmit = () => {
+    if (type === "topic") {
+      setCreateGroupTopic({
+        name: newGroupTopic.name,
+        description: newGroupTopic.description
+      })
+    } else {
+      setCreateGroupTopic({
+        name: newGroupTopic.name,
+        description: newGroupTopic.description,
+        isPrivate: privacy
+      })
+    }
+    handleClose()
+  }
   setStringList()
+
   return (
     <>
 
@@ -122,9 +142,8 @@ const CreateGroupTopic = ({ type, showCreateNew, setShowCreateNew, setTopicModal
                 />
               </div>
             }
-
           </form>
-          <Button onClick={handleClose}>{stringList.add}</Button>
+          <Button onClick={handleSubmit}>{stringList.add}</Button>
           <Button onClick={handleClose}>{strings.common.close}</Button>
         </Box>
       </Modal>
