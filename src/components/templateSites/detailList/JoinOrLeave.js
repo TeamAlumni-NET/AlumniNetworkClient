@@ -8,11 +8,12 @@ import {
 import { strings } from "../../../utils/localization"
 import { useDispatch, useSelector } from "react-redux"
 import { getGroupAsList } from "../../../reducers/groupsSlice"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { getTopicAsList } from "../../../reducers/topicsSlice"
 
 import GroupRemoveIcon from "@mui/icons-material/GroupRemove"
 import GroupAddIcon from "@mui/icons-material/GroupAdd"
+import { Replay } from "@mui/icons-material"
 
 /**
  * A component to render
@@ -26,6 +27,7 @@ const JoinOrLeave = ({ type }) => {
   const { topics } = useSelector((state) => state.topicList)
   const dispatch = useDispatch()
   const { id } = useParams()
+  const navigate = useNavigate()
   const [currGroup, currTopic] = [
     groups?.filter((g) => g.id === Number(id))[0],
     topics?.filter((t) => t.id === Number(id))[0],
@@ -59,9 +61,10 @@ const JoinOrLeave = ({ type }) => {
     }
     RevomeUserToGroupTopic(type, id).then(() => {
       currResourceFetch(type)
+      currResource?.isPrivate && navigate("../", { replace: true })
     })
   }
-
+  console.log(currResource)
   return (
     <Box>
       {currResource?.isMember ? (
@@ -75,15 +78,17 @@ const JoinOrLeave = ({ type }) => {
           {strings.common.leave}
         </Button>
       ) : (
-        <Button
-          onClick={() => handleClick()}
-          variant="contained"
-          size="small"
-          sx={{ ml: "10px" }}
-        >
-          <GroupAddIcon />
-          {strings.common.join}
-        </Button>
+        !currResource?.isPrivate && (
+          <Button
+            onClick={() => handleClick()}
+            variant="contained"
+            size="small"
+            sx={{ ml: "10px" }}
+          >
+            <GroupAddIcon />
+            {strings.common.join}
+          </Button>
+        )
       )}
     </Box>
   )

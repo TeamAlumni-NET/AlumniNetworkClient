@@ -45,7 +45,9 @@ const EventCard = ({ post, url, time, childPost, search, stringList }) => {
           alignItems: "center",
         }}
       >
-        <Box sx={{ mr: "15px", display: "flex", alignItems: "center" }}>
+        <Box
+          sx={{ ml: "15px", mr: "15px", display: "flex", alignItems: "center" }}
+        >
           <CalendarMonthIcon /> Event
         </Box>
         <Box

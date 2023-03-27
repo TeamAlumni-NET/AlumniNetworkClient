@@ -29,7 +29,7 @@ const Group = () => {
     groups
       .sort((a, b) => new Date(a.timeStamp) - new Date(b.timeStamp))
       .reverse()
-  }, [postsGroup])
+  }, [postsGroup, stringList])
   return (
     <Container>
       <DetailsList

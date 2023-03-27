@@ -29,7 +29,7 @@ const Topic = () => {
     topics
       .sort((a, b) => new Date(a.timeStamp) - new Date(b.timeStamp))
       .reverse()
-  }, [postsTopic])
+  }, [postsTopic, stringList])
 
   return (
     <Container>

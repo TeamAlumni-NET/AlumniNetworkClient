@@ -15,6 +15,7 @@ const UserDashboard = () => {
   const dispatch = useDispatch()
   const { userEvents } = useSelector((state) => state.eventList)
   const { postsDashboard } = useSelector((state) => state.postsList)
+  let posts = [...postsDashboard]
 
   const stringList = {
     title: strings.topic.title,
@@ -32,7 +33,12 @@ const UserDashboard = () => {
     setValue(newValue)
   }
 
-  console.log(postsDashboard)
+  useEffect(() => {
+    posts
+      .sort((a, b) => new Date(a.timeStamp) - new Date(b.timeStamp))
+      .reverse()
+  }, [postsDashboard, stringList])
+
   return (
     <Container sx={{ mt: "40px" }}>
       <Typography variant="h4">{strings.dashboard.userDashboard}</Typography>

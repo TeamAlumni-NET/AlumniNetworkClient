@@ -31,7 +31,7 @@ const GroupTopicCard = ({ post, url, childPost, search }) => {
             avatar={<Avatar src={post.user.pictureUrl} />}
             title={`${post.user.firstName} ${post.user.lastName}`}
             subheader={`@${post.user.username}`}
-            onClick={() => navigate(`/profile/${post.user.id}`)}
+            onClick={() => navigate(`/profile/${post.user.username}`)}
           ></CardHeader>
         </Box>
         <CardActions mr={"10px"}>
