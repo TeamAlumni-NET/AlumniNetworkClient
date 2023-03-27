@@ -15,6 +15,7 @@ import { onSignInGetOrCreateUser } from "./services/user/UserCRUDOperations"
 import CalendarPage from "./components/pages/Calendar/CalendarPage"
 import CreatePostForm from "./components/pages/post/CreatePostForm"
 import Group from "./components/pages/group/Group"
+import Topic from "./components/pages/topic/Topic"
 
 
 function App() {
@@ -97,8 +98,9 @@ function App() {
           <Route path="/profile/:username" element={<Profile />} />
           <Route path="/timeline" element={<Timeline />} />
           <Route path="/calendar" element={<CalendarPage />} />
-          <Route path="/post/:id" element={<Post/>} />
+          <Route path="/post/:id" element={<Post />} />
           <Route path="/group/:name/:id" element={<Group />} />
+          <Route path="/topic/:name/:id" element={<Topic />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

@@ -50,6 +50,9 @@ export const strings = new LocalizedStrings({
       close: "Close",
       calendar: "Calendar",
       search: "Search",
+      invite: "Invite",
+      join: "Join",
+      leave: "Leave",
     },
     timeline: {
       title: "Timeline",
@@ -65,7 +68,6 @@ export const strings = new LocalizedStrings({
     calendar: {
       text: "Find events to attend via your intrests!",
     },
-
     createPostForm: {
       title: "Create new post",
       postTitle: "Post Title",
@@ -92,9 +94,9 @@ export const strings = new LocalizedStrings({
       topicDescription: "Topic Description",
       addTopic: "Add Topic"
     },
-    postThread:{
+    postThread: {
       reply: "Reply to",
-      wrongPostId: "This post doesn't exist"
+      wrongPostId: "This post doesn't exist",
     },
 
   },
@@ -147,6 +149,9 @@ export const strings = new LocalizedStrings({
       close: "Sulje",
       calendar: "Kalenteri",
       search: "Etsi",
+      invite: "Kutsu",
+      join: "Liity",
+      leave: "Poistu",
     },
     timeline: {
       title: "Aikajana",
@@ -159,7 +164,6 @@ export const strings = new LocalizedStrings({
       userDashboard: "Käyttäjän kojelauta",
       posts: "Postaukset",
     },
-
     createPostForm: {
       title: "Luo uusi viesti",
       postTitle: "Otsikko",
@@ -186,9 +190,9 @@ export const strings = new LocalizedStrings({
       topicDescription: "Aiheen kuvaus",
       addTopic: "Lisää Aihe"
     },
-    postThread:{
+    postThread: {
       reply: "Vastaus käyttäjälle",
-      wrongPostId: "Tälläistä julkaisua ei ole olemassa"
-    }
+      wrongPostId: "Tälläistä julkaisua ei ole olemassa",
+    },
   },
 })
