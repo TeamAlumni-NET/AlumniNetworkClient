@@ -22,7 +22,7 @@ function Post () {
   }
 
   useEffect(() => {
-    //hardcoded
+  
     dispatch(getCurrentPost(idFromUrl.slice(-1).toString()))
     dispatch(currentChildPosts(idFromUrl.slice(-1).toString()))
   }, [dispatch])

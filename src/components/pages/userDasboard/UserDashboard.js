@@ -6,7 +6,6 @@ import { Container } from "@mui/system"
 import { useSelector, useDispatch } from "react-redux"
 import { getEventsList } from "../../../reducers/eventsSlice"
 import Calendar from "../../calendar/Calendar"
-import { current } from "@reduxjs/toolkit"
 
 const UserDashboard = () => {
   const [value, setValue] = useState(0)
