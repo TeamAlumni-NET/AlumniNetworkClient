@@ -1,10 +1,16 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
-import { getGroupTopicList } from "../services/group/groupsTopicsService"
+import { getGroupTopicList,createGroupTopic } from "../services/group/groupsTopicsService"
 
 export const getTopicAsList = createAsyncThunk(
-  "topicList/getGroupsList",
+  "topicList/getTopicsList",
   async () => {
     const response = await getGroupTopicList("topics")
+    return response
+  }
+)
+export const createNewTopic = createAsyncThunk("groupList/CreateNewTopic",
+  async (data) => {
+    const response = await createGroupTopic(data, "topics")
     return response
   }
 )
@@ -18,6 +24,9 @@ export const topicListSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(getTopicAsList.fulfilled, (state, action) => {
       state.topics = action.payload
+    }),
+    builder.addCase(createNewTopic.fulfilled, (state, action) => {
+      state.topics = [...state.topics, action.payload]
     })
   },
 })

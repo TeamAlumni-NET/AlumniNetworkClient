@@ -1,17 +1,16 @@
 import { Container } from "@mui/system"
-import React, { useEffect } from "react"
+import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import DetailsList from "../../templateSites/detailList/DetailsList"
 import { getTopicPostsList } from "../../../reducers/postsSlice"
-import { useParams } from "react-router-dom"
 import { strings } from "../../../utils/localization"
 import { getTopicEventsList } from "../../../reducers/eventsSlice"
 
 const Topic = () => {
-  const { name, id } = useParams()
   const dispatch = useDispatch()
   const { postsTopic } = useSelector((state) => state.postsList)
   const { topicEvents } = useSelector((state) => state.eventList)
+  const { id } = useSelector(state => state.currentPage)
   let topics = [...postsTopic]
 
   const stringList = {
@@ -38,6 +37,7 @@ const Topic = () => {
         data={topics}
         timeline={false}
         events={topicEvents}
+        defaultType={"topic"}
       />
     </Container>
   )

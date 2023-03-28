@@ -6,6 +6,7 @@ import postListReducer from "../reducers/postsSlice"
 import eventListReducer from "../reducers/eventsSlice"
 import userReducer from "../reducers/userSlice"
 import postReducer from "../reducers/postSlice"
+import currentPageReducer from "../reducers/currentPageSlice"
 /**
  * Storage for reducers
  */
@@ -18,5 +19,6 @@ export default configureStore({
     post: postReducer,
     postsList: postListReducer,
     eventList: eventListReducer,
+    currentPage: currentPageReducer
   }
 })

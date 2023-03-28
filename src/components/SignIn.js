@@ -1,15 +1,19 @@
 import { Button, Container } from "@mui/material"
 import { useEffect } from "react"
+import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import keycloak from "../keycloak"
+import { saveNavigate } from "../reducers/currentPageSlice"
 import { strings } from "../utils/localization"
 
 const SignIn = () => {
+  const dispatch = useDispatch()
   const navigate = useNavigate()
   const isAuthenticated = keycloak.authenticated
 
   useEffect(() => {
     if (isAuthenticated) {
+      dispatch(saveNavigate({url: "dasboard", id: null}))
       navigate("/dashboard")
     }
   }, [])

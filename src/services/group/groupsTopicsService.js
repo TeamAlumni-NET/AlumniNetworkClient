@@ -16,6 +16,22 @@ export const getGroupTopicList = async (target) => {
     console.log(error.message)
   }
 }
+
+export const createGroupTopic = async(data, target) => {
+  const userId = JSON.parse(localStorage.getItem("currentUser")).id
+  try {
+    const res = await axios.post(`${config.url}/api/${target}?userId=${userId}`, data, {
+      headers: {
+        Authorization: `bearer ${keycloak.token}`,
+        'Content-Type': 'application/json'
+      }
+    })
+    return res.data
+  } catch (error) {
+    console.log(error.message)
+  }
+}
+
 export const addUserToGroupTopic = async (target, id) => {
   try {
     const userId = JSON.parse(localStorage.getItem("currentUser")).id
