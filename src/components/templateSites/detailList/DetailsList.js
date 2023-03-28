@@ -9,7 +9,6 @@ import {
   IconButton,
   CardHeader
 } from "@mui/material"
-import { useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { strings } from "../../../utils/localization"
 import CalendarDrawerView from "../../calendar/CalendarDrawerView"
@@ -25,11 +24,12 @@ import CreateEventPage from "../../pages/event/CreateEventPage"
 
 const DetailsList = ({ stringList, data, timeline, events, dashboard = false, defaultType }) => {
   const dispatch = useDispatch()
-  const defaultdata = {}
+  const [defaultdata, setDefaultdata] = useState({})
   const [search, setSearch] = useState("")
   const [posts, setPosts] = useState(data)
   const [opencalendar, setOpenCalendar] = useState(false)
   const [openDialog, setOpenDialog] = useState(false)
+  const { url, id } = useSelector(state => state.currentPage)
   const [openDialogEvent, setOpenDialogEvent] = useState(false)
 
   useEffect(() => {
@@ -55,9 +55,22 @@ const DetailsList = ({ stringList, data, timeline, events, dashboard = false, de
   const handleOpenDialog = (e) => {
     e.preventDefault()
     if (defaultType !== undefined) {
-      console.log(data)
-      //defaultType.name = data.name
-      //dispatch(saveNaviage({url: "uusiSivu",id: 2}))
+      const newData = {
+        nameForForm: url,
+        groupId: null,
+        topicId: null,
+        targetGroup: null,
+        targetTopic: null
+      }
+      if (defaultType === "group") {
+        newData.groupid = id
+        newData.targetGroup = url
+      }
+      else {
+        newData.topicId = id
+        newData.targetTopic = url
+      }
+      setDefaultdata(Object.assign(defaultdata, newData))
     }
     setOpenDialog(true)
   }
@@ -208,8 +221,8 @@ const DetailsList = ({ stringList, data, timeline, events, dashboard = false, de
               )}
               <CalendarDrawerView
                 events={events}
-                opencalendar={opencalendar}
-                setOpenCalendar={setOpenCalendar}
+                open={opencalendar}
+                setOpen={setOpenCalendar}
                 title={stringList.title}
               />
             </Box>
