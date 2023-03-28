@@ -59,18 +59,18 @@ export const eventListSlice = createSlice({
     builder.addCase(getEventsList.fulfilled, (state, action) => {
       state.userEvents = action.payload
     }),
-      builder.addCase(getTimelineEventsList.fulfilled, (state, action) => {
-        state.timelineEvents = action.payload
-      }),
-      builder.addCase(getUserSuggestedEventsList.fulfilled, (state, action) => {
-        state.userSuggestedEvents = action.payload
-      }),
-      builder.addCase(getTopicEventsList.fulfilled, (state, action) => {
-        state.topicEvents = action.payload
-      }),
-      builder.addCase(getGroupEventsList.fulfilled, (state, action) => {
-        state.groupEvents = action.payload
-      })
+    builder.addCase(getTimelineEventsList.fulfilled, (state, action) => {
+      state.timelineEvents = action.payload
+    }),
+    builder.addCase(getUserSuggestedEventsList.fulfilled, (state, action) => {
+      state.userSuggestedEvents = action.payload
+    }),
+    builder.addCase(getTopicEventsList.fulfilled, (state, action) => {
+      state.topicEvents = action.payload
+    }),
+    builder.addCase(getGroupEventsList.fulfilled, (state, action) => {
+      state.groupEvents = action.payload
+    })
   },
 })
 

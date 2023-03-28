@@ -9,10 +9,9 @@ import {
 } from "@mui/material"
 import NavigateNextIcon from "@mui/icons-material/NavigateNext"
 import { Box } from "@mui/system"
-import React, { useState } from "react"
 import { useNavigate } from "react-router-dom"
 
-const GroupTopicCard = ({ post, url, childPost, search }) => {
+const GroupTopicCard = ({ post, childPost, search }) => {
   const navigate = useNavigate()
   return (
     <>
