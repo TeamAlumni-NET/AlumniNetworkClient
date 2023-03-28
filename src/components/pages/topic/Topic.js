@@ -34,7 +34,7 @@ const Topic = () => {
     <Container>
       <DetailsList
         stringList={stringList}
-        data={postsTopic}
+        data={topics}
         timeline={false}
         events={topicEvents}
         defaultType={"topic"}
