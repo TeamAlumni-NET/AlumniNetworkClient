@@ -28,11 +28,18 @@ export const strings = new LocalizedStrings({
       title: "Posts",
       createNew: "Create new post",
       group: "In group: ",
+      groups: "Group/s: ",
     },
     topicList: {
       title: "Topic List",
       createNew: "Create new topic",
       member: "Member",
+    },
+    topic: {
+      title: "Posts",
+      createNew: "Create new post",
+      topics: "Topic/s: ",
+      topic: "In topic: ",
     },
     profilePage: {
       firstName: "Firstname",
@@ -50,6 +57,10 @@ export const strings = new LocalizedStrings({
       close: "Close",
       calendar: "Calendar",
       search: "Search",
+      invite: "Invite",
+      join: "Join",
+      leave: "Leave",
+      start: "Starts",
     },
     timeline: {
       title: "Timeline",
@@ -65,9 +76,9 @@ export const strings = new LocalizedStrings({
     calendar: {
       text: "Find events to attend via your intrests!",
     },
-    postThread:{
+    postThread: {
       reply: "Reply to",
-      wrongPostId: "This post doesn't exist"
+      wrongPostId: "This post doesn't exist",
     },
     createEvent:{
       title: "Create new event",
@@ -109,11 +120,18 @@ export const strings = new LocalizedStrings({
       title: "Postit",
       createNew: "Luo uusi posti",
       group: "Ryhmässä: ",
+      groups: "Ryhmä/t: ",
     },
     topicList: {
       title: "Aihe listaus",
       createNew: "Luo uusi aihe",
       member: "Jäsen",
+    },
+    topic: {
+      title: "Postit",
+      createNew: "Luo uusi posti",
+      topic: "Aiheessa: ",
+      topics: "Aiheessa: ",
     },
     profilePage: {
       firstName: "Etunimi",
@@ -131,6 +149,10 @@ export const strings = new LocalizedStrings({
       close: "Sulje",
       calendar: "Kalenteri",
       search: "Etsi",
+      invite: "Kutsu",
+      join: "Liity",
+      leave: "Poistu",
+      start: "Alkaa",
     },
     timeline: {
       title: "Aikajana",
@@ -143,9 +165,9 @@ export const strings = new LocalizedStrings({
       userDashboard: "Käyttäjän kojelauta",
       posts: "Postaukset",
     },
-    postThread:{
+    postThread: {
       reply: "Vastaus käyttäjälle",
-      wrongPostId: "Tälläistä julkaisua ei ole olemassa"
+      wrongPostId: "Tälläistä julkaisua ei ole olemassa",
     },
     createEvent:{
       title: "Luo uusi tapahtuma",
@@ -158,6 +180,6 @@ export const strings = new LocalizedStrings({
       startTime: "Aloituspäivä & aika",
       endTime: "Lopetusaika",
       createEvent: "Luo tapahtuma"
-    }
+    },
   },
 })

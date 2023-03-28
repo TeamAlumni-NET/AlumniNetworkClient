@@ -59,3 +59,23 @@ export const postEvent = async (data) => {
     console.log(error.message)
   }
 }
+export const getTopicEvents = async (id) => {
+  try {
+    const res = await axios.get(config.url + `/api/events/topic/${id}`, {
+      headers: { Authorization: `bearer ${keycloak.token}` },
+    })
+    return res.data
+  } catch (e) {
+    console.log(e.message)
+  }
+}
+export const getGroupEvents = async (id) => {
+  try {
+    const res = await axios.get(config.url + `/api/events/group/${id}`, {
+      headers: { Authorization: `bearer ${keycloak.token}` },
+    })
+    return res.data
+  } catch (e) {
+    console.log(e.message)
+  }
+}

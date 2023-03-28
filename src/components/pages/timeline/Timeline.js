@@ -20,23 +20,20 @@ const Timeline = () => {
   const { timelineEvents } = useSelector((state) => state.eventList)
   const timeline = postsTimeline.concat(timelineEvents)
 
-  console.log(timeline)
   useEffect(() => {
     dispatch(getPostsAsList())
     dispatch(getTimelineEventsList())
   }, [dispatch])
 
   useEffect(() => {
-    timeline.sort((a,b) => new Date(a.timeStamp) - new Date(b.timeStamp)).reverse()
-  }, [postsTimeline, timelineEvents])
+    timeline
+      .sort((a, b) => new Date(a.timeStamp) - new Date(b.timeStamp))
+      .reverse()
+  }, [postsTimeline, timelineEvents, stringList])
 
   return (
     <>
-      <DetailsList
-        stringList={stringList}
-        data={timeline}
-        timeline={true}
-      />
+      <DetailsList stringList={stringList} data={timeline} timeline={true} />
     </>
   )
 }
