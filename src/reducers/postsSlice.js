@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk, current } from '@reduxjs/toolkit'
 import {
   getGroupPosts,
   getPostForTimeline,
@@ -6,7 +6,8 @@ import {
   getUserDashboardPosts,
   getPost,
   getChildPosts,
-  postPost
+  postPost,
+  patchPost
 } from '../services/post/postService'
 
 export const getPostsAsList = createAsyncThunk(
@@ -65,6 +66,13 @@ export const postNewPost = createAsyncThunk(
   }
 )
 
+export const editPost = createAsyncThunk("post/editPost",
+  async (edit) => {
+    const response = await patchPost(edit)
+    return response
+  }
+)
+
 export const postListSlice = createSlice({
   name: 'posts',
   initialState: {
@@ -107,6 +115,14 @@ export const postListSlice = createSlice({
     }),
     builder.addCase(getDashboardPostsList.fulfilled, (state, action) => {
       state.postsDashboard = action.payload ? action.payload : []
+    })
+    builder.addCase(editPost.fulfilled, (state, action) => {
+      if (state.post.id === action.payload.id) {
+        state.post.title = action.payload.title
+        state.post.content = action.payload.content
+      }
+      const index = current(state.childPosts).findIndex(post => post.id === action.payload.id)
+      state.childPosts[index].content = action.payload.content
     })
   },
 })

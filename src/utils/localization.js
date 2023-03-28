@@ -109,7 +109,8 @@ export const strings = new LocalizedStrings({
     postThread: {
       reply: "Reply to",
       wrongPostId: "This post doesn't exist",
-      answer: "Answer to this post"
+      answer: "Answer to this post",
+      edit: "Edit post"
     },
 
   },
@@ -218,7 +219,8 @@ export const strings = new LocalizedStrings({
     postThread: {
       reply: "Vastaus käyttäjälle",
       wrongPostId: "Tälläistä julkaisua ei ole olemassa",
-      answer: "Vastaa tähän julkaisuun"
+      answer: "Vastaa tähän julkaisuun",
+      edit: "Muokkaa julkaisua"
     },
   },
 })
