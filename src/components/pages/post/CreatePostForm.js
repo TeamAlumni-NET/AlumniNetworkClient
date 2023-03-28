@@ -1,14 +1,22 @@
-import { useEffect, useState } from 'react'
-import { Autocomplete, Button, InputLabel, TextField, createFilterOptions, Dialog, DialogActions } from "@mui/material"
+import { useEffect, useState } from "react"
+import {
+  Autocomplete,
+  Button,
+  InputLabel,
+  TextField,
+  createFilterOptions,
+  Dialog,
+  DialogActions,
+} from "@mui/material"
 import { strings } from "../../../utils/localization"
-import { Box } from '@mui/system'
-import { getGroupAsList } from '../../../reducers/groupsSlice'
-import { getTopicAsList } from '../../../reducers/topicsSlice'
-import { useDispatch, useSelector } from 'react-redux'
-import { postNewPost } from '../../../reducers/postSlice'
-import snarkdown from 'snarkdown'
-import CreateGroupTopic from '../../templateSites/groupTopicList/CreateGroupTopic'
-import { createGroupTopic as createGroupTopicService } from '../../../services/group/groupsTopicsService'
+import { Box } from "@mui/system"
+import { getGroupAsList } from "../../../reducers/groupsSlice"
+import { getTopicAsList } from "../../../reducers/topicsSlice"
+import { useDispatch, useSelector } from "react-redux"
+import { postNewPost } from "../../../reducers/postSlice"
+import snarkdown from "snarkdown"
+import CreateGroupTopic from "../../templateSites/groupTopicList/CreateGroupTopic"
+import { createGroupTopic as createGroupTopicService } from "../../../services/group/groupsTopicsService"
 
 const initialState = {
   title: "",
@@ -18,14 +26,14 @@ const initialState = {
   targetUserId: null,
   parentPostId: null,
   eventId: null,
-  userId: JSON.parse(localStorage.getItem("currentUser")).id
+  userId: null,
 }
 
-const CreatePostForm = ({defaultdata, openDialog, setOpenDialog}) => {
+const CreatePostForm = ({ defaultdata, openDialog, setOpenDialog }) => {
   const dispatch = useDispatch()
   const filter = createFilterOptions()
-  const { groups } = useSelector(state => state.groupList)
-  const { topics } = useSelector(state => state.topicList)
+  const { groups } = useSelector((state) => state.groupList)
+  const { topics } = useSelector((state) => state.topicList)
   const [showCreateNew, setShowCreateNew] = useState(false)
   const [type, setType] = useState("group")
   const [createNewGroupTopic, setCreateNewGroupTopic] = useState("")
@@ -34,9 +42,9 @@ const CreatePostForm = ({defaultdata, openDialog, setOpenDialog}) => {
 
   console.log(defaultdata, openDialog)
   for (const [key, value] in Object.entries(defaultdata)) {
-    console.log(key, value);
+    console.log(key, value)
   }
-  //Check if works... 
+  //Check if works...
   /*
   if (defaultdata === "event") {
     setNewPost.eventId = id
@@ -64,7 +72,10 @@ const CreatePostForm = ({defaultdata, openDialog, setOpenDialog}) => {
 
   const handleSubmit = async () => {
     if (createNewGroupTopic !== "") {
-      const response = await createGroupTopicService(createNewGroupTopic, `${type}s`)
+      const response = await createGroupTopicService(
+        createNewGroupTopic,
+        `${type}s`
+      )
       if (type === "group") newPost.groupId = response.id
       else newPost.topicId = response.id
     }
@@ -94,10 +105,10 @@ const CreatePostForm = ({defaultdata, openDialog, setOpenDialog}) => {
 
     return (
       <Autocomplete
-        disabled = {isDisabled()}
+        disabled={isDisabled()}
         sx={{ width: 300 }}
         options={completetype === "group" ? groups : topics}
-        getOptionLabel={option => {
+        getOptionLabel={(option) => {
           if (typeof option === "string") return option
           if (option.inputValue) return option.inputValue
           if (option === null) return ""
@@ -107,7 +118,7 @@ const CreatePostForm = ({defaultdata, openDialog, setOpenDialog}) => {
         selectOnFocus
         clearOnBlur
         onChange={(event, newValue) => {
-          if (typeof newValue === 'string') {
+          if (typeof newValue === "string") {
             setTimeout(() => {
               setType(completetype)
               setShowCreateNew(true)
@@ -119,67 +130,70 @@ const CreatePostForm = ({defaultdata, openDialog, setOpenDialog}) => {
             setCreateNewGroupTopic(newValue.inputValue)
           } else if (newValue === null) {
             setCreateNewGroupTopic("")
-            setNewPost(newPost => ({
+            setNewPost((newPost) => ({
               ...newPost,
               topicId: null,
-              groupId: null
+              groupId: null,
             }))
-          }
-          else {
+          } else {
             if (completetype === "group") {
-              setNewPost(newPost => ({
+              setNewPost((newPost) => ({
                 ...newPost,
-                groupId: newValue.id
+                groupId: newValue.id,
               }))
-            }
-            else {
+            } else {
               setType("topic")
-              setNewPost(newPost => ({
+              setNewPost((newPost) => ({
                 ...newPost,
                 topicId: newValue.id,
               }))
             }
-          } 
+          }
         }}
         filterOptions={(options, params) => {
           const filtered = filter(options, params)
           if (params.inputValue !== "") {
             filtered.push({
               inputValue: params.inputValue,
-              name: `add ${params.inputValue}`
+              name: `add ${params.inputValue}`,
             })
           }
           return filtered
         }}
-        renderOption={(props, option) => <li{...props}>{option.name}</li>}
+        renderOption={(props, option) => <li {...props}>{option.name}</li>}
       />
     )
   }
 
   return (
-    <Dialog 
+    <Dialog
       fullScreen
       open={openDialog}
       onClose={handleClose}
       //TransitionCompnent={Transition}
     >
       <form onSubmit={handleSubmit} style={{ padding: 20 }}>
-        <Box sx={{
-          display: 'flex',
-          flexDirection: 'column',
-        }} >
-
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
           <h1>{strings.createPostForm.title}</h1>
           <div>
-            <InputLabel variant='standard'>{strings.createPostForm.postTitle}</InputLabel>
+            <InputLabel variant="standard">
+              {strings.createPostForm.postTitle}
+            </InputLabel>
             <TextField
               required
-              id='outlined-required'
+              id="outlined-required"
               defaultValue=""
-              onChange={e => setNewPost(newPost => ({
-                ...newPost,
-                title: e.target.value,
-              }))}
+              onChange={(e) =>
+                setNewPost((newPost) => ({
+                  ...newPost,
+                  title: e.target.value,
+                }))
+              }
             />
           </div>
 
@@ -189,35 +203,39 @@ const CreatePostForm = ({defaultdata, openDialog, setOpenDialog}) => {
           {autoCompleteRender("topic")}
 
           <div>
-            <InputLabel variant='standard'>{strings.createPostForm.content}</InputLabel>
+            <InputLabel variant="standard">
+              {strings.createPostForm.content}
+            </InputLabel>
             <TextField
               required
               fullWidth
               multiline
               minRows={5}
-              id='outlined-required'
+              id="outlined-required"
               defaultValue=""
-              onChange={e => setNewPost(newPost => ({
-                ...newPost,
-                content: e.target.value,
-              }))}
+              onChange={(e) =>
+                setNewPost((newPost) => ({
+                  ...newPost,
+                  content: e.target.value,
+                }))
+              }
             />
           </div>
         </Box>
-        
-        {showCreateNew &&
+
+        {showCreateNew && (
           <CreateGroupTopic
             type={type}
             showCreateNew={showCreateNew}
             setShowCreateNew={setShowCreateNew}
             createGroupTopic={createNewGroupTopic}
             setCreateGroupTopic={setCreateNewGroupTopic}
-          />}
+          />
+        )}
         <DialogActions>
           <Button onClick={handleSubmit}>{strings.common.cancel}</Button>
           <Button onClick={handleSubmit}>{strings.createPostForm.post}</Button>
         </DialogActions>
-        
       </form>
     </Dialog>
   )

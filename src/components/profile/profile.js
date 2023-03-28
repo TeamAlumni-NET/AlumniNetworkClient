@@ -1,95 +1,103 @@
-import { styled } from '@mui/material/styles'
-import Grid from '@mui/material/Grid'
-import Paper from '@mui/material/Paper'
-import Typography from '@mui/material/Typography'
-import { Box } from '@mui/material'
-import { useEffect} from 'react'
-import EditProfile from './EditProfile'
-import { getCurrentUser, getProfileUser } from '../../reducers/userSlice'
+import { styled } from "@mui/material/styles"
+import Grid from "@mui/material/Grid"
+import Paper from "@mui/material/Paper"
+import Typography from "@mui/material/Typography"
+import { Box, Button } from "@mui/material"
+import { useEffect, useState } from "react"
+import EditProfile from "./EditProfile"
+import { getCurrentUser, getProfileUser } from "../../reducers/userSlice"
 import { useDispatch, useSelector } from "react-redux"
+import { strings } from "../../utils/localization"
 
-
-
-const Img = styled('img')({
-  margin: 'auto',
-  display: 'block',
-  maxWidth: '100%',
-  maxHeight: '100%'
+const Img = styled("img")({
+  margin: "auto",
+  display: "block",
+  maxWidth: "100%",
+  maxHeight: "100%",
 })
 
-function Profile () {
+function Profile() {
   const dispatch = useDispatch()
-  const {user, profileUser}=useSelector(state => state.user)
-  const { id, url } = useSelector(state => state.currentPage)
+  const { user, profileUser } = useSelector((state) => state.user)
+  const { id, url } = useSelector((state) => state.currentPage)
+  const [open, setOpen] = useState(false)
+
+  const handleOpen = () => {
+    setOpen(true)
+  }
 
   useEffect(() => {
     dispatch(getCurrentUser())
-    dispatch(getProfileUser(url)) 
-
+    dispatch(getProfileUser(url))
   }, [dispatch])
 
   return (
-    <Paper
-      sx={{
-        p: 2,
-        margin: 'auto',
-        maxWidth: '50%',
-        flexGrow: 1,
-        backgroundColor: theme =>
-          theme.palette.mode === 'dark' ? '#1A2027' : '#fff'
-      }}
-    >
-      <Grid container spacing={2}>
-        <Grid item sx={{ width: 128, height: 128 }}>
-          <Img alt='complex' src={profileUser?.pictureUrl} />
-        </Grid>
-        <Grid item xs={12} sm container>
-          <Grid item xs container direction='column' spacing={2}>
-            <Grid item xs>
-              <Typography gutterBottom variant='subtitle1' component='div'>
-                {profileUser?.firstName} {profileUser?.lastName}
-              </Typography>
-              <Typography variant='body2' gutterBottom>
-                {profileUser?.status}
-              </Typography>
+    <>
+      <Paper
+        sx={{
+          p: 2,
+          margin: "auto",
+          maxWidth: "50%",
+          flexGrow: 1,
+          backgroundColor: (theme) =>
+            theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+        }}
+      >
+        <Grid container spacing={2}>
+          <Grid item sx={{ width: 128, height: 128 }}>
+            <Img alt="complex" src={profileUser?.pictureUrl} />
+          </Grid>
+          <Grid item xs={12} sm container>
+            <Grid item xs container direction="column" spacing={2}>
+              <Grid item xs>
+                <Typography gutterBottom variant="subtitle1" component="div">
+                  {profileUser?.firstName} {profileUser?.lastName}
+                </Typography>
+                <Typography variant="body2" gutterBottom>
+                  {profileUser?.status}
+                </Typography>
+              </Grid>
+            </Grid>
+            <Grid item>
+              {(() => {
+                if (user.id === profileUser?.id) {
+                  return (
+                    <Button onClick={handleOpen}>{strings.common.edit}</Button>
+                  )
+                }
+                return null
+              })()}
             </Grid>
           </Grid>
-          <Grid item>
-            {(() => {
-              if (user.id === profileUser?.id) {
-                return (
-                  <EditProfile/>
-                )
-              }
-              return null
-            })()}
+        </Grid>
+        <Grid container spacing={2}>
+          <Grid item maxWidth={"25%"}>
+            <Typography gutterBottom variant="body2" component="div">
+              {profileUser?.funFact}
+            </Typography>
+          </Grid>
+          <Grid
+            item
+            xs
+            container
+            direction="column"
+            spacing={2}
+            sx={{ height: 600 }}
+          >
+            <Grid item xs>
+              <Box
+                sx={{ backgroundColor: "lightgrey", height: 400, width: "75%" }}
+              >
+                <Typography variant="body2" gutterBottom>
+                  {profileUser?.bio}
+                </Typography>
+              </Box>
+            </Grid>
           </Grid>
         </Grid>
-      </Grid>
-      <Grid container spacing={2}>
-        <Grid item maxWidth={'25%'}>
-          <Typography gutterBottom variant='body2' component='div'>
-            {profileUser?.funFact}
-          </Typography>
-        </Grid>
-        <Grid
-          item
-          xs
-          container
-          direction='column'
-          spacing={2}
-          sx={{ height: 600 }}
-        >
-          <Grid item xs>
-            <Box sx={{ backgroundColor: 'lightgrey', height: 400, width: '75%' }}>
-              <Typography variant='body2' gutterBottom>
-                {profileUser?.bio}
-              </Typography>
-            </Box>
-          </Grid>
-        </Grid>
-      </Grid>
-    </Paper>
+      </Paper>
+      <EditProfile open={open} setOpen={setOpen} />
+    </>
   )
 }
 export default Profile

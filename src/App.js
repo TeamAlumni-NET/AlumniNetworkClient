@@ -17,12 +17,12 @@ import Group from "./components/pages/group/Group"
 import Topic from "./components/pages/topic/Topic"
 import { useDispatch, useSelector } from "react-redux"
 import { saveNavigate } from "./reducers/currentPageSlice"
-
+import EditProfile from "./components/profile/EditProfile"
 
 function App() {
   const dispatch = useDispatch()
   const [language, setLanguage] = useState("en")
-  const { url } = useSelector(state => state.currentPage)
+  const { url } = useSelector((state) => state.currentPage)
   const sessionStorageUrl = sessionStorage.getItem("CurrentPage")
 
   const theme = createTheme({
@@ -82,7 +82,7 @@ function App() {
 
   if (url === "" && sessionStorageUrl) {
     const newNavigate = JSON.parse(sessionStorageUrl)
-    dispatch(saveNavigate({url: newNavigate.url, id: newNavigate.id}))
+    dispatch(saveNavigate({ url: newNavigate.url, id: newNavigate.id }))
   }
 
   const changeLanguageHandler = (lang) => {
@@ -98,6 +98,7 @@ function App() {
           language={language}
           changeLanguageHandler={changeLanguageHandler}
         />
+
         <Routes>
           <Route path="/" element={<SignIn />} />
           <Route path="/dashboard" element={<UserDashboard />} />

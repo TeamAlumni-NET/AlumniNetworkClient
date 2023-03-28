@@ -7,7 +7,7 @@ import {
   TextField,
   Box,
   IconButton,
-  CardHeader
+  CardHeader,
 } from "@mui/material"
 import { useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react"
@@ -21,15 +21,22 @@ import CreatePostForm from "../../pages/post/CreatePostForm"
 import EventCard from "./EventCard"
 import { useDispatch } from "react-redux"
 import { saveNaviage } from "../../../reducers/currentPageSlice"
+import CommentPost from "./CommentPost"
 
-const DetailsList = ({ stringList, data, timeline, events, dashboard = false, defaultType}) => {
+const DetailsList = ({
+  stringList,
+  data,
+  timeline,
+  events,
+  dashboard = false,
+  defaultType,
+}) => {
   const dispatch = useDispatch()
   const defaultdata = {}
   const [search, setSearch] = useState("")
   const [posts, setPosts] = useState(data)
   const [opencalendar, setOpenCalendar] = useState(false)
   const [openDialog, setOpenDialog] = useState(false)
-
   useEffect(() => {
     if (search === "") setPosts(data)
     else {
@@ -53,7 +60,7 @@ const DetailsList = ({ stringList, data, timeline, events, dashboard = false, de
   const handleOpenDialog = (e) => {
     e.preventDefault()
     if (defaultType !== undefined) {
-      console.log(data);
+      console.log(data)
       //defaultType.name = data.name
       //dispatch(saveNaviage({url: "uusiSivu",id: 2}))
     }
@@ -74,10 +81,13 @@ const DetailsList = ({ stringList, data, timeline, events, dashboard = false, de
     const childPostList = (post) => {
       return post.map((childPost, i) => {
         return (
-          <Card key={i}>
-            <CardContent>{childPost.content}</CardContent>
-            <CardHeader subheader={"@" + childPost.user} />
-          </Card>
+          // <Card key={i}>
+          //   <CardContent>
+          //     <Typography>{childPost.content}</Typography>
+          //   </CardContent>
+          //   <CardHeader subheader={"@" + childPost.user} />
+          // </Card>
+          <CommentPost comment={childPost} key={i} />
         )
       })
     }
@@ -156,7 +166,10 @@ const DetailsList = ({ stringList, data, timeline, events, dashboard = false, de
                 {stringList.title}
               </Typography>
               {!timeline && (
-                <IconButton color="secondary" onClick={() => setOpenCalendar(true)}>
+                <IconButton
+                  color="secondary"
+                  onClick={() => setOpenCalendar(true)}
+                >
                   <CalendarMonthIcon />
                 </IconButton>
               )}
@@ -175,15 +188,6 @@ const DetailsList = ({ stringList, data, timeline, events, dashboard = false, de
                 label={stringList.search}
                 onChange={handleChange}
               />
-              {!timeline &&
-              <JoinOrLeave
-                type={
-                  window.location.href.indexOf("group") > -1
-                    ? "groups"
-                    : "topics"
-                }
-              />
-              }
               {!timeline && (
                 <JoinOrLeave
                   type={
@@ -204,12 +208,13 @@ const DetailsList = ({ stringList, data, timeline, events, dashboard = false, de
           </>
         )}
       </Container>
-      {openDialog && 
-      <CreatePostForm
-        defaultdata={defaultdata}
-        openDialog={openDialog}
-        setOpenDialog={setOpenDialog}
-      />}
+      {openDialog && (
+        <CreatePostForm
+          defaultdata={defaultdata}
+          openDialog={openDialog}
+          setOpenDialog={setOpenDialog}
+        />
+      )}
     </>
   )
 }

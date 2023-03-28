@@ -18,6 +18,7 @@ import EastIcon from "@mui/icons-material/East"
 import { Navigate, useNavigate } from "react-router-dom"
 import { useDispatch } from "react-redux"
 import { saveNavigate } from "../../reducers/currentPageSlice"
+import { Container } from "@mui/system"
 
 const CalendarInfo = ({ open, setOpen, event }) => {
   const dispatch = useDispatch()
@@ -87,7 +88,8 @@ const CalendarInfo = ({ open, setOpen, event }) => {
           size="small"
           onClick={() => {
             navigate(`/event/${event?.title.replace(/\s/g, "_")}`)
-            dispatch(saveNavigate({url: event?.title, id: event?.id})) }}
+            dispatch(saveNavigate({ url: event?.title, id: event?.id }))
+          }}
         >
           View event!
         </Button>

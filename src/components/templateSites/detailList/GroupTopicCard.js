@@ -6,6 +6,7 @@ import {
   CardHeader,
   Divider,
   IconButton,
+  Typography,
 } from "@mui/material"
 import NavigateNextIcon from "@mui/icons-material/NavigateNext"
 import { Box } from "@mui/system"
@@ -29,13 +30,19 @@ const GroupTopicCard = ({ post, childPost, search }) => {
         <Box>
           <CardHeader title={post.title} />
           <Divider />
-          <CardContent>{post.content} </CardContent>
+          <CardContent>
+            <Typography>{post.content}</Typography>
+          </CardContent>
           <CardHeader
             avatar={<Avatar src={post.user.pictureUrl} />}
             title={`${post.user.firstName} ${post.user.lastName}`}
             subheader={`@${post.user.username}`}
             onClick={() => {
-              dispatch(dispatch(saveNavigate({url: post.user.username, id: post.user.id})))
+              dispatch(
+                dispatch(
+                  saveNavigate({ url: post.user.username, id: post.user.id })
+                )
+              )
               navigate(`/profile/${post.user.username.replace(/\s/g, "_")}`)
             }}
           ></CardHeader>
@@ -43,8 +50,10 @@ const GroupTopicCard = ({ post, childPost, search }) => {
         <CardActions mr={"10px"}>
           <IconButton
             onClick={() => {
-              dispatch(dispatch(saveNavigate({url: post.title, id: post.id})))
-              navigate(`../post/${post.title.replace(/\s/g, "_")}`, { replace: true })
+              dispatch(dispatch(saveNavigate({ url: post.title, id: post.id })))
+              navigate(`../post/${post.title.replace(/\s/g, "_")}`, {
+                replace: true,
+              })
             }}
           >
             <NavigateNextIcon />
