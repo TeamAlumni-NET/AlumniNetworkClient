@@ -239,5 +239,8 @@ export const strings = new LocalizedStrings({
       endTime: "Lopetusaika",
       createEvent: "Luo tapahtuma"
     },
+    calendar: {
+      text: "Löydä mieleisiäsi tapahtumia!",
+    },
   },
 })

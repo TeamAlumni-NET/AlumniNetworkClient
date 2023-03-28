@@ -169,7 +169,7 @@ const DetailsList = ({ stringList, data, timeline, events, dashboard = false, de
                 size="small"
               >
                 <AddIcon />
-                {strings.common.create}
+                {strings.timeline.createNew}
               </Button>
 
               <Button
@@ -179,7 +179,7 @@ const DetailsList = ({ stringList, data, timeline, events, dashboard = false, de
                 size="small"
               >
                 <AddIcon />
-                Create Event
+                {strings.createEvent.title}
               </Button>
 
               <TextField
