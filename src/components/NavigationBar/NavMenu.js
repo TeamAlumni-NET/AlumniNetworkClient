@@ -4,6 +4,8 @@ import { useState } from "react"
 import { strings } from "../../utils/localization"
 import MenuIcon from "@mui/icons-material/Menu"
 import { useNavigate } from "react-router"
+import { useDispatch } from "react-redux"
+import { saveNavigate } from "../../reducers/currentPageSlice"
 /**
  * An element to display menu as hamburger drawer menu
  * @returns {JSX-Element}
@@ -11,11 +13,12 @@ import { useNavigate } from "react-router"
 const NavMenu = ({ paths }) => {
   const [drawer, setDrawer] = useState(false)
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   /**
    * Toggles drawer to open or close
    * @param {string} anchor //side of drawer
-   * @param {*} open //bool to open/close drawer
+   * @param {Boolean} open //bool to open/close drawer
    * @returns //nothing
    */
   const toggleDrawer = (anchor, open) => (event) => {
@@ -43,7 +46,10 @@ const NavMenu = ({ paths }) => {
         {strings.navbar.navMenuList.map((item, key) => (
           <MenuItem
             key={key}
-            onClick={() => navigate(`/${paths[key].toLowerCase()}`)}
+            onClick={() => {
+              dispatch(saveNavigate({url: paths[key].toLowerCase(), id: null}))
+              navigate(`/${paths[key].toLowerCase()}`)
+            }}
           >
             {item}
           </MenuItem>

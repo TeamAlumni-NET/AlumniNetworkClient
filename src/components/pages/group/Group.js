@@ -1,17 +1,16 @@
 import { Container } from "@mui/system"
-import React, { useEffect, useState } from "react"
+import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import DetailsList from "../../templateSites/detailList/DetailsList"
-import { useParams } from "react-router-dom"
 import { getGroupPostsList } from "../../../reducers/postsSlice"
 import { strings } from "../../../utils/localization"
 import { getGroupEventsList } from "../../../reducers/eventsSlice"
 
 const Group = () => {
-  const { name, id } = useParams()
   const dispatch = useDispatch()
   const { postsGroup } = useSelector((state) => state.postsList)
   const { groupEvents } = useSelector((state) => state.eventList)
+  const { id } = useSelector(state => state.currentPage)
   let groups = [...postsGroup]
 
   const stringList = {
@@ -37,7 +36,7 @@ const Group = () => {
         data={groups}
         timeline={false}
         events={groupEvents}
-        type={"group"}
+        defaultType={"group"}
       />
     </Container>
   )

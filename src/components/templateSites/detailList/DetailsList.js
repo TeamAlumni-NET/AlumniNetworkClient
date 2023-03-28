@@ -19,9 +19,12 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth"
 import GroupTopicCard from "./GroupTopicCard"
 import CreatePostForm from "../../pages/post/CreatePostForm"
 import EventCard from "./EventCard"
+import { useDispatch } from "react-redux"
+import { saveNaviage } from "../../../reducers/currentPageSlice"
 
-const DetailsList = ({ stringList, data, timeline, events, dashboard = false, }) => {
-  const navigate = useNavigate()
+const DetailsList = ({ stringList, data, timeline, events, dashboard = false, defaultType}) => {
+  const dispatch = useDispatch()
+  const defaultdata = {}
   const [search, setSearch] = useState("")
   const [posts, setPosts] = useState(data)
   const [opencalendar, setOpenCalendar] = useState(false)
@@ -46,6 +49,17 @@ const DetailsList = ({ stringList, data, timeline, events, dashboard = false, })
       )
     }
   }, [search, data])
+
+  const handleOpenDialog = (e) => {
+    e.preventDefault()
+    if (defaultType !== undefined) {
+      console.log(data);
+      //defaultType.name = data.name
+      //dispatch(saveNaviage({url: "uusiSivu",id: 2}))
+    }
+    setOpenDialog(true)
+  }
+
   const handleChange = (e) => {
     setSearch(e.target.value.toLowerCase())
   }
@@ -147,7 +161,7 @@ const DetailsList = ({ stringList, data, timeline, events, dashboard = false, })
                 </IconButton>
               )}
               <Button
-                onClick={() => setOpenDialog(true)}
+                onClick={(e) => handleOpenDialog(e)}
                 variant="contained"
                 sx={{ mr: "5px", ml: "5px" }}
                 size="small"
@@ -192,7 +206,7 @@ const DetailsList = ({ stringList, data, timeline, events, dashboard = false, })
       </Container>
       {openDialog && 
       <CreatePostForm
-        defaultdata={{}}
+        defaultdata={defaultdata}
         openDialog={openDialog}
         setOpenDialog={setOpenDialog}
       />}

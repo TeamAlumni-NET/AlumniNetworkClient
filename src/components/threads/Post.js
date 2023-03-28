@@ -4,11 +4,11 @@ import { currentChildPosts, getCurrentPost } from '../../reducers/postSlice'
 import { Button, Paper, Typography, Avatar } from '@mui/material'
 import { Link } from 'react-router-dom'
 import { strings } from '../../utils/localization'
-function Post () {
+
+const Post = () => {
   const dispatch = useDispatch()
   const { post, childPosts } = useSelector(state => state.post)
-
-  var idFromUrl = window.location.pathname.split('/')
+  const { id } = useSelector(state => state.currentPage)
 
   const timeFormat = timeStamp => {
     const formatTime = new Date(timeStamp).toLocaleString('en-Fi', {
@@ -22,16 +22,15 @@ function Post () {
   }
 
   useEffect(() => {
-    //hardcoded
-    dispatch(getCurrentPost(idFromUrl.slice(-1).toString()))
-    dispatch(currentChildPosts(idFromUrl.slice(-1).toString()))
+    dispatch(getCurrentPost(id))
+    dispatch(currentChildPosts(id))
   }, [dispatch])
 
   return (
     <div
       style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
     >
-      {post === undefined ? (
+      {Object.keys(post).length === 0 ? (
         <Typography>{strings.postThread.wrongPostId}</Typography>
       ) : (
         <Paper
@@ -49,7 +48,7 @@ function Post () {
           </Typography>
           <Typography variant='body'>{post?.content}</Typography>
           <Typography>{timeFormat(post.timeStamp)}</Typography>
-          <Button component={Link} to={`/profile/${post.user}`}>
+          <Button component={Link} to={`/profile/${post.user.replace(/\s/g, "_")}`}>
             {post.user}
           </Button>
         </Paper>
@@ -80,7 +79,7 @@ function Post () {
             <p>{child.content}</p>
             <p>{timeFormat(child.timeStamp)}</p>
 
-            <Button component={Link} to={`/profile/${child.username}`}>
+            <Button component={Link} to={`/profile/${child.username.replace(/\s/g, "_")}`}>
               {child.username}
             </Button>
           </Paper>

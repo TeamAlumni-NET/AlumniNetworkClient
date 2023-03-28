@@ -8,7 +8,9 @@ import { MenuItem, Select, useMediaQuery } from "@mui/material"
 import NavMenu from "./NavMenu"
 import keycloak from "../../keycloak"
 import { useEffect } from "react"
-import { Navigate, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
+import { useDispatch } from "react-redux"
+import { saveNavigate } from "../../reducers/currentPageSlice"
 
 /**
  *  Navigation bar for page navigation
@@ -16,6 +18,7 @@ import { Navigate, useNavigate } from "react-router-dom"
  */
 const NavBar = ({ language, changeLanguageHandler }) => {
   const isAuthenticated = keycloak.authenticated
+  const dispatch = useDispatch()
   const navigate = useNavigate()
   const mobile = useMediaQuery("(max-width:800px)")
   const pc = useMediaQuery("(min-width:800px)")
@@ -26,6 +29,7 @@ const NavBar = ({ language, changeLanguageHandler }) => {
 
   useEffect(() => {
     if (!isAuthenticated) {
+      dispatch(saveNavigate({url: "", id: null}))
       navigate("/")
     }
   }, [isAuthenticated])
@@ -43,8 +47,9 @@ const NavBar = ({ language, changeLanguageHandler }) => {
               strings.navbar.navMenuList.map((item, key) => (
                 <MenuItem
                   key={key}
-                  onClick={() =>
-                    navigate(`/${pathsArray()[key].toLowerCase()}`)
+                  onClick={() => {
+                    dispatch(saveNavigate({url: pathsArray()[key].toLowerCase(), id: null}))
+                    navigate(`/${pathsArray()[key].toLowerCase()}`)}
                   }
                 >
                   {item}

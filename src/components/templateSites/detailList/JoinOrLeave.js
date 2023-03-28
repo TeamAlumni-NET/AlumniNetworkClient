@@ -1,6 +1,6 @@
-import { Button, IconButton } from "@mui/material"
+import { Button } from "@mui/material"
 import { Box } from "@mui/system"
-import React, { useEffect } from "react"
+import { useEffect } from "react"
 import {
   addUserToGroupTopic,
   RevomeUserToGroupTopic,
@@ -13,7 +13,7 @@ import { getTopicAsList } from "../../../reducers/topicsSlice"
 
 import GroupRemoveIcon from "@mui/icons-material/GroupRemove"
 import GroupAddIcon from "@mui/icons-material/GroupAdd"
-import { Replay } from "@mui/icons-material"
+import { saveNavigate } from "../../../reducers/currentPageSlice"
 
 /**
  * A component to render
@@ -25,8 +25,8 @@ import { Replay } from "@mui/icons-material"
 const JoinOrLeave = ({ type }) => {
   const { groups } = useSelector((state) => state.groupList)
   const { topics } = useSelector((state) => state.topicList)
+  const { id } = useSelector(state => state.currentPage)
   const dispatch = useDispatch()
-  const { id } = useParams()
   const navigate = useNavigate()
   const [currGroup, currTopic] = [
     groups?.filter((g) => g.id === Number(id))[0],
@@ -61,10 +61,13 @@ const JoinOrLeave = ({ type }) => {
     }
     RevomeUserToGroupTopic(type, id).then(() => {
       currResourceFetch(type)
-      currResource?.isPrivate && navigate("../", { replace: true })
+      if (currResource?.isPrivate) {
+        dispatch(saveNavigate({url: "groups", id: null}))
+        navigate("../", { replace: true })
+      }
     })
   }
-  console.log(currResource)
+
   return (
     <Box>
       {currResource?.isMember ? (

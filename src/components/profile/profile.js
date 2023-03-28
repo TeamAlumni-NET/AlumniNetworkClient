@@ -20,15 +20,11 @@ const Img = styled('img')({
 function Profile () {
   const dispatch = useDispatch()
   const {user, profileUser}=useSelector(state => state.user)
+  const { id } = useSelector(state => state.currentPage)
 
-  var usernameFromUrl = window.location.pathname.split("/")
-  
-  
-
-   
   useEffect(() => {
     dispatch(getCurrentUser())
-    dispatch(getProfileUser(usernameFromUrl.slice(-1).toString())) 
+    dispatch(id) 
 
   }, [dispatch])
 

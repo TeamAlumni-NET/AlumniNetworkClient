@@ -16,8 +16,11 @@ import {
 import { useTheme } from "@emotion/react"
 import EastIcon from "@mui/icons-material/East"
 import { Navigate, useNavigate } from "react-router-dom"
+import { useDispatch } from "react-redux"
+import { saveNavigate } from "../../reducers/currentPageSlice"
 
 const CalendarInfo = ({ open, setOpen, event }) => {
+  const dispatch = useDispatch()
   const theme = useTheme()
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"))
   const navigate = useNavigate()
@@ -82,7 +85,9 @@ const CalendarInfo = ({ open, setOpen, event }) => {
         <Button
           variant="contained"
           size="small"
-          onClick={() => navigate(`/event/${event?.title.replace(/\s/g, "_")}`)}
+          onClick={() => {
+            navigate(`/event/${event?.title.replace(/\s/g, "_")}`)
+            dispatch(saveNavigate({url: event?.title, id: event?.id})) }}
         >
           View event!
         </Button>

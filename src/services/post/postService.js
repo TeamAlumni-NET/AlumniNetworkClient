@@ -81,6 +81,7 @@ export const getPost = async (id) => {
         Authorization: `bearer ${keycloak.token}`,
       },
     })
+    console.log(res.data);
     return res.data
   } catch (error) {
     console.log(error.message)

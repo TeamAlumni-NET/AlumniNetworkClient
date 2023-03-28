@@ -2,10 +2,13 @@ import { Card, CardContent, Typography, Button, Container } from "@mui/material"
 import { useNavigate } from "react-router-dom"
 import { useState } from "react"
 import CreateGroupTopic from "./CreateGroupTopic"
+import { useDispatch } from "react-redux"
+import { saveNavigate } from "../../../reducers/currentPageSlice"
 
 const GroupTopicList = ({ stringList, data, type, createNewGroupTopic, setCreateNewGroupTopic }) => {
   const [showCreateNew, setShowCreateNew] = useState(false)
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const list = () => {
     if (data) {
@@ -14,9 +17,10 @@ const GroupTopicList = ({ stringList, data, type, createNewGroupTopic, setCreate
           <Card
             key={d.id}
             sx={{ display: "flex", justifyContent: "space-between" }}
-            onClick={() =>
-              navigate(`/${type}/${d.name.replace(/\s/g, "_")}/${d.id}`)
-            }
+            onClick={() => {
+              dispatch(saveNavigate({url: d.name, id: d.id}))
+              navigate(`/${type}/${d.name.replace(/\s/g, "_")}`)
+            }}
           >
             <CardContent>
               <Typography variant="body1">{d.name}</Typography>
@@ -35,7 +39,6 @@ const GroupTopicList = ({ stringList, data, type, createNewGroupTopic, setCreate
     }
   }
 
-  console.log('setplapal: ', setCreateNewGroupTopic)
   return (
     <>
       <Container sx={{ width: "70vw" }}>

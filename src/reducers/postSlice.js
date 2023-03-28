@@ -5,6 +5,7 @@ import { getPost, getChildPosts, postPost} from "../services/post/postService"
 export const getCurrentPost = createAsyncThunk(
   "post/getPost",
   async(id) =>{
+    console.log(id);
     const response = await getPost(id)
     return response
   }
