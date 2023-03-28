@@ -21,14 +21,16 @@ import CreatePostForm from "../../pages/post/CreatePostForm"
 import EventCard from "./EventCard"
 import { useDispatch } from "react-redux"
 import { saveNaviage } from "../../../reducers/currentPageSlice"
+import CreateEventPage from "../../pages/event/CreateEventPage"
 
-const DetailsList = ({ stringList, data, timeline, events, dashboard = false, defaultType}) => {
+const DetailsList = ({ stringList, data, timeline, events, dashboard = false, defaultType }) => {
   const dispatch = useDispatch()
   const defaultdata = {}
   const [search, setSearch] = useState("")
   const [posts, setPosts] = useState(data)
   const [opencalendar, setOpenCalendar] = useState(false)
   const [openDialog, setOpenDialog] = useState(false)
+  const [openDialogEvent, setOpenDialogEvent] = useState(false)
 
   useEffect(() => {
     if (search === "") setPosts(data)
@@ -53,12 +55,13 @@ const DetailsList = ({ stringList, data, timeline, events, dashboard = false, de
   const handleOpenDialog = (e) => {
     e.preventDefault()
     if (defaultType !== undefined) {
-      console.log(data);
+      console.log(data)
       //defaultType.name = data.name
       //dispatch(saveNaviage({url: "uusiSivu",id: 2}))
     }
     setOpenDialog(true)
   }
+
 
   const handleChange = (e) => {
     setSearch(e.target.value.toLowerCase())
@@ -94,9 +97,8 @@ const DetailsList = ({ stringList, data, timeline, events, dashboard = false, de
         let url = ""
         if (post.startTime) {
           const rawTime = new Date(post.startTime)
-          time = `${rawTime.getHours()}:${rawTime.getMinutes()} ${rawTime.getDate()}.${
-            rawTime.getMonth() + 1
-          }.${rawTime.getFullYear()}`
+          time = `${rawTime.getHours()}:${rawTime.getMinutes()} ${rawTime.getDate()}.${rawTime.getMonth() + 1
+            }.${rawTime.getFullYear()}`
         }
         if (post.group) url = `/group/${post.group}`
         else if (post.topic) url = `/topic/${post.topic}`
@@ -169,6 +171,17 @@ const DetailsList = ({ stringList, data, timeline, events, dashboard = false, de
                 <AddIcon />
                 {strings.common.create}
               </Button>
+
+              <Button
+                onClick={() => setOpenDialogEvent(true)}
+                variant="contained"
+                sx={{ mr: "5px", ml: "5px" }}
+                size="small"
+              >
+                <AddIcon />
+                Create Event
+              </Button>
+
               <TextField
                 size="small"
                 variant="outlined"
@@ -176,13 +189,13 @@ const DetailsList = ({ stringList, data, timeline, events, dashboard = false, de
                 onChange={handleChange}
               />
               {!timeline &&
-              <JoinOrLeave
-                type={
-                  window.location.href.indexOf("group") > -1
-                    ? "groups"
-                    : "topics"
-                }
-              />
+                <JoinOrLeave
+                  type={
+                    window.location.href.indexOf("group") > -1
+                      ? "groups"
+                      : "topics"
+                  }
+                />
               }
               {!timeline && (
                 <JoinOrLeave
@@ -204,12 +217,17 @@ const DetailsList = ({ stringList, data, timeline, events, dashboard = false, de
           </>
         )}
       </Container>
-      {openDialog && 
-      <CreatePostForm
-        defaultdata={defaultdata}
-        openDialog={openDialog}
-        setOpenDialog={setOpenDialog}
-      />}
+      {openDialog &&
+        <CreatePostForm
+          defaultdata={defaultdata}
+          openDialog={openDialog}
+          setOpenDialog={setOpenDialog}
+        />}
+      {openDialogEvent &&
+        <CreateEventPage
+          openDialogEvent={openDialogEvent}
+          setOpenDialogEvent={setOpenDialogEvent}
+        />}
     </>
   )
 }
