@@ -124,7 +124,7 @@ export const postListSlice = createSlice({
       const index = current(state.childPosts).findIndex(post => post.id === action.payload.id)
       state.childPosts[index].content = action.payload.content
     })
-  },
+  }
 })
 
 export const {} = postListSlice.actions

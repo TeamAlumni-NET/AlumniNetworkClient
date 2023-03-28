@@ -74,7 +74,7 @@ const EventCard = ({ post, time, childPost, search }) => {
             <IconButton
               onClick={() => {
                 dispatch(saveNavigate({url: post.name, id: post.id}))
-                navigate(`../post/${post.name.replace(/\s/g, "_")}`, { replace: true })
+                navigate(`../event/${post.name.replace(/\s/g, "_")}`, { replace: true })
               }}
             >
               <NavigateNextIcon />

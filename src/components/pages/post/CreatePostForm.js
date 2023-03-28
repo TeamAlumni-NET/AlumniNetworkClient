@@ -6,7 +6,7 @@ import { getGroupAsList } from '../../../reducers/groupsSlice'
 import { getTopicAsList } from '../../../reducers/topicsSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { getDashboardPostsList, getGroupPostsList, getPostsAsList, getTopicPostsList, postNewPost } from '../../../reducers/postsSlice'
-import snarkdown from 'snarkdown'
+//import snarkdown from 'snarkdown'
 import CreateGroupTopic from '../../templateSites/groupTopicList/CreateGroupTopic'
 import { createGroupTopic as createGroupTopicService } from '../../../services/group/groupsTopicsService'
 import { getCurrentUser } from '../../../reducers/userSlice'
@@ -22,12 +22,7 @@ const initialState = {
   user: null
 }
 
-/**
- * 
- * @param {*} defaultdata: nameForForm, eventId, groupId, topicId, targetUserId, parentPostId, targetUserName
- * @returns 
- */
-const CreatePostForm = ({defaultdata, openDialog, setOpenDialog}) => {
+const CreatePostForm = ({ defaultdata, openDialog, setOpenDialog }) => {
   const dispatch = useDispatch()
   const filter = createFilterOptions()
   const { groups } = useSelector(state => state.groupList)
@@ -87,12 +82,6 @@ const CreatePostForm = ({defaultdata, openDialog, setOpenDialog}) => {
     else if (window.location.href.indexOf("topic") > -1) dispatch(getTopicPostsList(id))
     handleClose()
   }
-  
-  /*test snarkdown
-  let md = '_this_ is **easy** to `use`.';
-  let html = snarkdown(md);
-  console.log(html);
-  */
 
   const autoCompleteRender = (completetype) => {
     const isDisabled = () => {
@@ -155,7 +144,7 @@ const CreatePostForm = ({defaultdata, openDialog, setOpenDialog}) => {
                 topicId: newValue.id,
               }))
             }
-          } 
+          }
         }}
         filterOptions={(options, params) => {
           const filtered = filter(options, params)
@@ -177,7 +166,6 @@ const CreatePostForm = ({defaultdata, openDialog, setOpenDialog}) => {
       anchor='bottom'
       open={openDialog}
       onClose={handleClose}
-      //TransitionCompnent={Transition}
     >
       <form onSubmit={handleSubmit} style={{ padding: 20 }}>
         <Box sx={{
@@ -233,7 +221,7 @@ const CreatePostForm = ({defaultdata, openDialog, setOpenDialog}) => {
             />
           </div>
         </Box>
-        
+
         {showCreateNew &&
           <CreateGroupTopic
             type={type}
@@ -244,7 +232,6 @@ const CreatePostForm = ({defaultdata, openDialog, setOpenDialog}) => {
           />}
         <Button onClick={handleClose}>{strings.common.cancel}</Button>
         <Button onClick={handleSubmit}>{strings.createPostForm.post}</Button>
-        
       </form>
     </Drawer>
   )

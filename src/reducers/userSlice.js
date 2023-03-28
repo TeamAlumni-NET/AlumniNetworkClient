@@ -16,6 +16,9 @@ export const patchCurrentUser = createAsyncThunk(
     return response
   }
 )
+
+
+
 export const getProfileUser = createAsyncThunk(
   'user/getUserByUsername',
   async username => {
@@ -39,7 +42,7 @@ export const userSlice = createSlice({
     builder.addCase(getProfileUser.fulfilled, (state, action) => {
       state.profileUser = action.payload
     })
-  }
+  },
 })
-export const {} = userSlice.actions
+export const { } = userSlice.actions
 export default userSlice.reducer

@@ -20,7 +20,7 @@ const Img = styled('img')({
 function Profile () {
   const dispatch = useDispatch()
   const {user, profileUser}=useSelector(state => state.user)
-  const { id, url } = useSelector(state => state.currentPage)
+  const { url } = useSelector(state => state.currentPage)
 
   useEffect(() => {
     dispatch(getCurrentUser())
