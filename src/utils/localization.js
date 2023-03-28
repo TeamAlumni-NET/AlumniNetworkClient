@@ -48,6 +48,8 @@ export const strings = new LocalizedStrings({
       funFact: "Fun Fact",
       bio: "Bio",
       pictureUrl: "Profilepicture's URL",
+      errorMessage: "Something went wrong",
+      success: "Profile updated"
     },
     common: {
       edit: "Edit",
@@ -105,7 +107,7 @@ export const strings = new LocalizedStrings({
       private: "Yksityinen",
     },
     group: {
-      title: "Postit",
+      title: "Julkaisut",
       createNew: "Luo uusi posti",
       group: "Ryhmässä: ",
       groups: "Ryhmä/t: ",
@@ -116,7 +118,7 @@ export const strings = new LocalizedStrings({
       member: "Jäsen",
     },
     topic: {
-      title: "Postit",
+      title: "Julkaisut",
       createNew: "Luo uusi posti",
       topic: "Aiheessa: ",
       topics: "Aiheessa: ",
@@ -128,6 +130,8 @@ export const strings = new LocalizedStrings({
       funFact: "Hauska fakta",
       bio: "kuvaus",
       pictureUrl: "Profiilikuvan URL",
+      errorMessage: "Jotain meni pieleen",
+      success: "Profiili päivitetty"
     },
     common: {
       edit: "Muokkaa",
