@@ -15,8 +15,7 @@ const UserDashboard = () => {
   const dispatch = useDispatch()
   const { userEvents } = useSelector((state) => state.eventList)
   const { postsDashboard } = useSelector((state) => state.postsList)
-  let posts = [...postsDashboard]
-
+  const [posts, setPosts] = useState([])
   const stringList = {
     title: strings.topic.title,
     createNew: strings.topic.createNew,
@@ -34,9 +33,12 @@ const UserDashboard = () => {
   }
 
   useEffect(() => {
-    posts
-      .sort((a, b) => new Date(a.timeStamp) - new Date(b.timeStamp))
-      .reverse()
+    const posts = [...postsDashboard]
+    setPosts(
+      posts
+        .sort((a, b) => new Date(a.timeStamp) - new Date(b.timeStamp))
+        .reverse()
+    )
   }, [postsDashboard, stringList])
 
   return (
@@ -48,11 +50,7 @@ const UserDashboard = () => {
           <Tab label={strings.common.calendar} />
         </Tabs>
         <TabPanel value={0}>
-          <DetailsList
-            data={postsDashboard}
-            stringList={stringList}
-            dashboard={true}
-          />
+          <DetailsList data={posts} stringList={stringList} dashboard={true} />
         </TabPanel>
         <TabPanel value={1}>
           <Calendar events={userEvents} />

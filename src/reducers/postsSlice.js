@@ -48,16 +48,16 @@ export const postListSlice = createSlice({
     builder.addCase(getPostsAsList.fulfilled, (state, action) => {
       state.postsTimeline = action.payload
     }),
-    builder.addCase(getGroupPostsList.fulfilled, (state, action) => {
-      state.postsGroup = action.payload
-    }),
-    builder.addCase(getTopicPostsList.fulfilled, (state, action) => {
-      state.postsTopic = action.payload
-    }),
-    builder.addCase(getDashboardPostsList.fulfilled, (state, action) => {
-      state.postsDashboard = action.payload
-    })
-  }
+      builder.addCase(getGroupPostsList.fulfilled, (state, action) => {
+        state.postsGroup = action.payload
+      }),
+      builder.addCase(getTopicPostsList.fulfilled, (state, action) => {
+        state.postsTopic = action.payload
+      }),
+      builder.addCase(getDashboardPostsList.fulfilled, (state, action) => {
+        state.postsDashboard = action.payload ? action.payload : []
+      })
+  },
 })
 
 export const {} = postListSlice.actions
