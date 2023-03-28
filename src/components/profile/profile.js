@@ -37,7 +37,7 @@ function Profile () {
       sx={{
         p: 2,
         margin: 'auto',
-        maxWidth: '75%',
+        maxWidth: '50%',
         flexGrow: 1,
         backgroundColor: theme =>
           theme.palette.mode === 'dark' ? '#1A2027' : '#fff'
@@ -85,7 +85,7 @@ function Profile () {
           sx={{ height: 600 }}
         >
           <Grid item xs>
-            <Box sx={{ backgroundColor: 'lightgrey', height: 400 }}>
+            <Box sx={{ backgroundColor: 'lightgrey', height: 400, width: '75%' }}>
               <Typography variant='body2' gutterBottom>
                 {profileUser?.bio}
               </Typography>

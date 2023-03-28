@@ -1,6 +1,6 @@
-import { Button, IconButton } from "@mui/material"
+import { Button } from "@mui/material"
 import { Box } from "@mui/system"
-import React, { useEffect } from "react"
+import { useEffect } from "react"
 import {
   addUserToGroupTopic,
   RevomeUserToGroupTopic,
@@ -13,7 +13,7 @@ import { getTopicAsList } from "../../../reducers/topicsSlice"
 
 import GroupRemoveIcon from "@mui/icons-material/GroupRemove"
 import GroupAddIcon from "@mui/icons-material/GroupAdd"
-import { Replay } from "@mui/icons-material"
+
 
 /**
  * A component to render

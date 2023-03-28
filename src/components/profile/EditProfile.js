@@ -49,12 +49,12 @@ const EditProfile = () => {
       dispatch(patchCurrentUser(JSON.stringify(dataToBackend)))
     } catch (e) {
       handleClose()
-      alert("Something went wrong")
+      alert(strings.profilePage.errorMessage)
       return
     }
 
     handleClose()
-    alert("Profile updated")
+    alert(strings.profilePage.success)
     dispatch(getCurrentUser())
     dispatch(getProfileUser(user.username))
   }

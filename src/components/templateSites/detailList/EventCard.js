@@ -1,23 +1,18 @@
 import {
-  Avatar,
-  Button,
   Card,
   CardActions,
-  CardContent,
   CardHeader,
   Divider,
   IconButton,
-  Typography,
 } from "@mui/material"
 import NavigateNextIcon from "@mui/icons-material/NavigateNext"
 import { Box } from "@mui/system"
-import React, { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { strings } from "../../../utils/localization"
 import AccessTimeIcon from "@mui/icons-material/AccessTime"
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth"
 
-const EventCard = ({ post, url, time, childPost, search, stringList }) => {
+const EventCard = ({ post, time, childPost, search }) => {
   const navigate = useNavigate()
 
   const getTopicOrGroupText = () => {
