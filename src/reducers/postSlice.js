@@ -22,8 +22,8 @@ export const currentChildPosts = createAsyncThunk(
 export const postNewPost = createAsyncThunk(
   "post/postPost",
   async(data)=>{
-      const response = await postPost(data)
-      return response
+    const response = await postPost(data)
+    return response
   }
 )
 

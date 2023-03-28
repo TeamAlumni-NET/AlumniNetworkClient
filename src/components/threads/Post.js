@@ -2,10 +2,12 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { currentChildPosts, getCurrentPost } from '../../reducers/postSlice'
 import { Button, Paper, Typography, Avatar } from '@mui/material'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { strings } from '../../utils/localization'
+import { saveNavigate } from '../../reducers/currentPageSlice'
 
 const Post = () => {
+  const navigate = useNavigate()
   const dispatch = useDispatch()
   const { post, childPosts } = useSelector(state => state.post)
   const { id } = useSelector(state => state.currentPage)
@@ -48,7 +50,10 @@ const Post = () => {
           </Typography>
           <Typography variant='body'>{post?.content}</Typography>
           <Typography>{timeFormat(post.timeStamp)}</Typography>
-          <Button component={Link} to={`/profile/${post.user.replace(/\s/g, "_")}`}>
+          <Button onClick={() => {
+            dispatch(saveNavigate({url: post.user, id: post.userId}))
+            navigate(`/profile/${post.user.replace(/\s/g, "_")}`)
+          }}>
             {post.user}
           </Button>
         </Paper>
@@ -79,7 +84,10 @@ const Post = () => {
             <p>{child.content}</p>
             <p>{timeFormat(child.timeStamp)}</p>
 
-            <Button component={Link} to={`/profile/${child.username.replace(/\s/g, "_")}`}>
+            <Button onClick={() => {
+              dispatch(saveNavigate({url: child.username, id: null}))
+              navigate(`/profile/${child.username.replace(/\s/g, "_")}`)
+            }}>
               {child.username}
             </Button>
           </Paper>

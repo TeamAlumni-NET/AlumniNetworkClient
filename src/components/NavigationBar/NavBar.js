@@ -22,10 +22,7 @@ const NavBar = ({ language, changeLanguageHandler }) => {
   const navigate = useNavigate()
   const mobile = useMediaQuery("(max-width:800px)")
   const pc = useMediaQuery("(min-width:800px)")
-
-  const pathsArray = () => {
-    return ["timeline", "group", "topic", "calendar", "dashboard", "profile"]
-  }
+  const pathsArray = ["timeline", "group", "topic", "calendar", "dashboard", "profile"]
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -34,12 +31,23 @@ const NavBar = ({ language, changeLanguageHandler }) => {
     }
   }, [isAuthenticated])
 
+  const handleNavigate = (key) =>{
+    if (pathsArray[key] === "profile"){
+      dispatch(saveNavigate({url: JSON.parse(localStorage.getItem("currentUser")).userName, id: null}))
+      navigate(`/${pathsArray[key].toLowerCase()}/${JSON.parse(localStorage.getItem("currentUser")).userName.toLowerCase()}`)
+    }
+    else {
+      dispatch(saveNavigate({url: pathsArray[key].toLowerCase(), id: null}))
+      navigate(`/${pathsArray[key].toLowerCase()}`)
+    }
+  }
+
   return (
     isAuthenticated && (
       <Box>
         <AppBar position="static">
           <Toolbar>
-            {mobile && <NavMenu paths={pathsArray()} />}
+            {mobile && <NavMenu paths={pathsArray} />}
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               {strings.navbar.title}
             </Typography>
@@ -47,10 +55,7 @@ const NavBar = ({ language, changeLanguageHandler }) => {
               strings.navbar.navMenuList.map((item, key) => (
                 <MenuItem
                   key={key}
-                  onClick={() => {
-                    dispatch(saveNavigate({url: pathsArray()[key].toLowerCase(), id: null}))
-                    navigate(`/${pathsArray()[key].toLowerCase()}`)}
-                  }
+                  onClick={() => handleNavigate(key)}
                 >
                   {item}
                 </MenuItem>
