@@ -3,6 +3,7 @@ import {
   getUserEvents,
   getEventsAsList,
   getUserSuggestedEvents,
+  postEvent
 } from "../services/event/eventService"
 
 export const getEventsList = createAsyncThunk(
@@ -29,6 +30,14 @@ export const getUserSuggestedEventsList = createAsyncThunk(
   }
 )
 
+export const postNewEvent = createAsyncThunk(
+  "event/postEvent",
+  async (data) => {
+    const response = await postEvent(data)
+    return response
+  }
+)
+
 export const eventListSlice = createSlice({
   name: "events",
   initialState: {
@@ -41,14 +50,16 @@ export const eventListSlice = createSlice({
     builder.addCase(getEventsList.fulfilled, (state, action) => {
       state.userEvents = action.payload
     }),
-      builder.addCase(getTimelineEventsList.fulfilled, (state, action) => {
-        state.timelineEvents = action.payload
-      }),
-      builder.addCase(getUserSuggestedEventsList.fulfilled, (state, action) => {
-        state.userSuggestedEvents = action.payload
-      })
-  },
+    builder.addCase(getTimelineEventsList.fulfilled, (state, action) => {
+      state.timelineEvents = action.payload
+    }),
+    builder.addCase(getUserSuggestedEventsList.fulfilled, (state, action) => {
+      state.userSuggestedEvents = action.payload
+    }),
+    builder.addCase(postNewEvent.fulfilled), (state, action) => {
+      state.post = action.payload
+    }}
 })
 
-export const {} = eventListSlice.actions
+export const { } = eventListSlice.actions
 export default eventListSlice.reducer
