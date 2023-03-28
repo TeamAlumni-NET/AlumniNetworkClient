@@ -93,7 +93,19 @@ export const getChildPosts = async id => {
         Authorization: `bearer ${keycloak.token}`
       }
     })
+    return res.data
+  } catch (error) {
+    console.log(error.message)
+  }
+}
 
+export const patchPost = async (edit) => {
+  try {
+    const res = await axios.put(`${config.url}/api/posts/${edit.id}`, edit, {
+      headers: {
+        Authorization: `bearer ${keycloak.token}`,
+      },
+    })
     return res.data
   } catch (error) {
     console.log(error.message)

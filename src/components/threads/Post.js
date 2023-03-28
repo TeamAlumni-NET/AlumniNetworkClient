@@ -6,6 +6,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { strings } from '../../utils/localization'
 import { saveNavigate } from '../../reducers/currentPageSlice'
 import CreatePostForm from '../pages/post/CreatePostForm'
+import EditPostForm from '../pages/post/EditPostForm'
 
 const Post = () => {
   const navigate = useNavigate()
@@ -13,7 +14,13 @@ const Post = () => {
   const { post, childPosts } = useSelector(state => state.postsList)
   const { id, url } = useSelector(state => state.currentPage)
   const [openDialog, setOpenDialog] = useState(false)
+  const [openEdit, setOpenEdit] = useState(false)
   const [defaultdata, setDefaultdata] = useState({})
+  const [editData, setEditData] = useState({
+    id: null,
+    title: null,
+    content: null
+  })
 
   const timeFormat = timeStamp => {
     const formatTime = new Date(timeStamp).toLocaleString('en-Fi', {
@@ -50,6 +57,15 @@ const Post = () => {
     setDefaultdata(Object.assign(defaultdata, newData))
     setOpenDialog(true)
   }
+
+  const handleOpenEdit = (dataToEdit) => {
+    setEditData({
+      title: dataToEdit.title,
+      content: dataToEdit.content,
+      id: dataToEdit.id
+    })
+    setOpenEdit(true)
+  }
   
   return (
     <>
@@ -81,7 +97,10 @@ const Post = () => {
               }}>
                 {post.user}
               </Button>
-              <Button onClick={() => handleOpenDialog({})}>{strings.postThread.answer}</Button>
+              {post.userId !== JSON.parse(localStorage.getItem("currentUser")).id 
+                ? <Button onClick={() => handleOpenDialog({})}>{strings.postThread.answer}</Button>
+                : <Button onClick={() => handleOpenEdit(post)}>{strings.postThread.edit}</Button>
+              }
             </div>
             
           </Paper>
@@ -118,7 +137,11 @@ const Post = () => {
                 }}>
                   {child.user.username}
                 </Button>
-                <Button onClick={() => handleOpenDialog({targetUserId: child.user.id, targetUserName: child.user.username})}>{strings.postThread.answer}</Button>
+                {child.user.id !== JSON.parse(localStorage.getItem("currentUser")).id 
+                  ? <Button onClick={() => handleOpenDialog({targetUserId: child.user.id, targetUserName: child.user.username})}>{strings.postThread.answer}</Button>
+                  : <Button onClick={() => handleOpenEdit(child)}>{strings.postThread.edit}</Button>
+                }
+                
               </div>
             </Paper>
           ))
@@ -130,6 +153,12 @@ const Post = () => {
         openDialog={openDialog}
         setOpenDialog={setOpenDialog}
       />}
+      {openEdit &&
+        <EditPostForm 
+          defaultdata={editData}
+          openDialog={openEdit}
+          setOpenDialog={setOpenEdit}
+        />}
     </>
   )
 }
