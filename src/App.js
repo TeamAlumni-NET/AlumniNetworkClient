@@ -15,6 +15,7 @@ import { onSignInGetOrCreateUser } from "./services/user/UserCRUDOperations"
 import CalendarPage from "./components/pages/Calendar/CalendarPage"
 import Group from "./components/pages/group/Group"
 import Topic from "./components/pages/topic/Topic"
+import EventDetails from "./components/threads/EventDetails"
 
 function App() {
   const [language, setLanguage] = useState("en")
@@ -99,6 +100,7 @@ function App() {
           <Route path="/post/:id" element={<Post />} />
           <Route path="/group/:name/:id" element={<Group />} />
           <Route path="/topic/:name/:id" element={<Topic />} />
+          <Route path="/event" element={<EventDetails/>} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

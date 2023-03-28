@@ -48,8 +48,8 @@ export const getUserSuggestedEventsList = createAsyncThunk(
 
 export const getCurrentEventById = createAsyncThunk(
   "event/getEventById",
-  async () => {
-    const response = await getEventById()
+  async (id) => {
+    const response = await getEventById(id)
     return response
   }
 )
