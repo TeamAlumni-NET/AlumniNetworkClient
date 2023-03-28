@@ -185,13 +185,13 @@ const Post = () => {
           setOpenDialog={setOpenDialog}
         />
       )}
-      {/* {openEdit && (
+      {openEdit && (
         <EditPostForm
           defaultdata={editData}
           openDialog={openEdit}
           setOpenDialog={setOpenEdit}
         />
-      )} */}
+      )}
       {childPosts.map((child, i) => (
         <CommentPost comment={child} key={i} thread={true} />
       ))}

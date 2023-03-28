@@ -13,17 +13,21 @@ import { getCurrentUser, getProfileUser } from "../../../reducers/userSlice"
 import { getUser } from "../../../services/user/UserService"
 import EditPostForm from "../../pages/post/EditPostForm"
 import EditIcon from "@mui/icons-material/Edit"
+import { format } from "date-fns"
 
 const CommentPost = ({ comment, thread = false }) => {
   const { profileUser } = useSelector((state) => state.user)
   const dispatch = useDispatch()
   const [openEdit, setOpenEdit] = useState(false)
+  const time = comment?.timeStamp
+    ? format(new Date(comment?.timeStamp), "HH:m d.MM.yyyy")
+    : ""
   const [editData, setEditData] = useState({
     id: null,
     title: null,
     content: null,
   })
-
+  console.log(time)
   const handleOpenEdit = (dataToEdit) => {
     setEditData({
       title: dataToEdit.title,
@@ -32,7 +36,6 @@ const CommentPost = ({ comment, thread = false }) => {
     })
     setOpenEdit(true)
   }
-
   useEffect(() => {
     dispatch(getCurrentUser())
     dispatch(getProfileUser(thread ? comment.user.username : comment.user))
@@ -58,7 +61,16 @@ const CommentPost = ({ comment, thread = false }) => {
             />
           }
           title={`${profileUser?.firstName} ${profileUser?.lastName}`}
-          subheader={`@${profileUser?.username}`}
+          subheader={
+            <>
+              <p
+                style={{ padding: "0", margin: "0" }}
+              >{`@${profileUser?.username}`}</p>
+              <p style={{ padding: "0", margin: "0", fontSize: "11px" }}>
+                {time}
+              </p>
+            </>
+          }
         />
       </Card>
       <EditPostForm
