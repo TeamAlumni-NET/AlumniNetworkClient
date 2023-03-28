@@ -4,13 +4,13 @@ import keycloak from "../../keycloak"
 
 export const getGroupTopicList = async (target) => {
   try {
-    const userId = JSON.parse(localStorage.getItem("currentUser")).id;
+    const userId = JSON.parse(localStorage.getItem("currentUser")).id
     const res = await axios.get(
       `${config.url}/api/${target}/?userId=${userId}`,
       {
         headers: { Authorization: `bearer ${keycloak.token}` },
       }
-    );
+    )
     return res.data
   } catch (error) {
     console.log(error.message)
@@ -47,7 +47,6 @@ export const addUserToGroupTopic = async (target, id) => {
     console.log(error.message)
   }
 }
-
 export const RevomeUserToGroupTopic = async (target, id) => {
   try {
     const userId = JSON.parse(localStorage.getItem("currentUser")).id
@@ -57,7 +56,7 @@ export const RevomeUserToGroupTopic = async (target, id) => {
       {
         headers: { Authorization: `bearer ${keycloak.token}` },
       }
-    );
+    )
     return res.data
   } catch (error) {
     console.log(error.message)

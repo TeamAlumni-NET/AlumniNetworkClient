@@ -59,6 +59,20 @@ export const getTopicPosts = async (groupId) => {
     console.log(error.message)
   }
 }
+export const getUserDashboardPosts = async () => {
+  try {
+    const userId = JSON.parse(localStorage.getItem("currentUser")).id
+    const res = await axios.get(
+      `${config.url}/api/posts?userId=${userId}&target=dashboard`,
+      {
+        headers: { Authorization: `bearer ${keycloak.token}` },
+      }
+    )
+    return res.data
+  } catch (error) {
+    console.log(error.message)
+  }
+}
 
 export const getPost = async (id) => {
   try {

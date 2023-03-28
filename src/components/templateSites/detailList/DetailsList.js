@@ -7,6 +7,7 @@ import {
   TextField,
   Box,
   IconButton,
+  CardHeader
 } from "@mui/material"
 import { useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react"
@@ -17,8 +18,9 @@ import AddIcon from "@mui/icons-material/Add"
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth"
 import GroupTopicCard from "./GroupTopicCard"
 import CreatePostForm from "../../pages/post/CreatePostForm"
+import EventCard from "./EventCard"
 
-const DetailsList = ({ stringList, data, timeline, events }) => {
+const DetailsList = ({ stringList, data, timeline, events, dashboard = false, }) => {
   const navigate = useNavigate()
   const [search, setSearch] = useState("")
   const [posts, setPosts] = useState(data)
@@ -45,32 +47,31 @@ const DetailsList = ({ stringList, data, timeline, events }) => {
     }
   }, [search, data])
   const handleChange = (e) => {
-    console.log(e.target.value)
     setSearch(e.target.value.toLowerCase())
   }
 
-  // const childPost = (currentPost) => {
-  //   const listOfPosts = currentPost.filter(
-  //     (p) =>
-  //       p.content?.toLowerCase().includes(search) ||
-  //       p.user?.username?.toLowerCase().includes(search)
-  //   )
+  const childPost = (currentPost) => {
+    const listOfPosts = currentPost.filter(
+      (p) =>
+        p.content?.toLowerCase().includes(search) ||
+        p.user?.username?.toLowerCase().includes(search)
+    )
 
-  //   const childPostList = (post) => {
-  //     return post.map((childPost) => {
-  //       return (
-  //         <>
-  //           <Typography variant="body2">
-  //             {childPost.user}: {childPost.content}
-  //           </Typography>
-  //         </>
-  //       )
-  //     })
-  //   }
-  //   if (listOfPosts.length === 0) return <></>
+    const childPostList = (post) => {
+      return post.map((childPost, i) => {
+        return (
+          <Card key={i}>
+            <CardContent>{childPost.content}</CardContent>
+            <CardHeader subheader={"@" + childPost.user} />
+          </Card>
+        )
+      })
+    }
+    if (listOfPosts.length === 0) return <></>
 
-  //   return <CardContent>{childPostList(listOfPosts)}</CardContent>
-  // }
+    return childPostList(listOfPosts)
+  }
+
   const list = () => {
     if (posts.length > 0) {
       if (!posts[0].group && !posts[0].topic) return <>Loading</>
@@ -87,87 +88,23 @@ const DetailsList = ({ stringList, data, timeline, events }) => {
         else if (post.topic) url = `/topic/${post.topic}`
 
         return (
-          <Container key={i} maxWidth="sm" sx={{ mt: "40px" }}>
+          <Container key={i} maxWidth="sm" sx={{ mt: "10px" }}>
             {post.title ? (
-              // <Card
-              //   key={post.id + post.title}
-              //   sx={{ maxWidth: "600px", mt: "20px" }}
-              // >
-              //   <CardContent>
-              //     <Typography
-              //       variant="body2"
-              //       onClick={() => navigate(`/profile/${post.user}`)}
-              //     >
-              //       {post.user}
-              //     </Typography>
-              //     <Button
-              //       variant="body1"
-              //       sx={{ marginLeft: "20%" }}
-              //       onClick={() => {
-              //         navigate(`${url}/${post.title.replace(/\s/g, "_")}`)
-              //       }}
-              //     >
-              //       {post.title}
-              //     </Button>
-              //     {post.group ? (
-              //       <Typography variant="body2">
-              //         {stringList.group}
-              //         {post.group}
-              //       </Typography>
-              //     ) : (
-              //       <Typography variant="body2">
-              //         {stringList.topic}
-              //         {post.topic}
-              //       </Typography>
-              //     )}
-              //   </CardContent>
-              //   {search !== "" &&
-              //     post.childPosts.length > 0 &&
-              //     childPost(post.childPosts)}
-              // </Card>
               <GroupTopicCard
                 post={post}
                 stringList={stringList}
                 search={search}
                 time={time}
+                childPost={childPost}
               />
             ) : (
-              <Card
-                key={post.id + post.name}
-                sx={{ width: "100%", background: "aliceblue" }}
-              >
-                <CardContent>
-                  {post.group.length !== 0 ? (
-                    <Typography variant="body2">
-                      {stringList.group}
-                      {post.group}
-                    </Typography>
-                  ) : (
-                    <Typography variant="body2">
-                      {stringList.topic}
-                      {post.topic}
-                    </Typography>
-                  )}
-                  <Button
-                    variant="body1"
-                    sx={{ marginLeft: "20%" }}
-                    onClick={() =>
-                      navigate(
-                        `/event/${post.name.replace(/\s/g, "_")}${post.id}`
-                      )
-                    }
-                  >
-                    {post.name}
-                  </Button>
-                  <Typography variant="body2">
-                    {stringList.startingAt}
-                  </Typography>
-                  <Typography variant="body2">{time}</Typography>
-                </CardContent>
-                {/* {search !== "" &&
-                  post.childPosts.length > 0 &&
-                  childPost(post.childPosts)} */}
-              </Card>
+              <EventCard
+                post={post}
+                stringList={stringList}
+                time={time}
+                search={search}
+                childPost={childPost}
+              />
             )}
           </Container>
         )
@@ -181,34 +118,58 @@ const DetailsList = ({ stringList, data, timeline, events }) => {
       <Container sx={{ mt: "50px" }}>
         {!posts ? (
           <>Couldnt connect to the database</>
+        ) : dashboard ? (
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              flexDirection: "column",
+            }}
+          >
+            <TextField
+              variant="outlined"
+              label={stringList.search}
+              onChange={handleChange}
+              fullWidth
+              sx={{ maxWidth: "550px", mb: "20px" }}
+            />
+            {list()}
+          </Box>
         ) : (
           <>
             <Box className="header" style={{ display: "flex" }}>
               <Typography variant="h4" sx={{ flexGrow: 1 }}>
                 {stringList.title}
               </Typography>
-              {/* {!timeline && (
-                  <Button color="secondary" onClick={() => setOpenCalendar(true)}>
-                    {strings.common.calendar}
-                  </Button>
-                )}
-                <Button onClick={() => navigate(`/createPostForm`)}>
-                  {stringList.createNew}
-                </Button> */}
               {!timeline && (
                 <IconButton color="secondary" onClick={() => setOpenCalendar(true)}>
                   <CalendarMonthIcon />
                 </IconButton>
               )}
-              <IconButton onClick={() => setOpenDialog(true)}>
+              <Button
+                onClick={() => setOpenDialog(true)}
+                variant="contained"
+                sx={{ mr: "5px", ml: "5px" }}
+                size="small"
+              >
                 <AddIcon />
-              </IconButton>
+                {strings.common.create}
+              </Button>
               <TextField
                 size="small"
                 variant="outlined"
                 label={stringList.search}
                 onChange={handleChange}
               />
+              {!timeline &&
+              <JoinOrLeave
+                type={
+                  window.location.href.indexOf("group") > -1
+                    ? "groups"
+                    : "topics"
+                }
+              />
+              }
               {!timeline && (
                 <JoinOrLeave
                   type={
@@ -225,7 +186,6 @@ const DetailsList = ({ stringList, data, timeline, events }) => {
                 title={stringList.title}
               />
             </Box>
-
             {list()}
           </>
         )}
