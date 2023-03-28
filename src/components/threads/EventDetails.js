@@ -7,7 +7,7 @@ import {
 import { strings } from "../../utils/localization"
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getCurrentEventById } from '../../reducers/eventsSlice'
+import { getCurrentEventById, getCurrentEventChilds } from '../../reducers/eventsSlice'
 import { Link } from 'react-router-dom'
 
 
@@ -17,7 +17,8 @@ const EventDetails = () => {
   const {currentEvent} = useSelector(state => state.eventList)
 
   useEffect(() => {
-    dispatch(getCurrentEventById(1))
+    dispatch(getCurrentEventById(2))
+    dispatch(getCurrentEventChilds(2))
   }, [dispatch])
 
   return (
@@ -32,15 +33,14 @@ const EventDetails = () => {
             p: 2,
             width: '75%',
             flexGrow: 1,
-            backgroundColor: theme =>
-              theme.palette.mode === 'dark' ? '#1A2027' : '#fff'
+            backgroundColor: "lightblue"
           }}
         >
-          <Avatar alt='User'  />
-          <Typography variant='subtitle1' fontWeight={'bold'}>
+
+          <Typography variant='subtitle1' align="center" fontWeight={'bold'}>
             {currentEvent?.name}
           </Typography>
-          <Typography variant='body'>{currentEvent?.description}</Typography>
+          <Typography variant='body' align="center" >{currentEvent?.description}</Typography>
           <Typography>{currentEvent.startTime}</Typography>
           <Button component={Link} to={`/profile`}>
             {currentEvent.name}
