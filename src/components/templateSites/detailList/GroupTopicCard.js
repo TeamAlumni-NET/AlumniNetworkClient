@@ -10,9 +10,13 @@ import {
 import NavigateNextIcon from "@mui/icons-material/NavigateNext"
 import { Box } from "@mui/system"
 import { useNavigate } from "react-router-dom"
+import { useDispatch } from "react-redux"
+import { saveNavigate } from "../../../reducers/currentPageSlice"
 
 const GroupTopicCard = ({ post, childPost, search }) => {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+
   return (
     <>
       <Card
@@ -30,12 +34,18 @@ const GroupTopicCard = ({ post, childPost, search }) => {
             avatar={<Avatar src={post.user.pictureUrl} />}
             title={`${post.user.firstName} ${post.user.lastName}`}
             subheader={`@${post.user.username}`}
-            onClick={() => navigate(`/profile/${post.user.username}`)}
+            onClick={() => {
+              dispatch(dispatch(saveNavigate({url: post.user.username, id: post.user.id})))
+              navigate(`/profile/${post.user.username.replace(/\s/g, "_")}`)
+            }}
           ></CardHeader>
         </Box>
         <CardActions mr={"10px"}>
           <IconButton
-            onClick={() => navigate(`../post/${post.id}`, { replace: true })}
+            onClick={() => {
+              dispatch(dispatch(saveNavigate({url: post.title, id: post.id})))
+              navigate(`../post/${post.title.replace(/\s/g, "_")}`, { replace: true })
+            }}
           >
             <NavigateNextIcon />
           </IconButton>

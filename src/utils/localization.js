@@ -62,6 +62,7 @@ export const strings = new LocalizedStrings({
       invite: "Invite",
       join: "Join",
       leave: "Leave",
+      cancel: "Cancel",
       start: "Starts",
     },
     timeline: {
@@ -78,10 +79,37 @@ export const strings = new LocalizedStrings({
     calendar: {
       text: "Find events to attend via your intrests!",
     },
+    createPostForm: {
+      title: "Create new post",
+      postTitle: "Post Title",
+      group: "Group",
+      topic: "Topic",
+      content: "Content",
+      none: "None",
+      post: "Post!",
+      newGroup: "Create New Group",
+      newTopic: "Create New Topic"
+    },
+    createGroup: {
+      newGroup: "Create New Group",
+      groupName: "Group Name",
+      groupDescription: "Group Description",
+      privacy: "Privacy",
+      public: "Public",
+      private: "Private",
+      addGroup: "Add Group"
+    },
+    createTopic: {
+      newTopic: "Create New Topic",
+      topicName: "Topic Name",
+      topicDescription: "Topic Description",
+      addTopic: "Add Topic"
+    },
     postThread: {
       reply: "Reply to",
       wrongPostId: "This post doesn't exist",
     },
+
   },
   fi: {
     login: {
@@ -144,6 +172,7 @@ export const strings = new LocalizedStrings({
       invite: "Kutsu",
       join: "Liity",
       leave: "Poistu",
+      cancel: "Peruuta",
       start: "Alkaa",
     },
     timeline: {
@@ -156,6 +185,32 @@ export const strings = new LocalizedStrings({
     dashboard: {
       userDashboard: "Käyttäjän kojelauta",
       posts: "Postaukset",
+    },
+    createPostForm: {
+      title: "Luo uusi viesti",
+      postTitle: "Otsikko",
+      group: "Ryhmä",
+      topic: "Aihe",
+      content: "Viesti",
+      none: "Tyhjä",
+      post: "Julkaise!",
+      newGroup: "Luo uusi ryhmä",
+      newTopic: "Luo uusi aihe"
+    },
+    createGroup: {
+      newGroup: "Luo uusi ryhmä",
+      groupName: "Ryhmän nimi",
+      groupDescription: "Ryhmän kuvaus",
+      privacy: "Yksityisyys",
+      public: "Julkinen",
+      private: "Yksityinen",
+      addGroup: "Lisää ryhmä"
+    },
+    createTopic: {
+      newTopic: "Luo uusi aihe",
+      topicName: "Aiheen Nimi",
+      topicDescription: "Aiheen kuvaus",
+      addTopic: "Lisää Aihe"
     },
     postThread: {
       reply: "Vastaus käyttäjälle",

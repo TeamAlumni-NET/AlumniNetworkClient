@@ -17,6 +17,20 @@ export const getPostForTimeline = async () => {
   }
 }
 
+export const postPost = async(data) => {
+    try {
+        const res = await axios.post(`${config.url}/api/posts`, data, {
+            headers: {
+                Authorization: `bearer ${keycloak.token}`,
+                'Content-Type': 'application/json'
+            }
+        })
+        return res.data
+    } catch (error) {
+        console.log(error.message)
+    }
+ }
+
 export const getGroupPosts = async (groupId) => {
   try {
     const res = await axios.get(
@@ -29,6 +43,7 @@ export const getGroupPosts = async (groupId) => {
   } catch (error) {
     console.log(error.message)
   }
+
 }
 
 export const getTopicPosts = async (groupId) => {
@@ -66,6 +81,7 @@ export const getPost = async (id) => {
         Authorization: `bearer ${keycloak.token}`,
       },
     })
+    console.log(res.data);
     return res.data
   } catch (error) {
     console.log(error.message)

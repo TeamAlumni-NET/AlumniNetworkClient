@@ -7,7 +7,7 @@ import {
   TextField,
   Box,
   IconButton,
-  CardHeader,
+  CardHeader
 } from "@mui/material"
 import { useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react"
@@ -17,19 +17,18 @@ import JoinOrLeave from "./JoinOrLeave"
 import AddIcon from "@mui/icons-material/Add"
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth"
 import GroupTopicCard from "./GroupTopicCard"
+import CreatePostForm from "../../pages/post/CreatePostForm"
 import EventCard from "./EventCard"
+import { useDispatch } from "react-redux"
+import { saveNaviage } from "../../../reducers/currentPageSlice"
 
-const DetailsList = ({
-  stringList,
-  data,
-  timeline,
-  events,
-  dashboard = false,
-}) => {
-  const navigate = useNavigate()
+const DetailsList = ({ stringList, data, timeline, events, dashboard = false, defaultType}) => {
+  const dispatch = useDispatch()
+  const defaultdata = {}
   const [search, setSearch] = useState("")
   const [posts, setPosts] = useState(data)
-  const [open, setOpen] = useState(false)
+  const [opencalendar, setOpenCalendar] = useState(false)
+  const [openDialog, setOpenDialog] = useState(false)
 
   useEffect(() => {
     if (search === "") setPosts(data)
@@ -50,8 +49,18 @@ const DetailsList = ({
       )
     }
   }, [search, data])
+
+  const handleOpenDialog = (e) => {
+    e.preventDefault()
+    if (defaultType !== undefined) {
+      console.log(data);
+      //defaultType.name = data.name
+      //dispatch(saveNaviage({url: "uusiSivu",id: 2}))
+    }
+    setOpenDialog(true)
+  }
+
   const handleChange = (e) => {
-    console.log(e.target.value)
     setSearch(e.target.value.toLowerCase())
   }
 
@@ -76,6 +85,7 @@ const DetailsList = ({
 
     return childPostList(listOfPosts)
   }
+
   const list = () => {
     if (posts.length > 0) {
       if (!posts[0].group && !posts[0].topic) return <>Loading</>
@@ -118,53 +128,54 @@ const DetailsList = ({
     }
   }
   return (
-    <Container sx={{ mt: "50px" }}>
-      {!posts ? (
-        <>Couldnt connect to the database</>
-      ) : dashboard ? (
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            flexDirection: "column",
-          }}
-        >
-          <TextField
-            variant="outlined"
-            label={stringList.search}
-            onChange={handleChange}
-            fullWidth
-            sx={{ maxWidth: "550px", mb: "20px" }}
-          />
-          {list()}
-        </Box>
-      ) : (
-        <>
-          <Box className="header" style={{ display: "flex" }}>
-            <Typography variant="h4" sx={{ flexGrow: 1 }}>
-              {stringList.title}
-            </Typography>
-            {!timeline && (
-              <IconButton color="secondary" onClick={() => setOpen(true)}>
-                <CalendarMonthIcon />
-              </IconButton>
-            )}
-            <Button
-              onClick={() => navigate(`/createPostForm`)}
-              variant="contained"
-              sx={{ mr: "5px", ml: "5px" }}
-              size="small"
-            >
-              <AddIcon />
-              {strings.common.create}
-            </Button>
+    <>
+      <Container sx={{ mt: "50px" }}>
+        {!posts ? (
+          <>Couldnt connect to the database</>
+        ) : dashboard ? (
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              flexDirection: "column",
+            }}
+          >
             <TextField
-              size="small"
               variant="outlined"
               label={stringList.search}
               onChange={handleChange}
+              fullWidth
+              sx={{ maxWidth: "550px", mb: "20px" }}
             />
-            {!timeline && (
+            {list()}
+          </Box>
+        ) : (
+          <>
+            <Box className="header" style={{ display: "flex" }}>
+              <Typography variant="h4" sx={{ flexGrow: 1 }}>
+                {stringList.title}
+              </Typography>
+              {!timeline && (
+                <IconButton color="secondary" onClick={() => setOpenCalendar(true)}>
+                  <CalendarMonthIcon />
+                </IconButton>
+              )}
+              <Button
+                onClick={(e) => handleOpenDialog(e)}
+                variant="contained"
+                sx={{ mr: "5px", ml: "5px" }}
+                size="small"
+              >
+                <AddIcon />
+                {strings.common.create}
+              </Button>
+              <TextField
+                size="small"
+                variant="outlined"
+                label={stringList.search}
+                onChange={handleChange}
+              />
+              {!timeline &&
               <JoinOrLeave
                 type={
                   window.location.href.indexOf("group") > -1
@@ -172,19 +183,34 @@ const DetailsList = ({
                     : "topics"
                 }
               />
-            )}
-            <CalendarDrawerView
-              events={events}
-              open={open}
-              setOpen={setOpen}
-              title={stringList.title}
-            />
-          </Box>
-
-          {list()}
-        </>
-      )}
-    </Container>
+              }
+              {!timeline && (
+                <JoinOrLeave
+                  type={
+                    window.location.href.indexOf("group") > -1
+                      ? "groups"
+                      : "topics"
+                  }
+                />
+              )}
+              <CalendarDrawerView
+                events={events}
+                opencalendar={opencalendar}
+                setOpenCalendar={setOpenCalendar}
+                title={stringList.title}
+              />
+            </Box>
+            {list()}
+          </>
+        )}
+      </Container>
+      {openDialog && 
+      <CreatePostForm
+        defaultdata={defaultdata}
+        openDialog={openDialog}
+        setOpenDialog={setOpenDialog}
+      />}
+    </>
   )
 }
 export default DetailsList
