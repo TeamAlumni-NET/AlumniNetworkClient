@@ -1,4 +1,4 @@
-import { Button, Drawer, IconButton, MenuItem, Typography } from "@mui/material"
+import { Drawer, IconButton, MenuItem} from "@mui/material"
 import { Box } from "@mui/system"
 import { useState } from "react"
 import { strings } from "../../utils/localization"
