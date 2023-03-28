@@ -53,6 +53,7 @@ export const strings = new LocalizedStrings({
       invite: "Invite",
       join: "Join",
       leave: "Leave",
+      cancel: "Cancel"
     },
     timeline: {
       title: "Timeline",
@@ -152,6 +153,7 @@ export const strings = new LocalizedStrings({
       invite: "Kutsu",
       join: "Liity",
       leave: "Poistu",
+      cancel: "Peruuta"
     },
     timeline: {
       title: "Aikajana",

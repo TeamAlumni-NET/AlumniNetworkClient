@@ -31,6 +31,7 @@ const Group = () => {
         data={postsGroup}
         timeline={false}
         events={groupEvents}
+        type={"group"}
       />
     </Container>
   );

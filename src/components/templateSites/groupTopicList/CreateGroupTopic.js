@@ -19,18 +19,11 @@ const CreateGroupTopic = ({ type, showCreateNew, setShowCreateNew, createGroupTo
     description: ""
   })
 
-  if (newGroupTopic.name === "" ) {
-    if (type === "topic") {
-      setNewGroupTopic(newGroupTopic => ({
-        ...newGroupTopic,
-        name: createGroupTopic
-      }))
-    } else {
-      setNewGroupTopic(newGroupTopic => ({
-        ...newGroupTopic,
-        name: createGroupTopic
-      }))
-    }
+  if (newGroupTopic.name === "" &&  createGroupTopic !== "") {
+    setNewGroupTopic(newGroupTopic => ({
+      ...newGroupTopic,
+      name: createGroupTopic
+    }))
   }
 
   const style = {
@@ -64,6 +57,8 @@ const CreateGroupTopic = ({ type, showCreateNew, setShowCreateNew, createGroupTo
     }
   }
 
+  setStringList()
+
   const handleClose = () => {
     setShowCreateNew(false)
   }
@@ -80,6 +75,7 @@ const CreateGroupTopic = ({ type, showCreateNew, setShowCreateNew, createGroupTo
         description: newGroupTopic.description
       })
     } else {
+      console.log(setCreateGroupTopic);
       setCreateGroupTopic({
         name: newGroupTopic.name,
         description: newGroupTopic.description,
@@ -88,11 +84,10 @@ const CreateGroupTopic = ({ type, showCreateNew, setShowCreateNew, createGroupTo
     }
     handleClose()
   }
-  setStringList()
+  
 
   return (
     <>
-
       <Modal
         open={showCreateNew}
         onClose={handleClose}

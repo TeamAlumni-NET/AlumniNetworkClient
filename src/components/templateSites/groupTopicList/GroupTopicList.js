@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom"
 import { useState } from "react"
 import CreateGroupTopic from "./CreateGroupTopic"
 
-const GroupTopicList = ({ stringList, data, type }) => {
+const GroupTopicList = ({ stringList, data, type, createNewGroupTopic, setCreateNewGroupTopic }) => {
   const [showCreateNew, setShowCreateNew] = useState(false)
   const navigate = useNavigate()
 
@@ -35,6 +35,7 @@ const GroupTopicList = ({ stringList, data, type }) => {
     }
   }
 
+  console.log('setplapal: ', setCreateNewGroupTopic)
   return (
     <>
       <Container sx={{ width: "70vw" }}>
@@ -54,6 +55,8 @@ const GroupTopicList = ({ stringList, data, type }) => {
           type={type}
           showCreateNew={showCreateNew}
           setShowCreateNew={setShowCreateNew}
+          createGroupTopic={createNewGroupTopic}
+          setCreateGroupTopic={setCreateNewGroupTopic}
         />
       )}
     </>

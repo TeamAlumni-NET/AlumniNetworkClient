@@ -1,12 +1,13 @@
 import { strings } from "../../../utils/localization"
 import GroupTopicList from "../../templateSites/groupTopicList/GroupTopicList"
 import { useDispatch, useSelector } from "react-redux"
-import { getGroupAsList } from "../../../reducers/groupsSlice"
-import { useEffect } from "react"
+import { createNewGroup, getGroupAsList } from "../../../reducers/groupsSlice"
+import { useEffect, useState } from "react"
 
 const GroupList = () => {
   const dispatch = useDispatch()
   const { groups } = useSelector((state) => state.groupList)
+  const [createNewGroupTopic, setCreateNewGroupTopic] = useState("")
 
   const stringList = {
     title: strings.groupList.title,
@@ -17,10 +18,21 @@ const GroupList = () => {
   useEffect(() => {
     dispatch(getGroupAsList())
   }, [dispatch])
+  
+  useEffect(() => {
+    if (createNewGroupTopic !== "") {
+      dispatch(createNewGroup(createNewGroupTopic))
+    }
+  },[createNewGroupTopic])
 
   return (
     <>
-      <GroupTopicList stringList={stringList} data={groups} type="group" />
+      <GroupTopicList
+        stringList={stringList}
+        data={groups}
+        type="group"
+        createNewGroupTopic={createNewGroupTopic}
+        setCreateNewGroupTopic={setCreateNewGroupTopic}/>
     </>
   )
 }

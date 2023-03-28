@@ -214,7 +214,7 @@ const CreatePostForm = ({defaultdata, openDialog, setOpenDialog}) => {
             setCreateGroupTopic={setCreateNewGroupTopic}
           />}
         <DialogActions>
-          <Button onClick={handleSubmit} ></Button>
+          <Button onClick={handleSubmit}>{strings.common.cancel}</Button>
           <Button onClick={handleSubmit}>{strings.createPostForm.post}</Button>
         </DialogActions>
         

@@ -18,9 +18,8 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth"
 import GroupTopicCard from "./GroupTopicCard"
 import CreatePostForm from "../../pages/post/CreatePostForm"
 
-const DetailsList = ({ stringList, data, timeline, events, group }) => {
+const DetailsList = ({ stringList, data, timeline, events }) => {
   const navigate = useNavigate()
-  const defaultData = {}
   const [search, setSearch] = useState("")
   const [posts, setPosts] = useState(data)
   const [opencalendar, setOpenCalendar] = useState(false)
@@ -233,7 +232,7 @@ const DetailsList = ({ stringList, data, timeline, events, group }) => {
       </Container>
       {openDialog && 
       <CreatePostForm
-        defaultdata={defaultData}
+        defaultdata={{}}
         openDialog={openDialog}
         setOpenDialog={setOpenDialog}
       />}
