@@ -8,7 +8,7 @@ import { MenuItem, Select, useMediaQuery } from "@mui/material"
 import NavMenu from "./NavMenu"
 import keycloak from "../../keycloak"
 import { useEffect } from "react"
-import { Navigate, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 /**
  *  Navigation bar for page navigation
@@ -44,7 +44,9 @@ const NavBar = ({ language, changeLanguageHandler }) => {
                 <MenuItem
                   key={key}
                   onClick={() =>
-                    navigate(`/${pathsArray()[key].toLowerCase()}`)
+                    item === "Profile" ? 
+                      navigate(`/${pathsArray()[key].toLowerCase()}/${JSON.parse(localStorage.getItem("currentUser")).userName.toLowerCase()}`)
+                      :navigate(`/${pathsArray()[key].toLowerCase()}`)
                   }
                 >
                   {item}
