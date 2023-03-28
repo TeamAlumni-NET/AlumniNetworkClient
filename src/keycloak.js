@@ -7,7 +7,7 @@ if(process.env.NODE_ENV === "production"){
   keycloak = new Keycloak("/keycloakproduct.json")
 }else{
 // NB! Leave the / or the relative path will use the Router path
- keycloak = new Keycloak("/keycloak.json")
+  keycloak = new Keycloak("/keycloak.json")
 }
 /**
  * Initialize Keycloak and silently checking for an existing login.

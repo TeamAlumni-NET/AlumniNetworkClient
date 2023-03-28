@@ -1,24 +1,22 @@
 import {
-  Avatar,
-  Button,
   Card,
   CardActions,
-  CardContent,
   CardHeader,
   Divider,
   IconButton,
-  Typography,
 } from "@mui/material"
 import NavigateNextIcon from "@mui/icons-material/NavigateNext"
 import { Box } from "@mui/system"
-import React, { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { strings } from "../../../utils/localization"
 import AccessTimeIcon from "@mui/icons-material/AccessTime"
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth"
+import { useDispatch } from "react-redux"
+import { saveNavigate } from "../../../reducers/currentPageSlice"
 
-const EventCard = ({ post, url, time, childPost, search, stringList }) => {
+const EventCard = ({ post, time, childPost, search }) => {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const getTopicOrGroupText = () => {
     let topicsOrGroups =
@@ -66,12 +64,18 @@ const EventCard = ({ post, url, time, childPost, search, stringList }) => {
               avatar={<AccessTimeIcon />}
               title={strings.common.start + ":"}
               subheader={time}
-              onClick={() => navigate(`/profile/${post.user.id}`)}
+              onClick={() => {
+                dispatch(saveNavigate({url: post.user.name, id: post.user.id}))
+                navigate(`/profile/${post.user.name.replace(/\s/g, "_")}`)
+              }}
             ></CardHeader>
           </Box>
           <CardActions mr={"10px"}>
             <IconButton
-              onClick={() => navigate(`../post/${post.id}`, { replace: true })}
+              onClick={() => {
+                dispatch(saveNavigate({url: post.name, id: post.id}))
+                navigate(`../post/${post.name.replace(/\s/g, "_")}`, { replace: true })
+              }}
             >
               <NavigateNextIcon />
             </IconButton>

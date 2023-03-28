@@ -8,7 +8,9 @@ import { MenuItem, Select, useMediaQuery } from "@mui/material"
 import NavMenu from "./NavMenu"
 import keycloak from "../../keycloak"
 import { useEffect } from "react"
-import { Navigate, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
+import { useDispatch } from "react-redux"
+import { saveNavigate } from "../../reducers/currentPageSlice"
 
 /**
  *  Navigation bar for page navigation
@@ -16,26 +18,36 @@ import { Navigate, useNavigate } from "react-router-dom"
  */
 const NavBar = ({ language, changeLanguageHandler }) => {
   const isAuthenticated = keycloak.authenticated
+  const dispatch = useDispatch()
   const navigate = useNavigate()
   const mobile = useMediaQuery("(max-width:800px)")
   const pc = useMediaQuery("(min-width:800px)")
-
-  const pathsArray = () => {
-    return ["timeline", "group", "topic", "calendar", "dashboard", "profile"]
-  }
+  const pathsArray = ["timeline", "group", "topic", "calendar", "dashboard", "profile"]
 
   useEffect(() => {
     if (!isAuthenticated) {
+      dispatch(saveNavigate({url: "", id: null}))
       navigate("/")
     }
   }, [isAuthenticated])
+
+  const handleNavigate = (key) =>{
+    if (pathsArray[key] === "profile"){
+      dispatch(saveNavigate({url: JSON.parse(localStorage.getItem("currentUser")).userName, id: null}))
+      navigate(`/${pathsArray[key].toLowerCase()}/${JSON.parse(localStorage.getItem("currentUser")).userName.toLowerCase()}`)
+    }
+    else {
+      dispatch(saveNavigate({url: pathsArray[key].toLowerCase(), id: null}))
+      navigate(`/${pathsArray[key].toLowerCase()}`)
+    }
+  }
 
   return (
     isAuthenticated && (
       <Box>
         <AppBar position="static">
           <Toolbar>
-            {mobile && <NavMenu paths={pathsArray()} />}
+            {mobile && <NavMenu paths={pathsArray} />}
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               {strings.navbar.title}
             </Typography>
@@ -43,9 +55,7 @@ const NavBar = ({ language, changeLanguageHandler }) => {
               strings.navbar.navMenuList.map((item, key) => (
                 <MenuItem
                   key={key}
-                  onClick={() =>
-                    navigate(`/${pathsArray()[key].toLowerCase()}`)
-                  }
+                  onClick={() => handleNavigate(key)}
                 >
                   {item}
                 </MenuItem>

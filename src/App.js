@@ -16,9 +16,15 @@ import CalendarPage from "./components/pages/Calendar/CalendarPage"
 import Group from "./components/pages/group/Group"
 import CreateEventPage from "./components/pages/event/CreateEventPage"
 import Topic from "./components/pages/topic/Topic"
+import { useDispatch, useSelector } from "react-redux"
+import { saveNavigate } from "./reducers/currentPageSlice"
+
 
 function App() {
+  const dispatch = useDispatch()
   const [language, setLanguage] = useState("en")
+  const { url } = useSelector(state => state.currentPage)
+  const sessionStorageUrl = sessionStorage.getItem("CurrentPage")
 
   const theme = createTheme({
     palette: {
@@ -67,7 +73,6 @@ function App() {
         keycloak.tokenParsed.preferred_username,
         keycloak.token
       )
-    console.log(keycloak.token)
     if (keycloak.token) get()
   }, [Boolean(keycloak.token)])
 
@@ -75,6 +80,11 @@ function App() {
     const savedLanguage = localStorage.getItem("language")
     if (savedLanguage) changeLanguageHandler(savedLanguage)
   }, [language])
+
+  if (url === "" && sessionStorageUrl) {
+    const newNavigate = JSON.parse(sessionStorageUrl)
+    dispatch(saveNavigate({url: newNavigate.url, id: newNavigate.id}))
+  }
 
   const changeLanguageHandler = (lang) => {
     setLanguage(lang)
@@ -97,10 +107,10 @@ function App() {
           <Route path="/profile/:username" element={<Profile />} />
           <Route path="/timeline" element={<Timeline />} />
           <Route path="/calendar" element={<CalendarPage />} />
-          <Route path="/post/:id" element={<Post />} />
-          <Route path="/group/:name/:id" element={<Group />} />
+          <Route path="/post/:title" element={<Post />} />
+          <Route path="/group/:name" element={<Group />} />
           <Route path="/createEvent" element={<CreateEventPage />} />
-          <Route path="/topic/:name/:id" element={<Topic />} />
+          <Route path="/topic/:name" element={<Topic />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
