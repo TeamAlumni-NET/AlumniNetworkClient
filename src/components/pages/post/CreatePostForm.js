@@ -6,7 +6,7 @@ import { getGroupAsList } from '../../../reducers/groupsSlice'
 import { getTopicAsList } from '../../../reducers/topicsSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { postNewPost } from '../../../reducers/postSlice'
-import snarkdown from 'snarkdown'
+//import snarkdown from 'snarkdown'
 import CreateGroupTopic from '../../templateSites/groupTopicList/CreateGroupTopic'
 import { createGroupTopic as createGroupTopicService } from '../../../services/group/groupsTopicsService'
 
@@ -21,7 +21,7 @@ const initialState = {
   userId: null
 }
 
-const CreatePostForm = ({defaultdata, openDialog, setOpenDialog}) => {
+const CreatePostForm = ({ defaultdata, openDialog, setOpenDialog }) => {
   const dispatch = useDispatch()
   const filter = createFilterOptions()
   const { groups } = useSelector(state => state.groupList)
@@ -36,20 +36,7 @@ const CreatePostForm = ({defaultdata, openDialog, setOpenDialog}) => {
   for (const [key, value] in Object.entries(defaultdata)) {
     console.log(key, value);
   }
-  //Check if works... 
-  /*
-  if (defaultdata === "event") {
-    setNewPost.eventId = id
-  } else if (defaultdata === "group") {
-    setNewPost.groupId = id
-  } else if (defaultdata === "topic") {
-    setNewPost.topicId = id
-  } else if (defaultdata === "targetUser") {
-    setNewPost.targetUserId = id
-  } else if (defaultdata === "parentPost") {
-    setNewPost.parentPostId = id
-  }
-  */
+
 
   useEffect(() => {
     dispatch(getGroupAsList())
@@ -72,11 +59,6 @@ const CreatePostForm = ({defaultdata, openDialog, setOpenDialog}) => {
     handleClose()
   }
 
-  /*test snarkdown
-  let md = '_this_ is **easy** to `use`.';
-  let html = snarkdown(md);
-  console.log(html);
-  */
 
   const autoCompleteRender = (completetype) => {
     const isDisabled = () => {
@@ -94,7 +76,7 @@ const CreatePostForm = ({defaultdata, openDialog, setOpenDialog}) => {
 
     return (
       <Autocomplete
-        disabled = {isDisabled()}
+        disabled={isDisabled()}
         sx={{ width: 300 }}
         options={completetype === "group" ? groups : topics}
         getOptionLabel={option => {
@@ -139,7 +121,7 @@ const CreatePostForm = ({defaultdata, openDialog, setOpenDialog}) => {
                 topicId: newValue.id,
               }))
             }
-          } 
+          }
         }}
         filterOptions={(options, params) => {
           const filtered = filter(options, params)
@@ -157,11 +139,10 @@ const CreatePostForm = ({defaultdata, openDialog, setOpenDialog}) => {
   }
 
   return (
-    <Dialog 
-      fullScreen
+    <Dialog
       open={openDialog}
       onClose={handleClose}
-      //TransitionCompnent={Transition}
+    //TransitionCompnent={Transition}
     >
       <form onSubmit={handleSubmit} style={{ padding: 20 }}>
         <Box sx={{
@@ -204,7 +185,7 @@ const CreatePostForm = ({defaultdata, openDialog, setOpenDialog}) => {
             />
           </div>
         </Box>
-        
+
         {showCreateNew &&
           <CreateGroupTopic
             type={type}
@@ -217,7 +198,7 @@ const CreatePostForm = ({defaultdata, openDialog, setOpenDialog}) => {
           <Button onClick={handleSubmit}>{strings.common.cancel}</Button>
           <Button onClick={handleSubmit}>{strings.createPostForm.post}</Button>
         </DialogActions>
-        
+
       </form>
     </Dialog>
   )

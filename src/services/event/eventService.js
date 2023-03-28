@@ -90,4 +90,16 @@ export const getEventChildPosts = async id => {
   }
 }
 
-
+export const postEvent = async(data) => {
+  try {
+    const res = await axios.post(`${config.url}/api/events`, data, {
+      headers: {
+        Authorization: `bearer ${keycloak.token}`,
+        'Content-Type': 'application/json'
+      }
+    })
+    return res.data
+  } catch (error) {
+    console.log(error.message)
+  }
+}
