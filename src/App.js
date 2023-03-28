@@ -14,9 +14,11 @@ import keycloak from "./keycloak"
 import { onSignInGetOrCreateUser } from "./services/user/UserCRUDOperations"
 import CalendarPage from "./components/pages/Calendar/CalendarPage"
 import Group from "./components/pages/group/Group"
+import CreateEventPage from "./components/pages/event/CreateEventPage"
 import Topic from "./components/pages/topic/Topic"
 import { useDispatch, useSelector } from "react-redux"
 import { saveNavigate } from "./reducers/currentPageSlice"
+import EventDetails from "./components/threads/EventDetails"
 
 
 function App() {
@@ -108,7 +110,9 @@ function App() {
           <Route path="/calendar" element={<CalendarPage />} />
           <Route path="/post/:title" element={<Post />} />
           <Route path="/group/:name" element={<Group />} />
+          <Route path="/createEvent" element={<CreateEventPage />} />
           <Route path="/topic/:name" element={<Topic />} />
+          <Route path="/event/:title" element={<EventDetails/>} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

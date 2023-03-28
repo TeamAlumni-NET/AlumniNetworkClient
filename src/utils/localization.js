@@ -111,7 +111,22 @@ export const strings = new LocalizedStrings({
       wrongPostId: "This post doesn't exist",
       answer: "Answer to this post"
     },
-
+    createEvent:{
+      title: "Create new event",
+      eventName: "Event name",
+      description: "Description",
+      group: "Group",
+      topic: "Topic",
+      joining: "Allow joining",
+      inviteUsers: "Invite users",
+      startTime: "Start date & time",
+      endTime: "End time",
+      createEvent: "Create event"
+    },
+    eventThread:{
+      wrongId:"This event doesn't exist.",
+      noChilds: "No comments."
+    }
   },
   fi: {
     login: {
@@ -220,5 +235,24 @@ export const strings = new LocalizedStrings({
       wrongPostId: "Tälläistä julkaisua ei ole olemassa",
       answer: "Vastaa tähän julkaisuun"
     },
+    createEvent:{
+      title: "Luo uusi tapahtuma",
+      eventName: "Tapahtuman nimi",
+      description: "Kuvaus",
+      group: "Ryhmä",
+      topic: "Aihe",
+      joining: "Salli liittyminen",
+      inviteUsers: "Kutsu käyttäjiä",
+      startTime: "Aloituspäivä & aika",
+      endTime: "Lopetusaika",
+      createEvent: "Luo tapahtuma"
+    },
+    calendar: {
+      text: "Löydä mieleisiäsi tapahtumia!",
+    },
+    eventThread:{
+      wrongId:"Tälläistä tapahtumaa ei ole olemassa.",
+      noChilds: "Ei kommentteja."
+    }
   },
 })
