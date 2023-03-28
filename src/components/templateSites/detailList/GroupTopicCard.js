@@ -34,7 +34,12 @@ const GroupTopicCard = ({ post, childPost, search }) => {
             <Typography>{post.content}</Typography>
           </CardContent>
           <CardHeader
-            avatar={<Avatar src={post.user.pictureUrl} />}
+            avatar={
+              <Avatar
+                src={post.user.pictureUrl}
+                sx={{ boxShadow: "0px 0px 4px 0px rgba(0,0,0,0.75)" }}
+              />
+            }
             title={`${post.user.firstName} ${post.user.lastName}`}
             subheader={`@${post.user.username}`}
             onClick={() => {

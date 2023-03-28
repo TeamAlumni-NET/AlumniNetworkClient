@@ -14,7 +14,7 @@ import { getGroupAsList } from "../../../reducers/groupsSlice"
 import { getTopicAsList } from "../../../reducers/topicsSlice"
 import { useDispatch, useSelector } from "react-redux"
 import { postNewPost } from "../../../reducers/postSlice"
-import snarkdown from "snarkdown"
+//import snarkdown from "snarkdown"
 import CreateGroupTopic from "../../templateSites/groupTopicList/CreateGroupTopic"
 import { createGroupTopic as createGroupTopicService } from "../../../services/group/groupsTopicsService"
 
@@ -26,7 +26,7 @@ const initialState = {
   targetUserId: null,
   parentPostId: null,
   eventId: null,
-  userId: null,
+  userId: JSON.parse(localStorage.getItem("currentUser")).id,
 }
 
 const CreatePostForm = ({ defaultdata, openDialog, setOpenDialog }) => {
@@ -82,12 +82,6 @@ const CreatePostForm = ({ defaultdata, openDialog, setOpenDialog }) => {
     dispatch(postNewPost(newPost))
     handleClose()
   }
-
-  /*test snarkdown
-  let md = '_this_ is **easy** to `use`.';
-  let html = snarkdown(md);
-  console.log(html);
-  */
 
   const autoCompleteRender = (completetype) => {
     const isDisabled = () => {
@@ -167,7 +161,6 @@ const CreatePostForm = ({ defaultdata, openDialog, setOpenDialog }) => {
 
   return (
     <Dialog
-      fullScreen
       open={openDialog}
       onClose={handleClose}
       //TransitionCompnent={Transition}

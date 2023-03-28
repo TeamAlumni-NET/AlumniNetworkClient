@@ -31,7 +31,7 @@ const EditProfile = ({ open, setOpen }) => {
   const [editPictureUrl, setPictureUrl] = useState(user.pictureUrl)
   const [editBio, setBio] = useState(user.bio)
   const theme = useTheme()
-  const fullScreen = useMediaQuery(theme.breakpoints.down("md"))
+  const fullScreen = useMediaQuery(theme.breakpoints.down("sm"))
 
   const submit = async (e) => {
     const dataToBackend = {

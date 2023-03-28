@@ -22,6 +22,7 @@ import EventCard from "./EventCard"
 import { useDispatch } from "react-redux"
 import { saveNaviage } from "../../../reducers/currentPageSlice"
 import CommentPost from "./CommentPost"
+import CreateEventPage from "../../pages/event/CreateEventPage"
 
 const DetailsList = ({
   stringList,
@@ -37,6 +38,8 @@ const DetailsList = ({
   const [posts, setPosts] = useState(data)
   const [opencalendar, setOpenCalendar] = useState(false)
   const [openDialog, setOpenDialog] = useState(false)
+  const [openDialogEvent, setOpenDialogEvent] = useState(false)
+
   useEffect(() => {
     if (search === "") setPosts(data)
     else {
@@ -182,6 +185,17 @@ const DetailsList = ({
                 <AddIcon />
                 {strings.common.create}
               </Button>
+
+              <Button
+                onClick={() => setOpenDialogEvent(true)}
+                variant="contained"
+                sx={{ mr: "5px", ml: "5px" }}
+                size="small"
+              >
+                <AddIcon />
+                Create Event
+              </Button>
+
               <TextField
                 size="small"
                 variant="outlined"
@@ -213,6 +227,12 @@ const DetailsList = ({
           defaultdata={defaultdata}
           openDialog={openDialog}
           setOpenDialog={setOpenDialog}
+        />
+      )}
+      {openDialogEvent && (
+        <CreateEventPage
+          openDialogEvent={openDialogEvent}
+          setOpenDialogEvent={setOpenDialogEvent}
         />
       )}
     </>

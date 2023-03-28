@@ -9,16 +9,16 @@ import {
   DialogTitle,
   List,
   ListItem,
-  ListItemIcon,
   ListItemText,
   useMediaQuery,
 } from "@mui/material"
 import { useTheme } from "@emotion/react"
 import EastIcon from "@mui/icons-material/East"
-import { Navigate, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { useDispatch } from "react-redux"
 import { saveNavigate } from "../../reducers/currentPageSlice"
 import { Container } from "@mui/system"
+import { strings } from "../../utils/localization"
 
 const CalendarInfo = ({ open, setOpen, event }) => {
   const dispatch = useDispatch()
@@ -81,7 +81,7 @@ const CalendarInfo = ({ open, setOpen, event }) => {
       </DialogContent>
       <DialogActions sx={{ paddingTop: 0 }}>
         <Button size="small" variant="outlined" onClick={handleClose}>
-          Close
+          {strings.common.close}
         </Button>
         <Button
           variant="contained"
@@ -91,7 +91,7 @@ const CalendarInfo = ({ open, setOpen, event }) => {
             dispatch(saveNavigate({ url: event?.title, id: event?.id }))
           }}
         >
-          View event!
+          {strings.common.viewEvent}
         </Button>
       </DialogActions>
     </Dialog>
