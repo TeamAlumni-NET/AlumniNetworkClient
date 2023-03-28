@@ -6,6 +6,7 @@ import {
   getTopicEvents,
   getGroupEvents,
   getEventById,
+  getEventChildPosts,
 } from "../services/event/eventService"
 
 export const getEventsList = createAsyncThunk(
@@ -53,6 +54,16 @@ export const getCurrentEventById = createAsyncThunk(
     return response
   }
 )
+
+export const getCurrentEventChilds = createAsyncThunk(
+  "eventList/getEventChildPosts",
+  async (id) => {
+    const response = await getEventChildPosts(id)
+    return response
+  }
+)
+
+
 export const eventListSlice = createSlice({
   name: "events",
   initialState: {
@@ -62,6 +73,7 @@ export const eventListSlice = createSlice({
     topicEvents: [],
     groupEvents: [],
     currentEvent: {},
+    eventChildPosts: [],
   },
   reducers: {},
   extraReducers: (builder) => {
@@ -81,7 +93,9 @@ export const eventListSlice = createSlice({
       state.groupEvents = action.payload
     }),
     builder.addCase(getCurrentEventById.fulfilled, (state, action) =>{
-      state.currentEvent = action.payload})
+      state.currentEvent = action.payload}),
+    builder.addCase(getCurrentEventChilds.fulfilled, (state, action) => {
+      state.eventChildPosts = action.payload})
   },
 })
 

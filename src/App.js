@@ -110,7 +110,7 @@ function App() {
           <Route path="/post/:title" element={<Post />} />
           <Route path="/group/:name" element={<Group />} />
           <Route path="/topic/:name" element={<Topic />} />
-          <Route path="/event" element={<EventDetails/>} />
+          <Route path="/event/:title" element={<EventDetails/>} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

@@ -1,19 +1,20 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { currentChildPosts, getCurrentPost } from '../../reducers/postSlice'
 import { Button, Paper, Typography, Avatar } from '@mui/material'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { strings } from '../../utils/localization'
 import { saveNavigate } from '../../reducers/currentPageSlice'
-import { getCurrentEventById } from '../../reducers/eventsSlice'
+import { getCurrentEventById, getCurrentEventChilds } from '../../reducers/eventsSlice'
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth"
 
 const EventDetails = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const { post, childPosts } = useSelector(state => state.post)
+  const {post} = useSelector(state =>state.post)
   const { id } = useSelector(state => state.currentPage)
-  const {currentEvent} = useSelector(state => state.eventList)
+  const {currentEvent, eventChildPosts} = useSelector(state => state.eventList)
 
+  
   const timeFormat = timeStamp => {
     const formatTime = new Date(timeStamp).toLocaleString('en-Fi', {
       month: '2-digit',
@@ -26,16 +27,15 @@ const EventDetails = () => {
   }
 
   useEffect(() => {
-    dispatch(getCurrentEventById(2))
-    dispatch(getCurrentPost(4))
-    dispatch(currentChildPosts(4))
+    dispatch(getCurrentEventById(id))
+    dispatch(getCurrentEventChilds(id))
   }, [dispatch])
 
   return (
     <div
       style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
     >
-      {Object.keys(post).length === 0 ? (
+      {currentEvent === undefined? (
         <Typography>{strings.postThread.wrongPostId}</Typography>
       ) : (
         <Paper
@@ -43,16 +43,16 @@ const EventDetails = () => {
             p: 2,
             width: '75%',
             flexGrow: 1,
-            backgroundColor: theme =>
-              theme.palette.mode === 'dark' ? '#1A2027' : '#fff'
+            backgroundColor: "lightblue"
           }}
         >
-          <Avatar alt='User' src={post.picture} />
-          <Typography variant='subtitle1' fontWeight={'bold'}>
-            {post?.title}
+          <Typography variant='subtitle1' align='center' fontWeight={'bold'}>
+            {currentEvent?.name}
           </Typography>
-          <Typography variant='body'>{post?.content}</Typography>
-          <Typography>{timeFormat(post.timeStamp)}</Typography>
+          <Typography align='center' variant='body'>{currentEvent?.description}</Typography>
+          <CalendarMonthIcon/>
+          <Typography>{timeFormat(currentEvent.startTime)}</Typography>
+          <Typography>{timeFormat(currentEvent.endTime)}</Typography>
           <Button onClick={() => {
             dispatch(saveNavigate({url: post.user, id: post.userId}))
             navigate(`/profile/${post.user.replace(/\s/g, "_")}`)
@@ -61,10 +61,10 @@ const EventDetails = () => {
           </Button>
         </Paper>
       )}
-      {childPosts.childPosts === undefined ? (
+      {eventChildPosts === undefined ? (
         <p>No comments</p>
       ) : (
-        childPosts.childPosts.map(child => (
+        eventChildPosts.map(child => (
           <Paper
             key={child.id}
             sx={{
@@ -76,7 +76,7 @@ const EventDetails = () => {
                 theme.palette.mode === 'dark' ? '#1A2027' : '#fff'
             }}
           >
-            <Avatar alt='User' src={child.pictureUrl} />
+            <Avatar alt='User' src={child.user.pictureUrl} />
             {child.targetUser !== null ? (
               <Typography variant='subtitle1' fontWeight={'bold'}>
                 {strings.postThread.reply} {child.targetUser}
@@ -88,10 +88,10 @@ const EventDetails = () => {
             <p>{timeFormat(child.timeStamp)}</p>
 
             <Button onClick={() => {
-              dispatch(saveNavigate({url: child.username, id: null}))
-              navigate(`/profile/${child.username.replace(/\s/g, "_")}`)
+              dispatch(saveNavigate({url: child.user.username, id: null}))
+              navigate(`/profile/${child.user.username.replace(/\s/g, "_")}`)
             }}>
-              {child.username}
+              {child.user.username}
             </Button>
           </Paper>
         ))
