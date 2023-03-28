@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
-import NavBar from "./components/NavigationBar/NavBar"
+import NavBar from "./components/navigationBar/NavBar"
 import GroupList from "./components/pages/group/GroupList"
 import TopicList from "./components/pages/topic/TopicList"
 import Profile from "./components/profile/profile"

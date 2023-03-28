@@ -44,8 +44,9 @@ const NavBar = ({ language, changeLanguageHandler }) => {
                 <MenuItem
                   key={key}
                   onClick={() =>
-                    item === "Profile" ? navigate(`/${pathsArray()[key].toLowerCase()}/${JSON.parse(localStorage.getItem('currentUser')).userName.toLowerCase()}`) :
-                      navigate(`/${pathsArray()[key].toLowerCase()}`)
+                    item === "Profile" ? 
+                      navigate(`/${pathsArray()[key].toLowerCase()}/${JSON.parse(localStorage.getItem("currentUser")).userName.toLowerCase()}`)
+                      :navigate(`/${pathsArray()[key].toLowerCase()}`)
                   }
                 >
                   {item}
