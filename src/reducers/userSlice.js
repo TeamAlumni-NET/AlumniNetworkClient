@@ -5,6 +5,7 @@ import {
   getUserByUsername,
 } from "../services/user/UserService"
 
+
 export const getCurrentUser = createAsyncThunk("user/getUser", async () => {
   const response = await getUser()
   return response
@@ -16,6 +17,9 @@ export const patchCurrentUser = createAsyncThunk(
     return response
   }
 )
+
+
+
 export const getProfileUser = createAsyncThunk(
   "user/getUserByUsername",
   async (username) => {
@@ -33,13 +37,13 @@ export const userSlice = createSlice({
     builder.addCase(getCurrentUser.fulfilled, (state, action) => {
       state.user = action.payload
     }),
-      builder.addCase(patchCurrentUser.fulfilled, (state, action) => {
-        state.user = action.payload
-      }),
-      builder.addCase(getProfileUser.fulfilled, (state, action) => {
-        state.profileUser = action.payload
-      })
+    builder.addCase(patchCurrentUser.fulfilled, (state, action) => {
+      state.user = action.payload
+    }),
+    builder.addCase(getProfileUser.fulfilled, (state, action) => {
+      state.profileUser = action.payload
+    })
   },
 })
-export const {} = userSlice.actions
+export const { } = userSlice.actions
 export default userSlice.reducer

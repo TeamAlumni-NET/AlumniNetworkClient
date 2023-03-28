@@ -3,7 +3,7 @@ import {
   getUserEvents,
   getEventsAsList,
   getUserSuggestedEvents,
-  postEvent
+  postEvent,
   getTopicEvents,
   getGroupEvents,
 } from "../services/event/eventService"
@@ -74,15 +74,15 @@ export const eventListSlice = createSlice({
     builder.addCase(getUserSuggestedEventsList.fulfilled, (state, action) => {
       state.userSuggestedEvents = action.payload
     }),
-    builder.addCase(postNewEvent.fulfilled), (state, action) => {
-      }),
-      builder.addCase(getTopicEventsList.fulfilled, (state, action) => {
-        state.topicEvents = action.payload
-      }),
-      builder.addCase(getGroupEventsList.fulfilled, (state, action) => {
-        state.groupEvents = action.payload
+    builder.addCase(postNewEvent.fulfilled, (state, action) => {
       state.post = action.payload
-    }}
+    }),
+    builder.addCase(getTopicEventsList.fulfilled, (state, action) => {
+      state.topicEvents = action.payload
+    }),
+    builder.addCase(getGroupEventsList.fulfilled, (state, action) => {
+      state.groupEvents = action.payload
+    })}
 })
 
 export const { } = eventListSlice.actions
