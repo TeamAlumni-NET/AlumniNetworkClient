@@ -1,22 +1,22 @@
-import axios from "axios"
-import keycloak from "../../keycloak"
-import { config } from "../../utils/config"
+import axios from "axios";
+import keycloak from "../../keycloak";
+import { config } from "../../utils/config";
 
 export const onSignInGetOrCreateUser = async (username, token) => {
-  const endpoint = "/api/users/user/" + username
-  const createEndpoint = "/api/users/"
+  const endpoint = "/api/users/user/" + username;
+  const createEndpoint = "/api/users/";
   try {
     const res = await axios.get(config.url + endpoint, {
       headers: { Authorization: `bearer ${token}` },
       username,
-    })
+    });
     const currentUser = {
       id: res.data.id,
       userName: res.data.username,
-    }
+    };
 
-    localStorage.setItem("currentUser", JSON.stringify(currentUser))
-    return res.data
+    localStorage.setItem("currentUser", JSON.stringify(currentUser));
+    return res.data;
   } catch (e) {
     if (e.response.status === 404) {
       try {
@@ -31,18 +31,17 @@ export const onSignInGetOrCreateUser = async (username, token) => {
             headers: { Authorization: `bearer ${token}` },
             username,
           }
-        )
-
+        );
         const currentUser = {
           id: res.data.id,
           userName: res.data.username,
-        }
+        };
 
-        localStorage.setItem("currentUser", JSON.stringify(currentUser))
-        return await res.data
+        localStorage.setItem("currentUser", JSON.stringify(currentUser));
+        return await res.data;
       } catch (e) {
-        console.log(e.message)
+        console.log(e.message);
       }
-    } else console.log(e.message)
+    } else console.log(e.message);
   }
-}
+};

@@ -1,5 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
-import { getUser, patchUser, getUserByUsername} from "../services/user/UserService"
+import {
+  getUser,
+  patchUser,
+  getUserByUsername,
+} from "../services/user/UserService"
 
 export const getCurrentUser = createAsyncThunk("user/getUser", async () => {
   const response = await getUser()
@@ -14,13 +18,11 @@ export const patchCurrentUser = createAsyncThunk(
 )
 export const getProfileUser = createAsyncThunk(
   "user/getUserByUsername",
-  async (username)=>{
+  async (username) => {
     const response = await getUserByUsername(username)
     return response
   }
 )
-
-
 export const userSlice = createSlice({
   name: "user",
   initialState: {
@@ -31,13 +33,13 @@ export const userSlice = createSlice({
     builder.addCase(getCurrentUser.fulfilled, (state, action) => {
       state.user = action.payload
     }),
-    builder.addCase(patchCurrentUser.fulfilled, (state, action)=>{
-      state.user = action.payload
-    }),
-    builder.addCase(getProfileUser.fulfilled, (state, action)=>{
-      state.profileUser = action.payload
-    })
-  }
+      builder.addCase(patchCurrentUser.fulfilled, (state, action) => {
+        state.user = action.payload
+      }),
+      builder.addCase(getProfileUser.fulfilled, (state, action) => {
+        state.profileUser = action.payload
+      })
+  },
 })
 export const {} = userSlice.actions
 export default userSlice.reducer

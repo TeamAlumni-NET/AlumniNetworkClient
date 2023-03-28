@@ -14,6 +14,7 @@ import keycloak from "./keycloak"
 import { onSignInGetOrCreateUser } from "./services/user/UserCRUDOperations"
 import CalendarPage from "./components/pages/Calendar/CalendarPage"
 import Group from "./components/pages/group/Group"
+import Topic from "./components/pages/topic/Topic"
 
 function App() {
   const [language, setLanguage] = useState("en")
@@ -95,10 +96,9 @@ function App() {
           <Route path="/profile/:username" element={<Profile />} />
           <Route path="/timeline" element={<Timeline />} />
           <Route path="/calendar" element={<CalendarPage />} />
-          <Route path="/post/:id" element={<Post/>} />
+          <Route path="/post/:id" element={<Post />} />
           <Route path="/group/:name/:id" element={<Group />} />
-
-
+          <Route path="/topic/:name/:id" element={<Topic />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
