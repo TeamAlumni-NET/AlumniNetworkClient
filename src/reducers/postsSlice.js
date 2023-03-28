@@ -55,7 +55,7 @@ export const postListSlice = createSlice({
         state.postsTopic = action.payload
       }),
       builder.addCase(getDashboardPostsList.fulfilled, (state, action) => {
-        state.postsDashboard = action.payload
+        state.postsDashboard = action.payload ? action.payload : []
       })
   },
 })
