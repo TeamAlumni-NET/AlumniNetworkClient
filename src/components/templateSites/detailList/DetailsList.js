@@ -9,7 +9,6 @@ import {
   IconButton,
   CardHeader,
 } from "@mui/material"
-import { useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { strings } from "../../../utils/localization"
 import CalendarDrawerView from "../../calendar/CalendarDrawerView"
@@ -19,7 +18,7 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth"
 import GroupTopicCard from "./GroupTopicCard"
 import CreatePostForm from "../../pages/post/CreatePostForm"
 import EventCard from "./EventCard"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { saveNaviage } from "../../../reducers/currentPageSlice"
 import CommentPost from "./CommentPost"
 import CreateEventPage from "../../pages/event/CreateEventPage"
@@ -33,11 +32,12 @@ const DetailsList = ({
   defaultType,
 }) => {
   const dispatch = useDispatch()
-  const defaultdata = {}
+  const [defaultdata, setDefaultdata] = useState({})
   const [search, setSearch] = useState("")
   const [posts, setPosts] = useState(data)
   const [opencalendar, setOpenCalendar] = useState(false)
   const [openDialog, setOpenDialog] = useState(false)
+  const { url, id } = useSelector((state) => state.currentPage)
   const [openDialogEvent, setOpenDialogEvent] = useState(false)
 
   useEffect(() => {
@@ -63,9 +63,21 @@ const DetailsList = ({
   const handleOpenDialog = (e) => {
     e.preventDefault()
     if (defaultType !== undefined) {
-      console.log(data)
-      //defaultType.name = data.name
-      //dispatch(saveNaviage({url: "uusiSivu",id: 2}))
+      const newData = {
+        nameForForm: url,
+        groupId: null,
+        topicId: null,
+        targetGroup: null,
+        targetTopic: null,
+      }
+      if (defaultType === "group") {
+        newData.groupid = id
+        newData.targetGroup = url
+      } else {
+        newData.topicId = id
+        newData.targetTopic = url
+      }
+      setDefaultdata(Object.assign(defaultdata, newData))
     }
     setOpenDialog(true)
   }
@@ -83,15 +95,7 @@ const DetailsList = ({
 
     const childPostList = (post) => {
       return post.map((childPost, i) => {
-        return (
-          // <Card key={i}>
-          //   <CardContent>
-          //     <Typography>{childPost.content}</Typography>
-          //   </CardContent>
-          //   <CardHeader subheader={"@" + childPost.user} />
-          // </Card>
-          <CommentPost comment={childPost} key={i} />
-        )
+        return <CommentPost comment={childPost} key={i} />
       })
     }
     if (listOfPosts.length === 0) return <></>
@@ -183,7 +187,7 @@ const DetailsList = ({
                 size="small"
               >
                 <AddIcon />
-                {strings.common.create}
+                {strings.timeline.createNew}
               </Button>
 
               <Button
@@ -193,7 +197,7 @@ const DetailsList = ({
                 size="small"
               >
                 <AddIcon />
-                Create Event
+                {strings.createEvent.title}
               </Button>
 
               <TextField
@@ -213,8 +217,8 @@ const DetailsList = ({
               )}
               <CalendarDrawerView
                 events={events}
-                opencalendar={opencalendar}
-                setOpenCalendar={setOpenCalendar}
+                open={opencalendar}
+                setOpen={setOpenCalendar}
                 title={stringList.title}
               />
             </Box>

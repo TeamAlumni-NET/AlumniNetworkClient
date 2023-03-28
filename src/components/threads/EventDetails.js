@@ -36,7 +36,7 @@ const EventDetails = () => {
       style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
     >
       {currentEvent === undefined? (
-        <Typography>{strings.postThread.wrongPostId}</Typography>
+        <Typography>{strings.eventThread.wrongId}</Typography>
       ) : (
         <Paper
           sx={{
@@ -62,7 +62,7 @@ const EventDetails = () => {
         </Paper>
       )}
       {eventChildPosts === undefined ? (
-        <p>No comments</p>
+        <p>{strings.eventThread.noChilds}</p>
       ) : (
         eventChildPosts.map(child => (
           <Paper

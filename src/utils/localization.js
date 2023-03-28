@@ -90,6 +90,7 @@ export const strings = new LocalizedStrings({
       post: "Post!",
       newGroup: "Create New Group",
       newTopic: "Create New Topic",
+      titleAnswer: "Answer to post",
     },
     createGroup: {
       newGroup: "Create New Group",
@@ -109,6 +110,8 @@ export const strings = new LocalizedStrings({
     postThread: {
       reply: "Reply to",
       wrongPostId: "This post doesn't exist",
+      answer: "Answer to this post",
+      edit: "Edit post",
     },
     createEvent: {
       title: "Create new event",
@@ -121,6 +124,10 @@ export const strings = new LocalizedStrings({
       startTime: "Start date & time",
       endTime: "End time",
       createEvent: "Create event",
+    },
+    eventThread: {
+      wrongId: "This event doesn't exist.",
+      noChilds: "No comments.",
     },
   },
   fi: {
@@ -209,6 +216,7 @@ export const strings = new LocalizedStrings({
       post: "Julkaise!",
       newGroup: "Luo uusi ryhmä",
       newTopic: "Luo uusi aihe",
+      titleAnswer: "Vastaa julkaisuun",
     },
     createGroup: {
       newGroup: "Luo uusi ryhmä",
@@ -228,6 +236,8 @@ export const strings = new LocalizedStrings({
     postThread: {
       reply: "Vastaus käyttäjälle",
       wrongPostId: "Tälläistä julkaisua ei ole olemassa",
+      answer: "Vastaa tähän julkaisuun",
+      edit: "Muokkaa julkaisua",
     },
     createEvent: {
       title: "Luo uusi tapahtuma",
@@ -241,5 +251,12 @@ export const strings = new LocalizedStrings({
       endTime: "Lopetusaika",
       createEvent: "Luo tapahtuma",
     },
+    calendar: {
+      text: "Löydä mieleisiäsi tapahtumia!",
+    },
+    eventThread: {
+      wrongId: "Tälläistä tapahtumaa ei ole olemassa.",
+      noChilds: "Ei kommentteja.",
+    }
   },
 })
