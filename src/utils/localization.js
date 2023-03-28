@@ -120,6 +120,10 @@ export const strings = new LocalizedStrings({
       startTime: "Start date & time",
       endTime: "End time",
       createEvent: "Create event"
+    },
+    eventThread:{
+      wrongId:"This event doesn't exist.",
+      noChilds: "No comments."
     }
   },
   fi: {
@@ -242,5 +246,9 @@ export const strings = new LocalizedStrings({
     calendar: {
       text: "Löydä mieleisiäsi tapahtumia!",
     },
+    eventThread:{
+      wrongId:"Tälläistä tapahtumaa ei ole olemassa.",
+      noChilds: "Ei kommentteja."
+    }
   },
 })
