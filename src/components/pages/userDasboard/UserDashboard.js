@@ -39,7 +39,7 @@ const UserDashboard = () => {
         .sort((a, b) => new Date(a.timeStamp) - new Date(b.timeStamp))
         .reverse()
     )
-  }, [postsDashboard, stringList])
+  }, [postsDashboard])
 
   return (
     <Container sx={{ mt: "40px" }}>

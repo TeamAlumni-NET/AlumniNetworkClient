@@ -109,7 +109,18 @@ export const strings = new LocalizedStrings({
       reply: "Reply to",
       wrongPostId: "This post doesn't exist",
     },
-
+    createEvent:{
+      title: "Create new event",
+      eventName: "Event name",
+      description: "Description",
+      group: "Group",
+      topic: "Topic",
+      joining: "Allow joining",
+      inviteUsers: "Invite users",
+      startTime: "Start date & time",
+      endTime: "End time",
+      createEvent: "Create event"
+    }
   },
   fi: {
     login: {
@@ -215,6 +226,18 @@ export const strings = new LocalizedStrings({
     postThread: {
       reply: "Vastaus käyttäjälle",
       wrongPostId: "Tälläistä julkaisua ei ole olemassa",
+    },
+    createEvent:{
+      title: "Luo uusi tapahtuma",
+      eventName: "Tapahtuman nimi",
+      description: "Kuvaus",
+      group: "Ryhmä",
+      topic: "Aihe",
+      joining: "Salli liittyminen",
+      inviteUsers: "Kutsu käyttäjiä",
+      startTime: "Aloituspäivä & aika",
+      endTime: "Lopetusaika",
+      createEvent: "Luo tapahtuma"
     },
   },
 })
