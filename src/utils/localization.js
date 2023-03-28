@@ -88,7 +88,8 @@ export const strings = new LocalizedStrings({
       none: "None",
       post: "Post!",
       newGroup: "Create New Group",
-      newTopic: "Create New Topic"
+      newTopic: "Create New Topic",
+      titleAnswer: "Answer to post"
     },
     createGroup: {
       newGroup: "Create New Group",
@@ -108,6 +109,7 @@ export const strings = new LocalizedStrings({
     postThread: {
       reply: "Reply to",
       wrongPostId: "This post doesn't exist",
+      answer: "Answer to this post"
     },
 
   },
@@ -195,7 +197,8 @@ export const strings = new LocalizedStrings({
       none: "Tyhjä",
       post: "Julkaise!",
       newGroup: "Luo uusi ryhmä",
-      newTopic: "Luo uusi aihe"
+      newTopic: "Luo uusi aihe",
+      titleAnswer: "Vastaa julkaisuun"
     },
     createGroup: {
       newGroup: "Luo uusi ryhmä",
@@ -215,6 +218,7 @@ export const strings = new LocalizedStrings({
     postThread: {
       reply: "Vastaus käyttäjälle",
       wrongPostId: "Tälläistä julkaisua ei ole olemassa",
+      answer: "Vastaa tähän julkaisuun"
     },
   },
 })

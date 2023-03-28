@@ -29,6 +29,8 @@ const Group = () => {
       .sort((a, b) => new Date(a.timeStamp) - new Date(b.timeStamp))
       .reverse()
   }, [postsGroup, stringList])
+
+  console.log(groups);
   return (
     <Container>
       <DetailsList

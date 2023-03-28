@@ -18,7 +18,13 @@ const Timeline = () => {
 
   const { postsTimeline } = useSelector((state) => state.postsList)
   const { timelineEvents } = useSelector((state) => state.eventList)
-  const timeline = postsTimeline.concat(timelineEvents)
+  let timeline = []
+  try {
+    timeline = postsTimeline.concat(timelineEvents)
+  } catch (error) {
+    console.log(error);
+  }
+  
 
   useEffect(() => {
     dispatch(getPostsAsList())

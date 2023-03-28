@@ -18,18 +18,18 @@ export const getPostForTimeline = async () => {
 }
 
 export const postPost = async(data) => {
-    try {
-        const res = await axios.post(`${config.url}/api/posts`, data, {
-            headers: {
-                Authorization: `bearer ${keycloak.token}`,
-                'Content-Type': 'application/json'
-            }
-        })
-        return res.data
-    } catch (error) {
-        console.log(error.message)
-    }
- }
+  try {
+    const res = await axios.post(`${config.url}/api/posts`, data, {
+      headers: {
+        Authorization: `bearer ${keycloak.token}`,
+        'Content-Type': 'application/json'
+      }
+    })
+    return res.data
+  } catch (error) {
+    console.log(error.message)
+  }
+}
 
 export const getGroupPosts = async (groupId) => {
   try {
@@ -81,7 +81,6 @@ export const getPost = async (id) => {
         Authorization: `bearer ${keycloak.token}`,
       },
     })
-    console.log(res.data);
     return res.data
   } catch (error) {
     console.log(error.message)
@@ -98,6 +97,6 @@ export const getChildPosts = async (id) => {
 
     return res.data
   } catch (error) {
-    console.log(error)
+    console.log(error.message)
   }
 }

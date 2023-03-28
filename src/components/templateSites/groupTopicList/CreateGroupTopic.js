@@ -75,7 +75,6 @@ const CreateGroupTopic = ({ type, showCreateNew, setShowCreateNew, createGroupTo
         description: newGroupTopic.description
       })
     } else {
-      console.log(setCreateGroupTopic);
       setCreateGroupTopic({
         name: newGroupTopic.name,
         description: newGroupTopic.description,

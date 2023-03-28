@@ -6,7 +6,6 @@ import dayjs from 'dayjs';
 
 
 const CreateEventPage = () =>{
-  console.log(Date.now, new Date());
   return (
     <>
       <InputLabel>Moi</InputLabel>
