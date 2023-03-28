@@ -9,13 +9,12 @@ import {
   DialogTitle,
   List,
   ListItem,
-  ListItemIcon,
   ListItemText,
   useMediaQuery,
 } from "@mui/material"
 import { useTheme } from "@emotion/react"
 import EastIcon from "@mui/icons-material/East"
-import { Navigate, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { useDispatch } from "react-redux"
 import { saveNavigate } from "../../reducers/currentPageSlice"
 

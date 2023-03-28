@@ -18,7 +18,7 @@ const initialState = {
   targetUserId: null,
   parentPostId: null,
   eventId: null,
-  userId: JSON.parse(localStorage.getItem("currentUser")).id
+  userId: null
 }
 
 const CreatePostForm = ({ defaultdata, openDialog, setOpenDialog }) => {

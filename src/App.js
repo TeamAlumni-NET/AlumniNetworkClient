@@ -18,6 +18,7 @@ import CreateEventPage from "./components/pages/event/CreateEventPage"
 import Topic from "./components/pages/topic/Topic"
 import { useDispatch, useSelector } from "react-redux"
 import { saveNavigate } from "./reducers/currentPageSlice"
+import EventDetails from "./components/threads/EventDetails"
 
 
 function App() {
@@ -111,6 +112,7 @@ function App() {
           <Route path="/group/:name" element={<Group />} />
           <Route path="/createEvent" element={<CreateEventPage />} />
           <Route path="/topic/:name" element={<Topic />} />
+          <Route path="/event/:title" element={<EventDetails/>} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
