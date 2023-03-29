@@ -38,7 +38,10 @@ const CreateEventPage = ({ openDialogEvent, setOpenDialogEvent }) => {
   const [endingTimeChecked, setEndingTimeChecked] = useState(false)
   const theme = useTheme()
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"))
-
+  const [userGroups, userTopics] = [
+    [...groups].filter((g) => g.isMember),
+    [...topics].filter((g) => g.isMember),
+  ]
   const initialState = {
     name: "",
     description: "",
@@ -56,12 +59,10 @@ const CreateEventPage = ({ openDialogEvent, setOpenDialogEvent }) => {
     dispatch(getGroupAsList())
     dispatch(getTopicAsList())
   }, [dispatch])
-
   const handleClose = () => {
     setOpenDialogEvent(false)
     setNewEvent(initialState)
   }
-
   const handleSubmit = () => {
     dispatch(postNewEvent(newEvent))
     handleClose()
@@ -126,7 +127,7 @@ const CreateEventPage = ({ openDialogEvent, setOpenDialogEvent }) => {
                 }))
               }
             >
-              {groups.map((group) => (
+              {userGroups.map((group) => (
                 <MenuItem key={group.id} value={group.id}>
                   {group.name}
                 </MenuItem>
@@ -149,7 +150,7 @@ const CreateEventPage = ({ openDialogEvent, setOpenDialogEvent }) => {
                 }))
               }
             >
-              {topics.map((topic) => (
+              {userTopics.map((topic) => (
                 <MenuItem key={topic.id} value={topic.id}>
                   {topic.name}
                 </MenuItem>

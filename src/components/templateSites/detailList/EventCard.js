@@ -17,10 +17,13 @@ import { saveNavigate } from "../../../reducers/currentPageSlice"
 const EventCard = ({ post, time, childPost, search }) => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
-
   const getTopicOrGroupText = () => {
     let topicsOrGroups =
-      post.group?.length > 0 ? strings.group.groups : strings.topic.topics
+      post.group?.length > 0
+        ? strings.group.groups
+        : post.topics?.length > 0
+        ? strings.topic.topics
+        : ""
 
     if (topicsOrGroups === strings.group.groups) {
       post.group?.forEach((element) => {
@@ -44,9 +47,15 @@ const EventCard = ({ post, time, childPost, search }) => {
         }}
       >
         <Box
-          sx={{ ml: "15px", mr: "15px", display: "flex", alignItems: "center" }}
+          sx={{
+            ml: "15px",
+            mr: "15px",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
         >
-          <CalendarMonthIcon /> Event
+          <CalendarMonthIcon /> <>{strings.calendar.event}</>
         </Box>
         <Box
           sx={{
