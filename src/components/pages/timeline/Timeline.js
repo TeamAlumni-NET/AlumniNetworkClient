@@ -32,6 +32,7 @@ const Timeline = () => {
     dispatch(getPostsAsList())
     dispatch(getTimelineEventsList())
   }, [dispatch])
+
   useEffect(() => {
     timeline
       .sort((a, b) => new Date(a.timeStamp) - new Date(b.timeStamp))

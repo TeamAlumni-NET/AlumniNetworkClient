@@ -17,6 +17,6 @@ export default configureStore({
     user: userReducer,
     postsList: postListReducer,
     eventList: eventListReducer,
-    currentPage: currentPageReducer
+    currentPage: currentPageReducer,
   }
 })

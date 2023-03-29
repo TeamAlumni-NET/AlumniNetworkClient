@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { config } from '../../utils/config'
 import keycloak from '../../keycloak'
+import { errorHandler } from '../../utils/simpleErrorHandler'
 
 export const getUser = async () => {
   try {
@@ -12,7 +13,7 @@ export const getUser = async () => {
     })
     return res.data
   } catch (error) {
-    console.log(error.message)
+    errorHandler(error)
   }
 
 }
@@ -28,7 +29,7 @@ export const patchUser = async(body) => {
     })
     return res.data
   } catch (error) {
-    console.log(error.message)
+    errorHandler(error)
   }
 }
 
@@ -41,6 +42,6 @@ export const getUserByUsername = async (username) =>{
     })
     return res.data
   } catch (error) {
-    console.log(error.message)
+    errorHandler(error)
   }
 }

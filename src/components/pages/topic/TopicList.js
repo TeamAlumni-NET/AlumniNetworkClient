@@ -22,6 +22,7 @@ const TopicList = () => {
   useEffect(() => {
     if (createNewGroupTopic !== "") {
       dispatch(createNewTopic(createNewGroupTopic))
+      setCreateNewGroupTopic("")
     }
   },[createNewGroupTopic])
 

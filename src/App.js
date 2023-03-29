@@ -20,7 +20,6 @@ import { useDispatch, useSelector } from "react-redux"
 import { saveNavigate } from "./reducers/currentPageSlice"
 import EventDetails from "./components/threads/EventDetails"
 
-
 function App() {
   const dispatch = useDispatch()
   const [language, setLanguage] = useState("en")
