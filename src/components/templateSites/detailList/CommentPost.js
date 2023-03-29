@@ -44,7 +44,6 @@ const CommentPost = ({ comment, thread = false }) => {
   useEffect(() => {
     setLocalUser(JSON.parse(localStorage.getItem("currentUser")))
   }, [localStorage.getItem("currentUser")])
-
   return (
     <Container sx={{ width: "90%" }}>
       <Card sx={{ borderRadius: 0 }}>
