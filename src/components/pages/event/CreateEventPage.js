@@ -54,7 +54,7 @@ const CreateEventPage = ({ openDialogEvent, setOpenDialogEvent }) => {
   }
 
 
-const CreateEventPage = () =>{
+
   return (
     <Dialog
       open={openDialogEvent}
@@ -196,4 +196,5 @@ const CreateEventPage = () =>{
     </Dialog>
   )
 }
+
 export default CreateEventPage
