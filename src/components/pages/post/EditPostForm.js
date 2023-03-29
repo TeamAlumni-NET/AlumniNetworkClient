@@ -1,13 +1,10 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { Button, InputLabel, TextField, Drawer } from "@mui/material"
 import { strings } from "../../../utils/localization"
-import { Box } from "@mui/system"
-import { useDispatch, useSelector } from "react-redux"
-import {
-  currentChildPosts,
-  editPost,
-  getCurrentPost,
-} from "../../../reducers/postsSlice"
+import { Box } from '@mui/system'
+import { useDispatch } from 'react-redux'
+import { editPost } from '../../../reducers/postsSlice'
+import { editComment } from '../../../reducers/eventsSlice'
 
 /**
  *
@@ -20,8 +17,10 @@ const EditPostForm = ({ defaultdata, openDialog, setOpenDialog }) => {
   const handleClose = () => {
     setOpenDialog(false)
   }
+
   const handleSubmit = async () => {
-    dispatch(editPost(edit))
+    if (defaultdata.eventId !== undefined) dispatch(editComment(edit))
+    else dispatch(editPost(edit))
     handleClose()
   }
 
@@ -34,7 +33,7 @@ const EditPostForm = ({ defaultdata, openDialog, setOpenDialog }) => {
             flexDirection: "column",
           }}
         >
-          <h1>{strings.createPostForm.title}</h1>
+          <h1>{strings.editPost.editTitle}</h1>
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             {defaultdata?.title !== undefined && (
               <div>

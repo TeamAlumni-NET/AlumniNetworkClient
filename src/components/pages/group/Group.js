@@ -30,7 +30,6 @@ const Group = () => {
       .reverse()
   }, [postsGroup, stringList])
 
-  console.log(groups);
   return (
     <Container>
       <DetailsList

@@ -129,6 +129,9 @@ export const strings = new LocalizedStrings({
       wrongId: "This event doesn't exist.",
       noChilds: "No comments.",
     },
+    editPost: {
+      editTitle: "Edit post"
+    }
   },
   fi: {
     login: {
@@ -258,5 +261,8 @@ export const strings = new LocalizedStrings({
       wrongId: "Tälläistä tapahtumaa ei ole olemassa.",
       noChilds: "Ei kommentteja.",
     },
+    editPost: {
+      editTitle: "Muokkaa julkaisua"
+    }
   },
 })

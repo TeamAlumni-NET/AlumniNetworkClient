@@ -19,7 +19,7 @@ import { saveNavigate } from "../../reducers/currentPageSlice"
 import { format } from "date-fns"
 import { strings } from "../../utils/localization"
 
-const Thread = ({ post, handleOpenDialog }) => {
+const Thread = ({ post, handleOpenDialog, handleOpenEdit }) => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const time = post?.timeStamp
@@ -88,14 +88,18 @@ const Thread = ({ post, handleOpenDialog }) => {
               />
             </Container>
             <Box sx={{ alignItems: "end", display: "flex" }}>
-              <Button
-                variant="contained"
-                sx={{ m: 1 }}
-                onClick={() => handleOpenDialog({})}
-              >
-                {strings.postThread.answer}
-                <SendIcon sx={{ ml: 1 }} />
-              </Button>
+              {post.userId !== JSON.parse(localStorage.getItem("currentUser")).id 
+                ? <Button
+                  variant="contained"
+                  sx={{ m: 1 }}
+                  onClick={() => handleOpenDialog({})}
+                >
+                  {strings.postThread.answer}
+                  <SendIcon sx={{ ml: 1 }} />
+                </Button>
+                :<Button onClick={() => handleOpenEdit(post)}>{strings.postThread.edit}<SendIcon sx={{ ml: 1 }} />
+                </Button>
+              }
             </Box>
           </Box>
         </Box>

@@ -1,6 +1,7 @@
-import axios from "axios"
-import { config } from "../../utils/config"
-import keycloak from "../../keycloak"
+import axios from 'axios'
+import { config } from '../../utils/config'
+import keycloak from '../../keycloak'
+import { errorHandler } from '../../utils/simpleErrorHandler'
 
 export const getPostForTimeline = async () => {
   try {
@@ -13,7 +14,7 @@ export const getPostForTimeline = async () => {
     )
     return res.data
   } catch (error) {
-    console.log(error.message)
+    errorHandler(error)
   }
 }
 
@@ -27,7 +28,7 @@ export const postPost = async (data) => {
     })
     return res.data
   } catch (error) {
-    console.log(error.message)
+    errorHandler(error)
   }
 }
 
@@ -41,7 +42,7 @@ export const getGroupPosts = async (groupId) => {
     )
     return res.data
   } catch (error) {
-    console.log(error.message)
+    errorHandler(error)
   }
 }
 
@@ -55,7 +56,7 @@ export const getTopicPosts = async (groupId) => {
     )
     return res.data
   } catch (error) {
-    console.log(error.message)
+    errorHandler(error)
   }
 }
 export const getUserDashboardPosts = async () => {
@@ -69,7 +70,7 @@ export const getUserDashboardPosts = async () => {
     )
     return res.data
   } catch (error) {
-    console.log(error.message)
+    errorHandler(error)
   }
 }
 
@@ -82,7 +83,7 @@ export const getPost = async (id) => {
     })
     return res.data
   } catch (error) {
-    console.log(error.message)
+    errorHandler(error)
   }
 }
 
@@ -95,7 +96,7 @@ export const getChildPosts = async (id) => {
     })
     return res.data
   } catch (error) {
-    console.log(error.message)
+    errorHandler(error)
   }
 }
 
@@ -108,6 +109,6 @@ export const patchPost = async (edit) => {
     })
     return res.data
   } catch (error) {
-    console.log(error.message)
+    errorHandler(error)
   }
 }

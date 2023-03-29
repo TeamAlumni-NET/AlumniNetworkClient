@@ -28,11 +28,6 @@ const UserDashboard = () => {
     dispatch(getDashboardPostsList())
   }, [dispatch])
 
-  setTimeout(() => {
-    dispatch(getEventsList())
-    dispatch(getDashboardPostsList())
-  }, 2000)
-
   const handleChange = (event, newValue) => {
     setValue(newValue)
   }

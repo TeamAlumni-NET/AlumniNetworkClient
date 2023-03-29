@@ -1,30 +1,24 @@
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { currentChildPosts, getCurrentPost } from "../../reducers/postsSlice"
-import { Button, Paper, Typography, Avatar } from "@mui/material"
-import { Link, useNavigate } from "react-router-dom"
+import { Typography } from "@mui/material"
 import { strings } from "../../utils/localization"
-import { saveNavigate } from "../../reducers/currentPageSlice"
 import CreatePostForm from "../pages/post/CreatePostForm"
 import EditPostForm from "../pages/post/EditPostForm"
 import CommentPost from "../templateSites/detailList/CommentPost"
 import { Container } from "@mui/system"
-import GroupTopicCard from "../templateSites/detailList/GroupTopicCard"
 import Thread from "./Thread"
-import keycloak from "../../keycloak"
 
 const Post = () => {
-  const navigate = useNavigate()
   const dispatch = useDispatch()
   const { post, childPosts } = useSelector((state) => state.postsList)
-  const { id, url } = useSelector((state) => state.currentPage)
+  const { id } = useSelector((state) => state.currentPage)
   const [openDialog, setOpenDialog] = useState(false)
   const [openEdit, setOpenEdit] = useState(false)
   const [defaultdata, setDefaultdata] = useState({})
   const [editData, setEditData] = useState({
     id: null,
-    title: null,
-    content: null,
+    content: null
   })
 
   const timeFormat = (timeStamp) => {
@@ -37,7 +31,7 @@ const Post = () => {
     })
     return formatTime
   }
-  console.log(post)
+
   useEffect(() => {
     dispatch(getCurrentPost(id))
     dispatch(currentChildPosts(id))
@@ -85,7 +79,7 @@ const Post = () => {
           <Typography>{strings.postThread.wrongPostId}</Typography>
         ) : (
           <>
-            <Thread post={post} handleOpenDialog={handleOpenDialog} />
+            <Thread post={post} handleOpenDialog={handleOpenDialog} handleOpenEdit={handleOpenEdit} />
           </>
           //   <Paper
           //     sx={{
@@ -200,13 +194,13 @@ const Post = () => {
           setOpenDialog={setOpenDialog}
         />
       )}
-      {/* {openEdit && (
+      {openEdit && (
         <EditPostForm
           defaultdata={editData}
           openDialog={openEdit}
           setOpenDialog={setOpenEdit}
         />
-      )} */}
+      )}
       {childPosts.map((child, i) => (
         <CommentPost comment={child} key={i} thread={true} />
       ))}

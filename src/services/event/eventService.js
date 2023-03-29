@@ -1,6 +1,7 @@
 import axios from "axios"
 import { config } from "../../utils/config"
 import keycloak from "../../keycloak"
+import { errorHandler } from "../../utils/simpleErrorHandler"
 
 export const getEventsAsList = async () => {
   try {
@@ -13,7 +14,7 @@ export const getEventsAsList = async () => {
     )
     return res.data
   } catch (error) {
-    console.log(error.message)
+    errorHandler(error)
   }
 }
 
@@ -27,10 +28,11 @@ export const getUserEvents = async () => {
       }
     )
     return res.data
-  } catch (e) {
-    console.log(e.message)
+  } catch (error) {
+    errorHandler(error)
   }
 }
+
 export const getUserSuggestedEvents = async () => {
   try {
     const userId = JSON.parse(localStorage.getItem("currentUser")).id
@@ -41,8 +43,8 @@ export const getUserSuggestedEvents = async () => {
       }
     )
     return res.data
-  } catch (e) {
-    console.log(e.message)
+  } catch (error) {
+    errorHandler(error)
   }
 }
 export const getTopicEvents = async (id) => {
@@ -51,8 +53,8 @@ export const getTopicEvents = async (id) => {
       headers: { Authorization: `bearer ${keycloak.token}` },
     })
     return res.data
-  } catch (e) {
-    console.log(e.message)
+  } catch (error) {
+    errorHandler(error)
   }
 }
 export const getGroupEvents = async (id) => {
@@ -61,8 +63,8 @@ export const getGroupEvents = async (id) => {
       headers: { Authorization: `bearer ${keycloak.token}` },
     })
     return res.data
-  } catch (e) {
-    console.log(e.message)
+  } catch (error) {
+    errorHandler(error)
   }
 }
 export const getEventById = async (id) => {
@@ -71,8 +73,8 @@ export const getEventById = async (id) => {
       headers: { Authorization: `bearer ${keycloak.token}` },
     })
     return res.data
-  } catch (e) {
-    console.log(e.message)
+  } catch (error) {
+    errorHandler(error)
   }
 }
 
@@ -86,7 +88,7 @@ export const getEventChildPosts = async id => {
 
     return res.data
   } catch (error) {
-    console.log(error)
+    errorHandler(error)
   }
 }
 
@@ -100,6 +102,6 @@ export const postEvent = async(data) => {
     })
     return res.data
   } catch (error) {
-    console.log(error.message)
+    errorHandler(error)
   }
 }

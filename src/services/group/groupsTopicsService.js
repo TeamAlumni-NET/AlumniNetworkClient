@@ -1,6 +1,7 @@
 import axios from "axios"
 import { config } from "../../utils/config"
 import keycloak from "../../keycloak"
+import { errorHandler } from "../../utils/simpleErrorHandler"
 
 export const getGroupTopicList = async (target) => {
   try {
@@ -13,7 +14,7 @@ export const getGroupTopicList = async (target) => {
     )
     return res.data
   } catch (error) {
-    console.log(error.message)
+    errorHandler(error)
   }
 }
 
@@ -28,7 +29,7 @@ export const createGroupTopic = async(data, target) => {
     })
     return res.data
   } catch (error) {
-    console.log(error.message)
+    errorHandler(error)
   }
 }
 
@@ -44,7 +45,7 @@ export const addUserToGroupTopic = async (target, id) => {
     )
     return res.data
   } catch (error) {
-    console.log(error.message)
+    errorHandler(error)
   }
 }
 export const RevomeUserToGroupTopic = async (target, id) => {
@@ -59,6 +60,6 @@ export const RevomeUserToGroupTopic = async (target, id) => {
     )
     return res.data
   } catch (error) {
-    console.log(error.message)
+    errorHandler(error)
   }
 }

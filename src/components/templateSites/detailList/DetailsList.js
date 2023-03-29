@@ -18,8 +18,7 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth"
 import GroupTopicCard from "./GroupTopicCard"
 import CreatePostForm from "../../pages/post/CreatePostForm"
 import EventCard from "./EventCard"
-import { useDispatch, useSelector } from "react-redux"
-import { saveNaviage } from "../../../reducers/currentPageSlice"
+import { useSelector } from "react-redux"
 import CommentPost from "./CommentPost"
 import CreateEventPage from "../../pages/event/CreateEventPage"
 
@@ -31,7 +30,6 @@ const DetailsList = ({
   dashboard = false,
   defaultType,
 }) => {
-  const dispatch = useDispatch()
   const [defaultdata, setDefaultdata] = useState({})
   const [search, setSearch] = useState("")
   const [posts, setPosts] = useState(data)
@@ -107,15 +105,12 @@ const DetailsList = ({
       if (!posts[0].group && !posts[0].topic) return <>Loading</>
       return posts.map((post, i) => {
         let time = ""
-        let url = ""
         if (post.startTime) {
           const rawTime = new Date(post.startTime)
           time = `${rawTime.getHours()}:${rawTime.getMinutes()} ${rawTime.getDate()}.${
             rawTime.getMonth() + 1
           }.${rawTime.getFullYear()}`
         }
-        if (post.group) url = `/group/${post.group}`
-        else if (post.topic) url = `/topic/${post.topic}`
 
         return (
           <Container key={i} maxWidth="sm" sx={{ mt: "10px" }}>

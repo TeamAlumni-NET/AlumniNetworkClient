@@ -7,7 +7,7 @@ import {
   Typography,
 } from "@mui/material"
 import { Container } from "@mui/system"
-import React, { useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { getCurrentUser, getProfileUser } from "../../../reducers/userSlice"
 import { getUser } from "../../../services/user/UserService"
@@ -15,7 +15,7 @@ import EditPostForm from "../../pages/post/EditPostForm"
 import EditIcon from "@mui/icons-material/Edit"
 import { format } from "date-fns"
 import { saveNavigate } from "../../../reducers/currentPageSlice"
-import { Navigate, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 const CommentPost = ({ comment, thread = false }) => {
   const dispatch = useDispatch()
