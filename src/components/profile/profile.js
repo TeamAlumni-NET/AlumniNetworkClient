@@ -18,6 +18,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { strings } from "../../utils/localization"
 import { useTheme } from "@emotion/react"
 import { borderRadius, Container } from "@mui/system"
+import { useParams } from "react-router-dom"
 
 const Img = styled("img")({
   margin: "auto",
@@ -30,8 +31,8 @@ function Profile() {
   const dispatch = useDispatch()
   const { user, profileUser } = useSelector((state) => state.user)
   const { id, url } = useSelector((state) => state.currentPage)
+  const { username } = useParams()
   const [openEdit, setOpenEdit] = useState(false)
-
   const handleOpen = () => {
     setOpenEdit(true)
   }
@@ -41,7 +42,7 @@ function Profile() {
   useEffect(() => {
     dispatch(getCurrentUser())
     dispatch(getProfileUser(url))
-  }, [dispatch])
+  }, [dispatch, username])
 
   return (
     <Container sx={{ display: "flex", justifyContent: "center", mt: "50px" }}>

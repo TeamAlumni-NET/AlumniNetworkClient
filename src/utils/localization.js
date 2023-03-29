@@ -110,7 +110,7 @@ export const strings = new LocalizedStrings({
     postThread: {
       reply: "Reply to",
       wrongPostId: "This post doesn't exist",
-      answer: "Answer to this post",
+      answer: "Answer",
       edit: "Edit post",
     },
     createEvent: {
@@ -234,9 +234,9 @@ export const strings = new LocalizedStrings({
       addTopic: "Lisää Aihe",
     },
     postThread: {
-      reply: "Vastaus käyttäjälle",
+      reply: "Vastaa",
       wrongPostId: "Tälläistä julkaisua ei ole olemassa",
-      answer: "Vastaa tähän julkaisuun",
+      answer: "Vastaa",
       edit: "Muokkaa julkaisua",
     },
     createEvent: {
@@ -257,6 +257,6 @@ export const strings = new LocalizedStrings({
     eventThread: {
       wrongId: "Tälläistä tapahtumaa ei ole olemassa.",
       noChilds: "Ei kommentteja.",
-    }
+    },
   },
 })

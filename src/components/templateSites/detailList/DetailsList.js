@@ -39,7 +39,6 @@ const DetailsList = ({
   const [openDialog, setOpenDialog] = useState(false)
   const { url, id } = useSelector((state) => state.currentPage)
   const [openDialogEvent, setOpenDialogEvent] = useState(false)
-
   useEffect(() => {
     if (search === "") setPosts(data)
     else {
@@ -53,7 +52,7 @@ const DetailsList = ({
             value.childPosts?.filter(
               (childPost) =>
                 childPost.content?.toLowerCase().includes(search) ||
-                childPost.user?.toLowerCase().includes(search)
+                childPost.user.username?.toLowerCase().includes(search)
             ).length !== 0
         )
       )

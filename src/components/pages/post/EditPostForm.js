@@ -20,7 +20,6 @@ const EditPostForm = ({ defaultdata, openDialog, setOpenDialog }) => {
   const handleClose = () => {
     setOpenDialog(false)
   }
-  console.log(edit)
   const handleSubmit = async () => {
     dispatch(editPost(edit))
     handleClose()
