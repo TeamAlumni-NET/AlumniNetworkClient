@@ -18,7 +18,7 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth"
 import GroupTopicCard from "./GroupTopicCard"
 import CreatePostForm from "../../pages/post/CreatePostForm"
 import EventCard from "./EventCard"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { saveNaviage } from "../../../reducers/currentPageSlice"
 import CreateEventPage from "../../pages/event/CreateEventPage"
 
