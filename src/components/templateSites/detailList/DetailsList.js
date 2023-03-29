@@ -211,8 +211,8 @@ const DetailsList = ({
               )}
               <CalendarDrawerView
                 events={events}
-                open={opencalendar}
-                setOpen={setOpenCalendar}
+                opencalendar={opencalendar}
+                setOpenCalendar={setOpenCalendar}
                 title={stringList.title}
               />
             </Box>
