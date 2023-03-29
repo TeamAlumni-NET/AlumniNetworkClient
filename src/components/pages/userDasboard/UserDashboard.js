@@ -16,17 +16,22 @@ const UserDashboard = () => {
   const { userEvents } = useSelector((state) => state.eventList)
   const { postsDashboard } = useSelector((state) => state.postsList)
   const [posts, setPosts] = useState([])
+
   const stringList = {
     title: strings.topic.title,
     createNew: strings.topic.createNew,
     search: strings.common.search,
     topic: strings.topic.group,
   }
-
   useEffect(() => {
     dispatch(getEventsList())
     dispatch(getDashboardPostsList())
-  }, [dispatch, localStorage.getItem("currentUser")])
+  }, [dispatch])
+
+  setTimeout(() => {
+    dispatch(getEventsList())
+    dispatch(getDashboardPostsList())
+  }, 2000)
 
   const handleChange = (event, newValue) => {
     setValue(newValue)
