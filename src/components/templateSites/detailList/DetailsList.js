@@ -18,7 +18,7 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth"
 import GroupTopicCard from "./GroupTopicCard"
 import CreatePostForm from "../../pages/post/CreatePostForm"
 import EventCard from "./EventCard"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { saveNaviage } from "../../../reducers/currentPageSlice"
 import CreateEventPage from "../../pages/event/CreateEventPage"
 
@@ -111,7 +111,7 @@ const DetailsList = ({ stringList, data, timeline, events, dashboard = false, de
         if (post.startTime) {
           const rawTime = new Date(post.startTime)
           time = `${rawTime.getHours()}:${rawTime.getMinutes()} ${rawTime.getDate()}.${rawTime.getMonth() + 1
-            }.${rawTime.getFullYear()}`
+          }.${rawTime.getFullYear()}`
         }
         if (post.group) url = `/group/${post.group}`
         else if (post.topic) url = `/topic/${post.topic}`

@@ -96,12 +96,12 @@ export const postListSlice = createSlice({
       else {
         if(action.payload.group !== null) {
           state.postsGroup.push(action.payload)
+          state.postsTimeline.push(action.payload)
         }
         if(action.payload.topic !== null) {
           state.postsTopic.push(action.payload)
+          state.postsTimeline.push(action.payload)
         }
-        state.postsTimeline.push(action.payload)
-        console.log(state.postsTimeline);
       }
     })
     builder.addCase(getPostsAsList.fulfilled, (state, action) => {

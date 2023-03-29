@@ -18,7 +18,6 @@ const Post = () => {
   const [defaultdata, setDefaultdata] = useState({})
   const [editData, setEditData] = useState({
     id: null,
-    title: null,
     content: null
   })
 

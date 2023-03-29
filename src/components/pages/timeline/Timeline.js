@@ -19,24 +19,37 @@ const Timeline = () => {
   const { postsTimeline } = useSelector((state) => state.postsList)
   const { timelineEvents } = useSelector((state) => state.eventList)
   let timeline = []
-  try {
-    timeline = postsTimeline.concat(timelineEvents)
-  } catch (error) {
-    console.log(error);
-  }
-  
 
+  useEffect(() => {
+    try {
+      timeline = postsTimeline.concat(timelineEvents)
+    } catch (error) {
+      console.log(error)
+    }
+  }, [postsTimeline,timelineEvents])
+  
   useEffect(() => {
     dispatch(getPostsAsList())
     dispatch(getTimelineEventsList())
   }, [dispatch])
-
   useEffect(() => {
     timeline
       .sort((a, b) => new Date(a.timeStamp) - new Date(b.timeStamp))
       .reverse()
-  }, [postsTimeline, timelineEvents, stringList])
+  }, [postsTimeline, timelineEvents])
 
+  const setForTheFirstTime = () => {
+    try {
+      timeline = postsTimeline.concat(timelineEvents)
+      timeline
+        .sort((a, b) => new Date(a.timeStamp) - new Date(b.timeStamp))
+        .reverse()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  setForTheFirstTime()
   return (
     <>
       <DetailsList stringList={stringList} data={timeline} timeline={true} />

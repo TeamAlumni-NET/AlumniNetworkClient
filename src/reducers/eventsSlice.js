@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
+import { createSlice, createAsyncThunk, current } from "@reduxjs/toolkit"
 import {
   getUserEvents,
   getEventsAsList,
@@ -9,6 +9,7 @@ import {
   getEventById,
   getEventChildPosts,
 } from "../services/event/eventService"
+import { patchPost, postPost } from "../services/post/postService"
 
 export const getEventsList = createAsyncThunk(
   "eventList/getUserEvents",
@@ -25,6 +26,7 @@ export const getTopicEventsList = createAsyncThunk(
     return response
   }
 )
+
 export const getGroupEventsList = createAsyncThunk(
   "eventList/getGroupEventsList",
   async (id) => {
@@ -32,6 +34,7 @@ export const getGroupEventsList = createAsyncThunk(
     return response
   }
 )
+
 export const getTimelineEventsList = createAsyncThunk(
   "eventList/getTimelineEvents",
   async () => {
@@ -48,15 +51,13 @@ export const getUserSuggestedEventsList = createAsyncThunk(
   }
 )
 
-
 export const getCurrentEventById = createAsyncThunk(
   "eventList/getEventById",
   async (id) => {
     const response = await getEventById(id)
-     return response
+    return response
   }
 )
-
     
 export const postNewEvent = createAsyncThunk(
   "event/postEvent",
@@ -70,6 +71,24 @@ export const getCurrentEventChilds = createAsyncThunk(
   "eventList/getEventChildPosts",
   async (id) => {
     const response = await getEventChildPosts(id)
+    return response
+  }
+)
+
+export const commentOnEvent = createAsyncThunk(
+  "event/commentOnEvent",
+  async (data) => {
+    console.log(data)
+    const response = await postPost(data)
+    console.log(response)
+    return response
+  }
+)
+
+export const editComment = createAsyncThunk(
+  "event/editComment",
+  async (edit) => {
+    const response = await patchPost(edit)
     return response
   }
 )
@@ -107,10 +126,17 @@ export const eventListSlice = createSlice({
     }),
     builder.addCase(getCurrentEventById.fulfilled, (state, action) =>{
       state.currentEvent = action.payload
-      }),
+    }),
     builder.addCase(getCurrentEventChilds.fulfilled, (state, action) => {
       state.eventChildPosts = action.payload
-      })
+    }),
+    builder.addCase(commentOnEvent.fulfilled, (state, action) => {
+      state.eventChildPosts.push(action.payload)
+    })
+    builder.addCase(editComment.fulfilled, (state, action) => {
+      const index = current(state.eventChildPosts).findIndex(post => post.id === action.payload.id)
+      state.eventChildPosts[index].content = action.payload.content
+    })
   },
 })
 

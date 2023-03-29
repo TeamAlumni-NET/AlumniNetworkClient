@@ -3,7 +3,8 @@ import { Button, InputLabel, TextField, Drawer } from "@mui/material"
 import { strings } from "../../../utils/localization"
 import { Box } from '@mui/system'
 import { useDispatch, useSelector } from 'react-redux'
-import { currentChildPosts, editPost, getCurrentPost } from '../../../reducers/postsSlice'
+import { editPost } from '../../../reducers/postsSlice'
+import { editComment } from '../../../reducers/eventsSlice'
 
 /**
  * 
@@ -19,7 +20,8 @@ const EditPostForm = ({defaultdata, openDialog, setOpenDialog}) => {
   }
 
   const handleSubmit = async () => {
-    dispatch(editPost(edit))
+    if (defaultdata.eventId !== undefined) dispatch(editComment(edit))
+    else dispatch(editPost(edit))
     handleClose()
   }
   
@@ -70,7 +72,6 @@ const EditPostForm = ({defaultdata, openDialog, setOpenDialog}) => {
         </Box>
         <Button onClick={handleClose}>{strings.common.cancel}</Button>
         <Button onClick={handleSubmit}>{strings.createPostForm.post}</Button>
-        
       </form>
     </Drawer>
   )

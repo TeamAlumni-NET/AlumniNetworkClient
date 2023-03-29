@@ -10,6 +10,7 @@ import { getDashboardPostsList, getGroupPostsList, getPostsAsList, getTopicPosts
 import CreateGroupTopic from '../../templateSites/groupTopicList/CreateGroupTopic'
 import { createGroupTopic as createGroupTopicService } from '../../../services/group/groupsTopicsService'
 import { getCurrentUser } from '../../../reducers/userSlice'
+import { commentOnEvent } from '../../../reducers/eventsSlice'
 
 const initialState = {
   title: null,
@@ -70,16 +71,22 @@ const CreatePostForm = ({ defaultdata, openDialog, setOpenDialog }) => {
       if (type === "group") newPost.groupId = response.id
       else newPost.topicId = response.id
     }
-    dispatch(postNewPost({
-      data: newPost,
-      targetUser: defaultdata.targetUserName,
-      targetGroup: defaultdata.targetGroup,
-      targetTopic: defaultdata.target
-    }))
-    dispatch(getPostsAsList())
-    dispatch(getDashboardPostsList())
-    if (window.location.href.indexOf("group") > -1) dispatch(getGroupPostsList(id))
-    else if (window.location.href.indexOf("topic") > -1) dispatch(getTopicPostsList(id))
+    if (defaultdata.eventId !== undefined) {
+      dispatch(commentOnEvent(newPost))
+    } else {
+      dispatch(postNewPost({
+        data: newPost,
+        targetUser: defaultdata.targetUserName,
+        targetGroup: defaultdata.targetGroup,
+        targetTopic: defaultdata.target
+      }))
+      dispatch(getPostsAsList())
+      dispatch(getDashboardPostsList())
+      if (window.location.href.indexOf("group") > -1) dispatch(getGroupPostsList(id))
+      else if (window.location.href.indexOf("topic") > -1) dispatch(getTopicPostsList(id))
+    }
+
+    
     handleClose()
   }
 
@@ -172,12 +179,12 @@ const CreatePostForm = ({ defaultdata, openDialog, setOpenDialog }) => {
           display: 'flex',
           flexDirection: 'column',
         }} >
-          {defaultdata?.parentPostId === undefined 
+          {defaultdata?.parentPostId === undefined && defaultdata.eventId === undefined 
             ? <h1>{strings.createPostForm.title}</h1>
             : <h1>{strings.createPostForm.titleAnswer}</h1>
           }
           <div style={{display: "flex", justifyContent: "space-between"}}>
-            {defaultdata?.parentPostId === undefined  &&
+            {defaultdata?.parentPostId === undefined && defaultdata.eventId === undefined &&
             <div>
               <InputLabel variant='standard'>{strings.createPostForm.postTitle}</InputLabel>
               <TextField
@@ -192,7 +199,8 @@ const CreatePostForm = ({ defaultdata, openDialog, setOpenDialog }) => {
               />
             </div>
             }
-            {defaultdata?.nameForForm === undefined && defaultdata?.parentPostId === undefined && <>
+            {defaultdata?.nameForForm === undefined && defaultdata?.parentPostId === undefined && defaultdata.eventId === undefined
+            && <>
               <div>
                 <InputLabel id="group">{strings.createPostForm.group}</InputLabel>
                 {autoCompleteRender("group")}

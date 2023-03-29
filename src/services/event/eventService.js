@@ -28,9 +28,10 @@ export const getUserEvents = async () => {
     )
     return res.data
   } catch (e) {
-    console.log(e.message)
+    console.log(e.message.includes("JSON.parse"));
   }
 }
+
 export const getUserSuggestedEvents = async () => {
   try {
     const userId = JSON.parse(localStorage.getItem("currentUser")).id

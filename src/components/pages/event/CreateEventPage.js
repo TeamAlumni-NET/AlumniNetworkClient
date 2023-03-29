@@ -53,8 +53,6 @@ const CreateEventPage = ({ openDialogEvent, setOpenDialogEvent }) => {
     handleClose()
   }
 
-
-const CreateEventPage = () =>{
   return (
     <Dialog
       open={openDialogEvent}
