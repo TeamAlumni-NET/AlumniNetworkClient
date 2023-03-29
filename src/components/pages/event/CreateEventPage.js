@@ -237,4 +237,5 @@ const CreateEventPage = ({ openDialogEvent, setOpenDialogEvent }) => {
     </Dialog>
   )
 }
+
 export default CreateEventPage

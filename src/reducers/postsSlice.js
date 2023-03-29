@@ -100,6 +100,7 @@ export const postListSlice = createSlice({
             state.postsTopic.push(action.payload)
           }
           state.postsTimeline.push(action.payload)
+          console.log(state.postsTimeline)
         }
       })
     builder.addCase(getPostsAsList.fulfilled, (state, action) => {

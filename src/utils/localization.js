@@ -90,7 +90,7 @@ export const strings = new LocalizedStrings({
       post: "Post!",
       newGroup: "Create New Group",
       newTopic: "Create New Topic",
-      titleAnswer: "Answer to post",
+      titleAnswer: "Answer to post"
     },
     createGroup: {
       newGroup: "Create New Group",

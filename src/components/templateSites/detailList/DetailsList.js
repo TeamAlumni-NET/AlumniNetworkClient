@@ -221,7 +221,7 @@ const DetailsList = ({
                 title={stringList.title}
               />
             </Box>
-            {list()}
+            <Box sx={{ mt: "50px" }}>{list()}</Box>
           </>
         )}
       </Container>

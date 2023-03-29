@@ -67,6 +67,7 @@ const CreatePostForm = ({ defaultdata, openDialog, setOpenDialog }) => {
 
   useEffect(() => {
     dispatch(getCurrentUser())
+    dispatch(getCurrentUser())
     dispatch(getGroupAsList())
     dispatch(getTopicAsList())
   }, [dispatch])
