@@ -9,15 +9,20 @@ import {
 import { useTheme } from "@emotion/react"
 import Calendar from "./Calendar"
 
-const CalendarDrawerView = ({ open, setOpen, events, title }) => {
+const CalendarDrawerView = ({
+  opencalendar,
+  setOpenCalendar,
+  events,
+  title,
+}) => {
   const theme = useTheme()
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"))
 
   const handleClose = () => {
-    setOpen(false)
+    setOpenCalendar(false)
   }
   return (
-    <Dialog fullScreen={fullScreen} open={open} onClose={handleClose}>
+    <Dialog fullScreen={fullScreen} open={opencalendar} onClose={handleClose}>
       <DialogTitle id={title}>{title}</DialogTitle>
       <DialogContent>
         <Calendar events={events} />

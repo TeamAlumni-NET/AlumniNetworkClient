@@ -6,21 +6,21 @@ import TextField from "@mui/material/TextField"
 import { strings } from "../../utils/localization"
 import { TextareaAutosize } from "@mui/base"
 import { useDispatch, useSelector } from "react-redux"
-import { patchCurrentUser, getCurrentUser, getProfileUser } from '../../reducers/userSlice'
+import {
+  patchCurrentUser,
+  getCurrentUser,
+  getProfileUser,
+} from "../../reducers/userSlice"
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  useMediaQuery,
+} from "@mui/material"
+import { useTheme } from "@emotion/react"
+import { Container } from "@mui/system"
 
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  border: "1px solid #000",
-  boxShadow: 24,
-  p: 4,
-}
-
-const EditProfile = () => {
+const EditProfile = ({ open, setOpen }) => {
   const { user } = useSelector((state) => state.user)
   const dispatch = useDispatch()
 
@@ -30,10 +30,10 @@ const EditProfile = () => {
   const [editFunFact, setFunFact] = useState(user.funFact)
   const [editPictureUrl, setPictureUrl] = useState(user.pictureUrl)
   const [editBio, setBio] = useState(user.bio)
+  const theme = useTheme()
+  const fullScreen = useMediaQuery(theme.breakpoints.down("sm"))
 
-  async function submit(e) {
-    e.preventDefault()
-
+  const submit = async (e) => {
     const dataToBackend = {
       id: user.id,
       userName: user.username,
@@ -59,92 +59,85 @@ const EditProfile = () => {
     dispatch(getProfileUser(user.username))
   }
 
-  const [open, setOpen] = useState(false)
-  const handleOpen = () => {
-    setOpen(true)
-  }
   const handleClose = () => {
     setOpen(false)
   }
 
   return (
-    <>
-      <Button onClick={handleOpen}>{strings.common.edit}</Button>
-      <form onSubmit={submit}>
-        <Modal open={open} onClose={handleClose}>
+    <Container sx={{ maxWidth: "500px" }}>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        fullScreen={fullScreen}
+        fullWidth
+        sx={{ textAlign: "center" }}
+      >
+        <DialogTitle>{user.username}</DialogTitle>
+        <DialogContent>
           <Box
-            component="form"
             sx={{
-              ...style,
-              width: 400,
-              "& .MuiTextField-root": { m: 1, width: "25ch" },
+              display: "flex",
+              flexDirection: "column",
+              gap: 2,
             }}
           >
-            <h2>{user.username}</h2>
-            <div>
-              <TextField
-                required
-                id="outlined-required"
-                label={strings.profilePage.firstName}
-                defaultValue={user.firstName}
-                onChange={(e) => setFirstName(e.target.value)}
-              />
-            </div>
-            <div>
-              <TextField
-                required
-                id="outlined-required"
-                label={strings.profilePage.lastName}
-                defaultValue={user.lastName}
-                onChange={(e) => setLastName(e.target.value)}
-              />
-            </div>
-            <div>
-              <TextField
-                outlined
-                id="outlined-required"
-                label={strings.profilePage.userStatus}
-                defaultValue={user.status}
-                onChange={(e) => setStatus(e.target.value)}
-              />
-            </div>
-            <div>
-              <TextField
-                outlined
-                id="outlined-required"
-                label={strings.profilePage.funFact}
-                defaultValue={user.funFact}
-                onChange={(e) => setFunFact(e.target.value)}
-              />
-            </div>
-            <div>
-              <TextField
-                outlined
-                id="outlined-required"
-                label={strings.profilePage.pictureUrl}
-                defaultValue={user.pictureUrl}
-                onChange={(e) => setPictureUrl(e.target.value)}
-              />
-            </div>
-            <label>{strings.profilePage.bio}</label>
-            <div>
-              <TextareaAutosize
-                minRows={4}
-                id="outlined-required"
-                defaultValue={user.bio}
-                onChange={(e) => setBio(e.target.value)}
-              />
-            </div>
-            <Button type="submit" variant="primary">
-              {strings.common.save}
-            </Button>
-            <Button variant="secondary" onClick={handleClose}>
-              {strings.common.close}
-            </Button>
+            <TextField
+              sx={{ mt: "10px" }}
+              fullWidth
+              required
+              label={strings.profilePage.firstName}
+              defaultValue={user.firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+            />
+            <TextField
+              fullWidth
+              required
+              label={strings.profilePage.lastName}
+              defaultValue={user.lastName}
+              onChange={(e) => setLastName(e.target.value)}
+            />
+            <TextField
+              fullWidth
+              outlined
+              label={strings.profilePage.userStatus}
+              defaultValue={user.status}
+              onChange={(e) => setStatus(e.target.value)}
+            />
+            <TextField
+              fullWidth
+              outlined
+              label={strings.profilePage.funFact}
+              defaultValue={user.funFact}
+              onChange={(e) => setFunFact(e.target.value)}
+            />
+            <TextField
+              fullWidth
+              outlined
+              label={strings.profilePage.pictureUrl}
+              defaultValue={user.pictureUrl}
+              onChange={(e) => setPictureUrl(e.target.value)}
+            />
+
+            <TextField
+              label={strings.profilePage.bio}
+              fullWidth
+              multiline
+              minRows={4}
+              defaultValue={user.bio}
+              onChange={(e) => setBio(e.target.value)}
+            />
+            <Box sx={{ display: "flex", justifyContent: "end", gap: 1 }}>
+              <Button variant="outlined" onClick={handleClose}>
+                {strings.common.close}
+              </Button>
+              <Button onClick={() => submit()} variant="contained">
+                {strings.common.save}
+              </Button>
+            </Box>
           </Box>
-        </Modal>
-      </form>
-    </>
+        </DialogContent>
+      </Dialog>
+    </Container>
   )
 }
 
