@@ -33,8 +33,8 @@ export const getTopicPostsList = createAsyncThunk(
 )
 export const getDashboardPostsList = createAsyncThunk(
   "postDashboardList/getDashboardPostsList",
-  async () => {
-    const response = await getUserDashboardPosts()
+  async (id) => {
+    const response = await getUserDashboardPosts(id)
     return response
   }
 )
