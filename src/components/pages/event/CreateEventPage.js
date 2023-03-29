@@ -23,7 +23,10 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs"
 import dayjs from "dayjs"
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { postNewEvent } from "../../../reducers/eventsSlice"
+import {
+  getTimelineEventsList,
+  postNewEvent,
+} from "../../../reducers/eventsSlice"
 import { getGroupAsList } from "../../../reducers/groupsSlice"
 import { getTopicAsList } from "../../../reducers/topicsSlice"
 import { strings } from "../../../utils/localization"
@@ -40,7 +43,7 @@ const CreateEventPage = ({ openDialogEvent, setOpenDialogEvent }) => {
     name: "",
     description: "",
     allowGuests: true,
-    startTime: null,
+    startTime: new Date(),
     endTime: null,
     eventCreatorId: JSON.parse(localStorage.getItem("currentUser")).id,
     topicId: null,
@@ -63,7 +66,6 @@ const CreateEventPage = ({ openDialogEvent, setOpenDialogEvent }) => {
     dispatch(postNewEvent(newEvent))
     handleClose()
   }
-
   return (
     <Dialog
       open={openDialogEvent}

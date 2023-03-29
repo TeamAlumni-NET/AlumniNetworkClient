@@ -58,7 +58,7 @@ export const getCurrentEventById = createAsyncThunk(
     return response
   }
 )
-    
+
 export const postNewEvent = createAsyncThunk(
   "event/postEvent",
   async (data) => {
@@ -77,9 +77,10 @@ export const getCurrentEventChilds = createAsyncThunk(
 
 export const commentOnEvent = createAsyncThunk(
   "event/commentOnEvent",
-  async ({data, targetUser}) => {
+  async ({ data, targetUser }) => {
     let response = await postPost(data)
-    if (targetUser !== undefined) response = Object.assign(response, {targetUser: targetUser})
+    if (targetUser !== undefined)
+      response = Object.assign(response, { targetUser: targetUser })
     return response
   }
 )
@@ -108,36 +109,39 @@ export const eventListSlice = createSlice({
     builder.addCase(getEventsList.fulfilled, (state, action) => {
       state.userEvents = action.payload
     }),
-    builder.addCase(getTimelineEventsList.fulfilled, (state, action) => {
-      state.timelineEvents = action.payload
-    }),
-    builder.addCase(getUserSuggestedEventsList.fulfilled, (state, action) => {
-      state.userSuggestedEvents = action.payload
-    }),
-    builder.addCase(postNewEvent.fulfilled, (state, action) => {
-      state.post = action.payload
-    }),
-    builder.addCase(getTopicEventsList.fulfilled, (state, action) => {
-      state.topicEvents = action.payload
-    }),
-    builder.addCase(getGroupEventsList.fulfilled, (state, action) => {
-      state.groupEvents = action.payload
-    }),
-    builder.addCase(getCurrentEventById.fulfilled, (state, action) =>{
-      state.currentEvent = action.payload
-    }),
-    builder.addCase(getCurrentEventChilds.fulfilled, (state, action) => {
-      state.eventChildPosts = action.payload
-    }),
-    builder.addCase(commentOnEvent.fulfilled, (state, action) => {
-      state.eventChildPosts.push(action.payload)
-    })
+      builder.addCase(getTimelineEventsList.fulfilled, (state, action) => {
+        state.timelineEvents = action.payload
+      }),
+      builder.addCase(getUserSuggestedEventsList.fulfilled, (state, action) => {
+        state.userSuggestedEvents = action.payload
+      }),
+      builder.addCase(postNewEvent.fulfilled, (state, action) => {
+        state.timelineEvents = [...state.timelineEvents, action.payload]
+        state.post = action.payload
+      }),
+      builder.addCase(getTopicEventsList.fulfilled, (state, action) => {
+        state.topicEvents = action.payload
+      }),
+      builder.addCase(getGroupEventsList.fulfilled, (state, action) => {
+        state.groupEvents = action.payload
+      }),
+      builder.addCase(getCurrentEventById.fulfilled, (state, action) => {
+        state.currentEvent = action.payload
+      }),
+      builder.addCase(getCurrentEventChilds.fulfilled, (state, action) => {
+        state.eventChildPosts = action.payload
+      }),
+      builder.addCase(commentOnEvent.fulfilled, (state, action) => {
+        state.eventChildPosts.push(action.payload)
+      })
     builder.addCase(editComment.fulfilled, (state, action) => {
-      const index = current(state.eventChildPosts).findIndex(post => post.id === action.payload.id)
+      const index = current(state.eventChildPosts).findIndex(
+        (post) => post.id === action.payload.id
+      )
       state.eventChildPosts[index].content = action.payload.content
     })
   },
 })
 
-export const { } = eventListSlice.actions
+export const {} = eventListSlice.actions
 export default eventListSlice.reducer

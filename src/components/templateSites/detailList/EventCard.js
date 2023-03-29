@@ -20,14 +20,14 @@ const EventCard = ({ post, time, childPost, search }) => {
 
   const getTopicOrGroupText = () => {
     let topicsOrGroups =
-      post.group.length > 0 ? strings.group.groups : strings.topic.topics
+      post.group?.length > 0 ? strings.group.groups : strings.topic.topics
 
     if (topicsOrGroups === strings.group.groups) {
-      post.group.forEach((element) => {
+      post.group?.forEach((element) => {
         topicsOrGroups += element
       })
     } else {
-      post.topic.forEach((element) => {
+      post.topic?.forEach((element) => {
         topicsOrGroups += element
       })
     }
@@ -58,7 +58,7 @@ const EventCard = ({ post, time, childPost, search }) => {
           }}
         >
           <Box>
-            <CardHeader title={post.name} subheader={getTopicOrGroupText()} />
+            <CardHeader title={post?.name} subheader={getTopicOrGroupText()} />
             <Divider />
             <CardHeader
               avatar={<AccessTimeIcon />}
@@ -66,17 +66,17 @@ const EventCard = ({ post, time, childPost, search }) => {
               subheader={time}
               onClick={() => {
                 dispatch(
-                  saveNavigate({ url: post.user.name, id: post.user.id })
+                  saveNavigate({ url: post?.user?.name, id: post?.user?.id })
                 )
-                navigate(`/profile/${post.user.name.replace(/\s/g, "_")}`)
+                navigate(`/profile/${post?.user?.name.replace(/\s/g, "_")}`)
               }}
             ></CardHeader>
           </Box>
           <CardActions mr={"10px"}>
             <IconButton
               onClick={() => {
-                dispatch(saveNavigate({ url: post.name, id: post.id }))
-                navigate(`../event/${post.name.replace(/\s/g, "_")}`, {
+                dispatch(saveNavigate({ url: post?.name, id: post?.id }))
+                navigate(`../event/${post.name?.replace(/\s/g, "_")}`, {
                   replace: true,
                 })
               }}
@@ -87,7 +87,7 @@ const EventCard = ({ post, time, childPost, search }) => {
         </Box>
       </Card>
       {search !== "" &&
-        post.childPosts.length > 0 &&
+        post.childPosts?.length > 0 &&
         childPost(post.childPosts)}
     </>
   )
