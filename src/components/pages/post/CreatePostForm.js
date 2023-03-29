@@ -194,6 +194,7 @@ const CreatePostForm = ({ defaultdata, openDialog, setOpenDialog }) => {
           sx={{
             display: "flex",
             flexDirection: "column",
+            marginBottom: "10px"
           }}
         >
           {defaultdata?.parentPostId === undefined ? (
@@ -271,7 +272,7 @@ const CreatePostForm = ({ defaultdata, openDialog, setOpenDialog }) => {
           />
         )}
         <Button onClick={handleClose}>{strings.common.cancel}</Button>
-        <Button onClick={handleSubmit}>{strings.createPostForm.post}</Button>
+        <Button variant="contained" onClick={handleSubmit}>{strings.createPostForm.post}</Button>
       </form>
     </Drawer>
   )

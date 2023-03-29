@@ -25,7 +25,7 @@ export const strings = new LocalizedStrings({
       private: "Private",
     },
     group: {
-      title: "Posts",
+      title: "Group posts",
       createNew: "Create new post",
       group: "In group: ",
       groups: "Group/s: ",
@@ -36,7 +36,7 @@ export const strings = new LocalizedStrings({
       member: "Member",
     },
     topic: {
-      title: "Posts",
+      title: "Topic posts",
       createNew: "Create new post",
       topics: "Topic/s: ",
       topic: "In topic: ",
@@ -154,7 +154,7 @@ export const strings = new LocalizedStrings({
       private: "Yksityinen",
     },
     group: {
-      title: "Julkaisut",
+      title: "Ryhmän julkaisut",
       createNew: "Luo uusi posti",
       group: "Ryhmässä: ",
       groups: "Ryhmä/t: ",
@@ -165,7 +165,7 @@ export const strings = new LocalizedStrings({
       member: "Jäsen",
     },
     topic: {
-      title: "Julkaisut",
+      title: "Aiheen julkaisut",
       createNew: "Luo uusi posti",
       topic: "Aiheessa: ",
       topics: "Aiheessa: ",
