@@ -24,7 +24,7 @@ import EventDetails from "./components/threads/EventDetails"
 function App() {
   const dispatch = useDispatch()
   const [language, setLanguage] = useState("en")
-  const { url } = useSelector(state => state.currentPage)
+  const { url } = useSelector((state) => state.currentPage)
   const sessionStorageUrl = sessionStorage.getItem("CurrentPage")
 
   const theme = createTheme({
@@ -84,7 +84,7 @@ function App() {
 
   if (url === "" && sessionStorageUrl) {
     const newNavigate = JSON.parse(sessionStorageUrl)
-    dispatch(saveNavigate({url: newNavigate.url, id: newNavigate.id}))
+    dispatch(saveNavigate({ url: newNavigate.url, id: newNavigate.id }))
   }
 
   const changeLanguageHandler = (lang) => {
@@ -112,7 +112,7 @@ function App() {
           <Route path="/group/:name" element={<Group />} />
           <Route path="/createEvent" element={<CreateEventPage />} />
           <Route path="/topic/:name" element={<Topic />} />
-          <Route path="/event/:title" element={<EventDetails/>} />
+          <Route path="/event/:title" element={<EventDetails />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

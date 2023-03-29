@@ -49,7 +49,7 @@ export const strings = new LocalizedStrings({
       bio: "Bio",
       pictureUrl: "Profilepicture's URL",
       errorMessage: "Something went wrong",
-      success: "Profile updated"
+      success: "Profile updated",
     },
     common: {
       edit: "Edit",
@@ -64,6 +64,7 @@ export const strings = new LocalizedStrings({
       leave: "Leave",
       cancel: "Cancel",
       start: "Starts",
+      viewEvent: "View event",
     },
     timeline: {
       title: "Timeline",
@@ -98,21 +99,21 @@ export const strings = new LocalizedStrings({
       privacy: "Privacy",
       public: "Public",
       private: "Private",
-      addGroup: "Add Group"
+      addGroup: "Add Group",
     },
     createTopic: {
       newTopic: "Create New Topic",
       topicName: "Topic Name",
       topicDescription: "Topic Description",
-      addTopic: "Add Topic"
+      addTopic: "Add Topic",
     },
     postThread: {
       reply: "Reply to",
       wrongPostId: "This post doesn't exist",
-      answer: "Answer to this post",
-      edit: "Edit post"
+      answer: "Answer",
+      edit: "Edit post",
     },
-    createEvent:{
+    createEvent: {
       title: "Create new event",
       eventName: "Event name",
       description: "Description",
@@ -122,12 +123,12 @@ export const strings = new LocalizedStrings({
       inviteUsers: "Invite users",
       startTime: "Start date & time",
       endTime: "End time",
-      createEvent: "Create event"
+      createEvent: "Create event",
     },
-    eventThread:{
-      wrongId:"This event doesn't exist.",
-      noChilds: "No comments."
-    }
+    eventThread: {
+      wrongId: "This event doesn't exist.",
+      noChilds: "No comments.",
+    },
   },
   fi: {
     login: {
@@ -177,7 +178,7 @@ export const strings = new LocalizedStrings({
       bio: "kuvaus",
       pictureUrl: "Profiilikuvan URL",
       errorMessage: "Jotain meni pieleen",
-      success: "Profiili päivitetty"
+      success: "Profiili päivitetty",
     },
     common: {
       edit: "Muokkaa",
@@ -192,6 +193,7 @@ export const strings = new LocalizedStrings({
       leave: "Poistu",
       cancel: "Peruuta",
       start: "Alkaa",
+      viewEvent: "Katso tapahtuma",
     },
     timeline: {
       title: "Aikajana",
@@ -214,7 +216,7 @@ export const strings = new LocalizedStrings({
       post: "Julkaise!",
       newGroup: "Luo uusi ryhmä",
       newTopic: "Luo uusi aihe",
-      titleAnswer: "Vastaa julkaisuun"
+      titleAnswer: "Vastaa julkaisuun",
     },
     createGroup: {
       newGroup: "Luo uusi ryhmä",
@@ -223,21 +225,21 @@ export const strings = new LocalizedStrings({
       privacy: "Yksityisyys",
       public: "Julkinen",
       private: "Yksityinen",
-      addGroup: "Lisää ryhmä"
+      addGroup: "Lisää ryhmä",
     },
     createTopic: {
       newTopic: "Luo uusi aihe",
       topicName: "Aiheen Nimi",
       topicDescription: "Aiheen kuvaus",
-      addTopic: "Lisää Aihe"
+      addTopic: "Lisää Aihe",
     },
     postThread: {
-      reply: "Vastaus käyttäjälle",
+      reply: "Vastaa",
       wrongPostId: "Tälläistä julkaisua ei ole olemassa",
-      answer: "Vastaa tähän julkaisuun",
-      edit: "Muokkaa julkaisua"
+      answer: "Vastaa",
+      edit: "Muokkaa julkaisua",
     },
-    createEvent:{
+    createEvent: {
       title: "Luo uusi tapahtuma",
       eventName: "Tapahtuman nimi",
       description: "Kuvaus",
@@ -247,14 +249,14 @@ export const strings = new LocalizedStrings({
       inviteUsers: "Kutsu käyttäjiä",
       startTime: "Aloituspäivä & aika",
       endTime: "Lopetusaika",
-      createEvent: "Luo tapahtuma"
+      createEvent: "Luo tapahtuma",
     },
     calendar: {
       text: "Löydä mieleisiäsi tapahtumia!",
     },
-    eventThread:{
-      wrongId:"Tälläistä tapahtumaa ei ole olemassa.",
-      noChilds: "Ei kommentteja."
-    }
+    eventThread: {
+      wrongId: "Tälläistä tapahtumaa ei ole olemassa.",
+      noChilds: "Ei kommentteja.",
+    },
   },
 })

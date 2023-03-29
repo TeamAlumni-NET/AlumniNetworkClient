@@ -7,7 +7,7 @@ import {
   TextField,
   Box,
   IconButton,
-  CardHeader
+  CardHeader,
 } from "@mui/material"
 import { useEffect, useState } from "react"
 import { strings } from "../../../utils/localization"
@@ -20,18 +20,25 @@ import CreatePostForm from "../../pages/post/CreatePostForm"
 import EventCard from "./EventCard"
 import { useDispatch, useSelector } from "react-redux"
 import { saveNaviage } from "../../../reducers/currentPageSlice"
+import CommentPost from "./CommentPost"
 import CreateEventPage from "../../pages/event/CreateEventPage"
 
-const DetailsList = ({ stringList, data, timeline, events, dashboard = false, defaultType }) => {
+const DetailsList = ({
+  stringList,
+  data,
+  timeline,
+  events,
+  dashboard = false,
+  defaultType,
+}) => {
   const dispatch = useDispatch()
   const [defaultdata, setDefaultdata] = useState({})
   const [search, setSearch] = useState("")
   const [posts, setPosts] = useState(data)
   const [opencalendar, setOpenCalendar] = useState(false)
   const [openDialog, setOpenDialog] = useState(false)
-  const { url, id } = useSelector(state => state.currentPage)
+  const { url, id } = useSelector((state) => state.currentPage)
   const [openDialogEvent, setOpenDialogEvent] = useState(false)
-
   useEffect(() => {
     if (search === "") setPosts(data)
     else {
@@ -45,7 +52,7 @@ const DetailsList = ({ stringList, data, timeline, events, dashboard = false, de
             value.childPosts?.filter(
               (childPost) =>
                 childPost.content?.toLowerCase().includes(search) ||
-                childPost.user?.toLowerCase().includes(search)
+                childPost.user.username?.toLowerCase().includes(search)
             ).length !== 0
         )
       )
@@ -60,13 +67,12 @@ const DetailsList = ({ stringList, data, timeline, events, dashboard = false, de
         groupId: null,
         topicId: null,
         targetGroup: null,
-        targetTopic: null
+        targetTopic: null,
       }
       if (defaultType === "group") {
         newData.groupid = id
         newData.targetGroup = url
-      }
-      else {
+      } else {
         newData.topicId = id
         newData.targetTopic = url
       }
@@ -74,7 +80,6 @@ const DetailsList = ({ stringList, data, timeline, events, dashboard = false, de
     }
     setOpenDialog(true)
   }
-
 
   const handleChange = (e) => {
     setSearch(e.target.value.toLowerCase())
@@ -89,12 +94,7 @@ const DetailsList = ({ stringList, data, timeline, events, dashboard = false, de
 
     const childPostList = (post) => {
       return post.map((childPost, i) => {
-        return (
-          <Card key={i}>
-            <CardContent>{childPost.content}</CardContent>
-            <CardHeader subheader={"@" + childPost.user} />
-          </Card>
-        )
+        return <CommentPost comment={childPost} key={i} />
       })
     }
     if (listOfPosts.length === 0) return <></>
@@ -110,8 +110,9 @@ const DetailsList = ({ stringList, data, timeline, events, dashboard = false, de
         let url = ""
         if (post.startTime) {
           const rawTime = new Date(post.startTime)
-          time = `${rawTime.getHours()}:${rawTime.getMinutes()} ${rawTime.getDate()}.${rawTime.getMonth() + 1
-            }.${rawTime.getFullYear()}`
+          time = `${rawTime.getHours()}:${rawTime.getMinutes()} ${rawTime.getDate()}.${
+            rawTime.getMonth() + 1
+          }.${rawTime.getFullYear()}`
         }
         if (post.group) url = `/group/${post.group}`
         else if (post.topic) url = `/topic/${post.topic}`
@@ -171,7 +172,10 @@ const DetailsList = ({ stringList, data, timeline, events, dashboard = false, de
                 {stringList.title}
               </Typography>
               {!timeline && (
-                <IconButton color="secondary" onClick={() => setOpenCalendar(true)}>
+                <IconButton
+                  color="secondary"
+                  onClick={() => setOpenCalendar(true)}
+                >
                   <CalendarMonthIcon />
                 </IconButton>
               )}
@@ -201,15 +205,6 @@ const DetailsList = ({ stringList, data, timeline, events, dashboard = false, de
                 label={stringList.search}
                 onChange={handleChange}
               />
-              {!timeline &&
-                <JoinOrLeave
-                  type={
-                    window.location.href.indexOf("group") > -1
-                      ? "groups"
-                      : "topics"
-                  }
-                />
-              }
               {!timeline && (
                 <JoinOrLeave
                   type={
@@ -226,21 +221,23 @@ const DetailsList = ({ stringList, data, timeline, events, dashboard = false, de
                 title={stringList.title}
               />
             </Box>
-            {list()}
+            <Box sx={{ mt: "50px" }}>{list()}</Box>
           </>
         )}
       </Container>
-      {openDialog &&
+      {openDialog && (
         <CreatePostForm
           defaultdata={defaultdata}
           openDialog={openDialog}
           setOpenDialog={setOpenDialog}
-        />}
-      {openDialogEvent &&
+        />
+      )}
+      {openDialogEvent && (
         <CreateEventPage
           openDialogEvent={openDialogEvent}
           setOpenDialogEvent={setOpenDialogEvent}
-        />}
+        />
+      )}
     </>
   )
 }

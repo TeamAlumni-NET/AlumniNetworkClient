@@ -1,51 +1,56 @@
-import { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { currentChildPosts, getCurrentPost } from '../../reducers/postsSlice'
-import { Button, Paper, Typography, Avatar } from '@mui/material'
-import { Link, useNavigate } from 'react-router-dom'
-import { strings } from '../../utils/localization'
-import { saveNavigate } from '../../reducers/currentPageSlice'
-import CreatePostForm from '../pages/post/CreatePostForm'
-import EditPostForm from '../pages/post/EditPostForm'
+import { useEffect, useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { currentChildPosts, getCurrentPost } from "../../reducers/postsSlice"
+import { Button, Paper, Typography, Avatar } from "@mui/material"
+import { Link, useNavigate } from "react-router-dom"
+import { strings } from "../../utils/localization"
+import { saveNavigate } from "../../reducers/currentPageSlice"
+import CreatePostForm from "../pages/post/CreatePostForm"
+import EditPostForm from "../pages/post/EditPostForm"
+import CommentPost from "../templateSites/detailList/CommentPost"
+import { Container } from "@mui/system"
+import GroupTopicCard from "../templateSites/detailList/GroupTopicCard"
+import Thread from "./Thread"
+import keycloak from "../../keycloak"
 
 const Post = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const { post, childPosts } = useSelector(state => state.postsList)
-  const { id, url } = useSelector(state => state.currentPage)
+  const { post, childPosts } = useSelector((state) => state.postsList)
+  const { id, url } = useSelector((state) => state.currentPage)
   const [openDialog, setOpenDialog] = useState(false)
   const [openEdit, setOpenEdit] = useState(false)
   const [defaultdata, setDefaultdata] = useState({})
   const [editData, setEditData] = useState({
     id: null,
     title: null,
-    content: null
+    content: null,
   })
 
-  const timeFormat = timeStamp => {
-    const formatTime = new Date(timeStamp).toLocaleString('en-Fi', {
-      month: '2-digit',
-      day: '2-digit',
-      year: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit'
+  const timeFormat = (timeStamp) => {
+    const formatTime = new Date(timeStamp).toLocaleString("en-Fi", {
+      month: "2-digit",
+      day: "2-digit",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
     })
     return formatTime
   }
-
+  console.log(post)
   useEffect(() => {
     dispatch(getCurrentPost(id))
     dispatch(currentChildPosts(id))
   }, [dispatch])
 
-  const handleOpenDialog = ({targetUserId, targetUserName}) => {
+  const handleOpenDialog = ({ targetUserId, targetUserName }) => {
     const newData = {
       targetUserId: null,
       topicId: null,
       groupId: null,
       parentPostId: id,
       eventId: null,
-      targetUserName:null
+      targetUserName: null,
     }
     if (targetUserId) {
       newData.targetUserId = targetUserId
@@ -53,7 +58,7 @@ const Post = () => {
     }
     if (post.groupId) newData.groupId = post.groupId
     else newData.topicId = post.topicId
-    if(post.eventId) newData.eventId = post.eventId
+    if (post.eventId) newData.eventId = post.eventId
     setDefaultdata(Object.assign(defaultdata, newData))
     setOpenDialog(true)
   }
@@ -62,104 +67,150 @@ const Post = () => {
     setEditData({
       title: dataToEdit.title,
       content: dataToEdit.content,
-      id: dataToEdit.id
+      id: dataToEdit.id,
     })
     setOpenEdit(true)
   }
-  
+
   return (
-    <>
+    <Container maxWidth="sm" sx={{ mt: "50px" }}>
       <div
-        style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
       >
         {Object.keys(post).length === 0 ? (
           <Typography>{strings.postThread.wrongPostId}</Typography>
         ) : (
-          <Paper
-            sx={{
-              p: 2,
-              width: '75%',
-              flexGrow: 1,
-              backgroundColor: theme =>
-                theme.palette.mode === 'dark' ? '#1A2027' : '#fff'
-            }}
-          >
-            <Avatar alt='User' src={post.picture} />
-            <Typography variant='h6' fontWeight={'bold'}>
-              {post?.title}
-            </Typography>
-            <Typography variant='body'>{post?.content}</Typography>
-            <Typography>{timeFormat(post.timeStamp)}</Typography>
-            <div style={{display:"flex", justifyContent:"space-between"}}>
-              <Button onClick={() => {
-                dispatch(saveNavigate({url: post.user, id: post.userId}))
-                navigate(`/profile/${post.user.replace(/\s/g, "_")}`)
-              }}>
-                {post.user}
-              </Button>
-              {post.userId !== JSON.parse(localStorage.getItem("currentUser")).id 
-                ? <Button onClick={() => handleOpenDialog({})}>{strings.postThread.answer}</Button>
-                : <Button onClick={() => handleOpenEdit(post)}>{strings.postThread.edit}</Button>
-              }
-            </div>
-            
-          </Paper>
+          <>
+            <Thread post={post} handleOpenDialog={handleOpenDialog} />
+          </>
+          //   <Paper
+          //     sx={{
+          //       p: 2,
+          //       width: "75%",
+          //       flexGrow: 1,
+          //       backgroundColor: (theme) =>
+          //         theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+          //     }}
+          //   >
+          //     <Avatar alt="User" src={post.picture} />
+          //     <Typography variant="h6" fontWeight={"bold"}>
+          //       {post?.title}
+          //     </Typography>
+          //     <Typography variant="body">{post?.content}</Typography>
+          //     <Typography>{timeFormat(post.timeStamp)}</Typography>
+          //     <div style={{ display: "flex", justifyContent: "space-between" }}>
+          //       {/* <Button
+          //         onClick={() => {
+          //           dispatch(
+          //             saveNavigate({
+          //               url: post?.user?.username,
+          //               id: post?.userId,
+          //             })
+          //           )
+          //           navigate(
+          //             `/profile/${post?.user?.username.replace(/\s/g, "_")}`
+          //           )
+          //         }}
+          //       >
+          //         {post?.user?.username}
+          //       </Button> */}
+          //       {/* {post.userId !==
+          //       JSON.parse(localStorage.getItem("currentUser")).id ? (
+          //         <Button onClick={() => handleOpenDialog({})}>
+          //           {strings.postThread.answer}
+          //         </Button>
+          //       ) : (
+          //         <Button onClick={() => handleOpenEdit(post)}>
+          //           {strings.postThread.edit}
+          //         </Button>
+          //       )} */}
+          //     </div>
+          //   </Paper>
+
+          // </>
         )}
-        {childPosts.length === 0 ? (
+        {/* {childPosts.length === 0 ? (
           <p>No comments</p>
-        ) : (
-          childPosts.map(child => (
-            <Paper
-              key={child.id}
-              sx={{
-                p: 2,
-                marginTop: '2%',
-                width: '75%',
-                flexGrow: 1,
-                backgroundColor: theme =>
-                  theme.palette.mode === 'dark' ? '#1A2027' : '#fff'
-              }}
-            >
-              <Avatar alt='User' src={child.pictureUrl} />
-              {child.targetUser !== null ? (
-                <Typography variant='subtitle1' fontWeight={'bold'}>
-                  {strings.postThread.reply} {child.targetUser}
-                </Typography>
-              ) : (
-                ''
-              )}
-              <p>{child.content}</p>
-              <p>{timeFormat(child.timeStamp)}</p>
-              <div style={{display:"flex", justifyContent:"space-between"}}>
-                <Button onClick={() => {
-                  dispatch(saveNavigate({url: child.user.username, id: null}))
-                  navigate(`/profile/${child.user.username.replace(/\s/g, "_")}`)
-                }}>
-                  {child.user.username}
-                </Button>
-                {child.user.id !== JSON.parse(localStorage.getItem("currentUser")).id 
-                  ? <Button onClick={() => handleOpenDialog({targetUserId: child.user.id, targetUserName: child.user.username})}>{strings.postThread.answer}</Button>
-                  : <Button onClick={() => handleOpenEdit(child)}>{strings.postThread.edit}</Button>
-                }
-                
-              </div>
-            </Paper>
-          ))
-        )}
+        // ) : (
+        //   childPosts.map((child) => (
+        //     <Paper
+        //       key={child.id}
+        //       sx={{
+        //         p: 2,
+        //         marginTop: "2%",
+        //         width: "75%",
+        //         flexGrow: 1,
+        //         backgroundColor: (theme) =>
+        //           theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+        //       }}
+        //     >
+        //       <Avatar alt="User" src={child.pictureUrl} />
+        //       {child.targetUser !== null ? (
+        //         <Typography variant="subtitle1" fontWeight={"bold"}>
+        //           {strings.postThread.reply} {child.targetUser}
+        //         </Typography>
+        //       ) : (
+        //         ""
+        //       )}
+        //       <p>{child.content}</p>
+        //       <p>{timeFormat(child.timeStamp)}</p>
+        //       <div style={{ display: "flex", justifyContent: "space-between" }}>
+        //         <Button
+        //           onClick={() => {
+        //             dispatch(
+        //               saveNavigate({ url: child.user.username, id: null })
+        //             )
+        //             navigate(
+        //               `/profile/${child.user.username.replace(/\s/g, "_")}`
+        //             )
+        //           }}
+        //         >
+        //           {child.user.username}
+        //         </Button>
+        //         {child.user.id !==
+        //         JSON.parse(localStorage.getItem("currentUser")).id ? (
+        //           <Button
+        //             onClick={() =>
+        //               handleOpenDialog({
+        //                 targetUserId: child.user.id,
+        //                 targetUserName: child.user.username,
+        //               })
+        //             }
+        //           >
+        //             {strings.postThread.answer}
+        //           </Button>
+        //         ) : (
+        //           <Button onClick={() => handleOpenEdit(child)}>
+        //             {strings.postThread.edit}
+        //           </Button>
+        //         )}
+        //       </div>
+        //     </Paper>
+          // ))
+        )} */}
       </div>
-      {openDialog && 
-      <CreatePostForm
-        defaultdata={defaultdata}
-        openDialog={openDialog}
-        setOpenDialog={setOpenDialog}
-      />}
-      {openEdit &&
-        <EditPostForm 
+      {openDialog && (
+        <CreatePostForm
+          defaultdata={defaultdata}
+          openDialog={openDialog}
+          setOpenDialog={setOpenDialog}
+        />
+      )}
+      {/* {openEdit && (
+        <EditPostForm
           defaultdata={editData}
           openDialog={openEdit}
           setOpenDialog={setOpenEdit}
-        />}
-    </>
+        />
+      )} */}
+      {childPosts.map((child, i) => (
+        <CommentPost comment={child} key={i} thread={true} />
+      ))}
+    </Container>
   )
 }
 export default Post
