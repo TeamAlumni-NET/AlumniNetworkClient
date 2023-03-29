@@ -19,7 +19,6 @@ export const getPostForTimeline = async () => {
 
 export const postPost = async data => {
   try {
-    console.log("ser: ", data);
     const res = await axios.post(`${config.url}/api/posts`, data, {
       headers: {
         Authorization: `bearer ${keycloak.token}`,

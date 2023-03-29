@@ -77,10 +77,9 @@ export const getCurrentEventChilds = createAsyncThunk(
 
 export const commentOnEvent = createAsyncThunk(
   "event/commentOnEvent",
-  async (data) => {
-    console.log(data)
-    const response = await postPost(data)
-    console.log(response)
+  async ({data, targetUser}) => {
+    let response = await postPost(data)
+    if (targetUser !== undefined) response = Object.assign(response, {targetUser: targetUser})
     return response
   }
 )

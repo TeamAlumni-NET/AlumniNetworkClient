@@ -71,22 +71,23 @@ const CreatePostForm = ({ defaultdata, openDialog, setOpenDialog }) => {
       if (type === "group") newPost.groupId = response.id
       else newPost.topicId = response.id
     }
-    if (defaultdata.eventId !== undefined) {
-      dispatch(commentOnEvent(newPost))
+    if (defaultdata?.eventId !== undefined && defaultdata?.eventId !== null) {
+      dispatch(commentOnEvent({
+        data: newPost,
+        targetUser: defaultdata.targetUserName
+      }))
     } else {
       dispatch(postNewPost({
         data: newPost,
         targetUser: defaultdata.targetUserName,
         targetGroup: defaultdata.targetGroup,
-        targetTopic: defaultdata.target
+        targetTopic: defaultdata.targetTopic
       }))
       dispatch(getPostsAsList())
       dispatch(getDashboardPostsList())
       if (window.location.href.indexOf("group") > -1) dispatch(getGroupPostsList(id))
       else if (window.location.href.indexOf("topic") > -1) dispatch(getTopicPostsList(id))
     }
-
-    
     handleClose()
   }
 
@@ -184,7 +185,7 @@ const CreatePostForm = ({ defaultdata, openDialog, setOpenDialog }) => {
             : <h1>{strings.createPostForm.titleAnswer}</h1>
           }
           <div style={{display: "flex", justifyContent: "space-between"}}>
-            {defaultdata?.parentPostId === undefined && defaultdata.eventId === undefined &&
+            {defaultdata?.parentPostId === undefined && defaultdata?.eventId === undefined &&
             <div>
               <InputLabel variant='standard'>{strings.createPostForm.postTitle}</InputLabel>
               <TextField
@@ -199,7 +200,7 @@ const CreatePostForm = ({ defaultdata, openDialog, setOpenDialog }) => {
               />
             </div>
             }
-            {defaultdata?.nameForForm === undefined && defaultdata?.parentPostId === undefined && defaultdata.eventId === undefined
+            {defaultdata?.nameForForm === undefined && defaultdata?.parentPostId === undefined && defaultdata?.eventId === undefined
             && <>
               <div>
                 <InputLabel id="group">{strings.createPostForm.group}</InputLabel>

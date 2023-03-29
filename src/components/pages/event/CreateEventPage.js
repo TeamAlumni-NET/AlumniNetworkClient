@@ -31,12 +31,6 @@ const CreateEventPage = ({ openDialogEvent, setOpenDialogEvent }) => {
 
   const [newEvent, setNewEvent] = useState(initialState)
 
-  /*
-  function handleSubmit(event) {
-    event.preventDefault()
-    console.log(newEvent)
-  }*/
-
   useEffect(() => {
     dispatch(getGroupAsList())
     dispatch(getTopicAsList())
@@ -49,7 +43,6 @@ const CreateEventPage = ({ openDialogEvent, setOpenDialogEvent }) => {
 
   const handleSubmit = () => {
     dispatch(postNewEvent(newEvent))
-    console.log(newEvent)
     handleClose()
   }
 

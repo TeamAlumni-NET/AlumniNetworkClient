@@ -28,7 +28,7 @@ export const getUserEvents = async () => {
     )
     return res.data
   } catch (e) {
-    console.log(e.message.includes("JSON.parse"));
+    console.log(e.message);
   }
 }
 
@@ -87,7 +87,7 @@ export const getEventChildPosts = async id => {
 
     return res.data
   } catch (error) {
-    console.log(error)
+    console.log(error.message)
   }
 }
 

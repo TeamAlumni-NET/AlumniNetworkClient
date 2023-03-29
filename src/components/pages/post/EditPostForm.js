@@ -18,7 +18,7 @@ const EditPostForm = ({defaultdata, openDialog, setOpenDialog}) => {
   const handleClose = () => {
     setOpenDialog(false)
   }
-
+  
   const handleSubmit = async () => {
     if (defaultdata.eventId !== undefined) dispatch(editComment(edit))
     else dispatch(editPost(edit))
