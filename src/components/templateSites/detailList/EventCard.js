@@ -65,7 +65,9 @@ const EventCard = ({ post, time, childPost, search }) => {
               title={strings.common.start + ":"}
               subheader={time}
               onClick={() => {
-                dispatch(saveNavigate({url: post.user.name, id: post.user.id}))
+                dispatch(
+                  saveNavigate({ url: post.user.name, id: post.user.id })
+                )
                 navigate(`/profile/${post.user.name.replace(/\s/g, "_")}`)
               }}
             ></CardHeader>
@@ -73,8 +75,10 @@ const EventCard = ({ post, time, childPost, search }) => {
           <CardActions mr={"10px"}>
             <IconButton
               onClick={() => {
-                dispatch(saveNavigate({url: post.name, id: post.id}))
-                navigate(`../event/${post.name.replace(/\s/g, "_")}`, { replace: true })
+                dispatch(saveNavigate({ url: post.name, id: post.id }))
+                navigate(`../event/${post.name.replace(/\s/g, "_")}`, {
+                  replace: true,
+                })
               }}
             >
               <NavigateNextIcon />
