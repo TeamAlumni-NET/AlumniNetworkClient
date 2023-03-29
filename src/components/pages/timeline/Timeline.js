@@ -21,27 +21,17 @@ const Timeline = () => {
   let timeline = []
 
   useEffect(() => {
-    try {
-      timeline = postsTimeline.concat(timelineEvents)
-    } catch (error) {
-      console.log(error)
-    }
-  }, [postsTimeline,timelineEvents])
-  
+    setForTheFirstTime()
+  }, [postsTimeline, timelineEvents])
+
   useEffect(() => {
     dispatch(getPostsAsList())
     dispatch(getTimelineEventsList())
   }, [dispatch])
 
-  useEffect(() => {
-    timeline
-      .sort((a, b) => new Date(a.timeStamp) - new Date(b.timeStamp))
-      .reverse()
-  }, [postsTimeline, timelineEvents])
-
   const setForTheFirstTime = () => {
     try {
-      timeline = postsTimeline.concat(timelineEvents)
+      timeline = [...postsTimeline.concat(timelineEvents)]
       timeline
         .sort((a, b) => new Date(a.timeStamp) - new Date(b.timeStamp))
         .reverse()
@@ -49,7 +39,6 @@ const Timeline = () => {
       console.log(error)
     }
   }
-
   setForTheFirstTime()
   return (
     <>

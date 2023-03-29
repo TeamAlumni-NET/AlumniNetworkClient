@@ -56,7 +56,6 @@ const DetailsList = ({
       )
     }
   }, [search, data])
-
   const handleOpenDialog = (e) => {
     e.preventDefault()
     if (defaultType !== undefined) {
@@ -102,7 +101,7 @@ const DetailsList = ({
 
   const list = () => {
     if (posts.length > 0) {
-      if (!posts[0].group && !posts[0].topic) return <>Loading</>
+      if (!posts[0]?.group && !posts[0]?.topic) return <>Loading</>
       return posts.map((post, i) => {
         let time = ""
         if (post.startTime) {
