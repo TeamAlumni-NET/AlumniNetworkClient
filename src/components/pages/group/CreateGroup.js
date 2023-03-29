@@ -1,5 +1,5 @@
 
-import { Box, Button, FormControlLabel, InputLabel, Modal, TextField, Typography, Checkbox} from "@mui/material";
+import { Box, Button, FormControlLabel, InputLabel, Modal, TextField, Typography, Checkbox } from "@mui/material";
 
 import { useState } from "react";
 import { strings } from "../../../utils/localization";
@@ -9,7 +9,7 @@ const CreateGroup = () => {
   const [newGroup, setNewGroup] = useState({
     groupName: "",
     groupDescription: "",
-    private: false,       
+    private: false,
   })
 
   const [open, setOpen] = useState(false);
@@ -27,7 +27,7 @@ const CreateGroup = () => {
     boxShadow: 24,
     p: 4,
   };
-    
+
   const stringList = {
     newGroup: strings.createGroup.newGroup,
     groupName: strings.createGroup.groupName,
@@ -39,10 +39,11 @@ const CreateGroup = () => {
   }
 
   const handleCheckBoxChange = e => {
-    setNewGroup(newGroup=> ({
+    setNewGroup(newGroup => ({
       ...newGroup,
       private: e.target.checked
-    }))}
+    }))
+  }
 
 
   return (
@@ -50,7 +51,7 @@ const CreateGroup = () => {
       <Button size="small" onClick={handleOpen}>{stringList.newGroup}</Button>
       <Modal
         open={open}
-        onClose={handleClose}   
+        onClose={handleClose}
       >
 
         <Box sx={style}>
@@ -58,14 +59,14 @@ const CreateGroup = () => {
             {stringList.newGroup}
           </Typography>
           <form>
-                
+
             <div>
               <InputLabel variant='standard'>{stringList.groupName}</InputLabel>
               <TextField
                 required
                 id='outlined-required'
                 defaultValue=""
-                onChange={e => setNewGroup(newGroup=> ({
+                onChange={e => setNewGroup(newGroup => ({
                   ...newGroup,
                   groupName: e.target.value,
                 }))}
@@ -80,7 +81,7 @@ const CreateGroup = () => {
                 minRows={2}
                 id='outlined-required'
                 defaultValue=""
-                onChange={e => setNewGroup(newGroup=> ({
+                onChange={e => setNewGroup(newGroup => ({
                   ...newGroup,
                   groupDescription: e.target.value,
                 }))}
@@ -89,7 +90,7 @@ const CreateGroup = () => {
 
             <div>
               <FormControlLabel label={stringList.privacy} control={
-                <Checkbox checked={newGroup.private} onChange={handleCheckBoxChange}/> 
+                <Checkbox checked={newGroup.private} onChange={handleCheckBoxChange} />
               }
               />
             </div>
