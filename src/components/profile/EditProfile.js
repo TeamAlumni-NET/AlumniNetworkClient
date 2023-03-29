@@ -33,6 +33,7 @@ const EditProfile = ({ open, setOpen }) => {
   const theme = useTheme()
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"))
 
+  console.log(user);
   const submit = async (e) => {
     const dataToBackend = {
       id: user.id,
@@ -44,9 +45,9 @@ const EditProfile = ({ open, setOpen }) => {
       funFact: editFunFact,
       pictureUrl: editPictureUrl,
     }
-
+    console.log(dataToBackend, JSON.stringify(dataToBackend));
     try {
-      dispatch(patchCurrentUser(JSON.stringify(dataToBackend)))
+      dispatch(patchCurrentUser(dataToBackend))
     } catch (e) {
       handleClose()
       alert(strings.profilePage.errorMessage)
@@ -58,6 +59,7 @@ const EditProfile = ({ open, setOpen }) => {
     dispatch(getCurrentUser())
     dispatch(getProfileUser(user.username))
   }
+  
 
   const handleClose = () => {
     setOpen(false)

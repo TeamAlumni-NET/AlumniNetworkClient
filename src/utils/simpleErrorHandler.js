@@ -2,6 +2,7 @@ import keycloak from "../keycloak"
 import { onSignInGetOrCreateUser } from "../services/user/UserCRUDOperations"
 
 export const errorHandler = (error) =>{
+  console.log(error.message);
   if (error.response.status === 401) {
     const get = async () => {
       console.log("Trying to get keycloak connegtion again...")

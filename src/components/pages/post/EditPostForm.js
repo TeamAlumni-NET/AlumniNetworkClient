@@ -6,11 +6,6 @@ import { useDispatch } from 'react-redux'
 import { editPost } from '../../../reducers/postsSlice'
 import { editComment } from '../../../reducers/eventsSlice'
 
-/**
- *
- * @param {*} defaultdata: nameForForm, eventId, groupId, topicId, targetUserId, parentPostId, targetUserName
- * @returns
- */
 const EditPostForm = ({ defaultdata, openDialog, setOpenDialog }) => {
   const dispatch = useDispatch()
   const [edit, setEditPost] = useState(defaultdata)

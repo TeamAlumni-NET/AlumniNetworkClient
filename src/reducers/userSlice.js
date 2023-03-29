@@ -12,6 +12,7 @@ export const getCurrentUser = createAsyncThunk('user/getUser', async () => {
 export const patchCurrentUser = createAsyncThunk(
   'user/patchUser',
   async data => {
+    console.log("redux", data);
     const response = await patchUser(data)
     return response
   }
