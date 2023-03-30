@@ -23,14 +23,17 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs"
 import dayjs from "dayjs"
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import {
-  getTimelineEventsList,
-  postNewEvent,
-} from "../../../reducers/eventsSlice"
+import { postNewEvent } from "../../../reducers/eventsSlice"
 import { getGroupAsList } from "../../../reducers/groupsSlice"
 import { getTopicAsList } from "../../../reducers/topicsSlice"
 import { strings } from "../../../utils/localization"
 
+/**
+ * Element to display CreateEventPage component
+ * @param {Boolean} openDialogEvent Defines if this component is shown.
+ * @param {ReferenceState} setOpenDialogEvent For closing this component.
+ * @returns {JSX.Element} Rendered CreateEventPage
+ */
 const CreateEventPage = ({ openDialogEvent, setOpenDialogEvent }) => {
   const dispatch = useDispatch()
   const { groups } = useSelector((state) => state.groupList)
@@ -59,10 +62,19 @@ const CreateEventPage = ({ openDialogEvent, setOpenDialogEvent }) => {
     dispatch(getGroupAsList())
     dispatch(getTopicAsList())
   }, [dispatch])
+
+  /**
+   * Closes this component and sets parameters to default
+   * @returns {void}
+   */
   const handleClose = () => {
     setOpenDialogEvent(false)
     setNewEvent(initialState)
   }
+  /**
+   * Submits new event
+   * @returns {void}
+   */
   const handleSubmit = () => {
     dispatch(postNewEvent(newEvent))
     handleClose()

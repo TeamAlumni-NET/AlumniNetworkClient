@@ -6,10 +6,13 @@ import { Container } from "@mui/system"
 import { useSelector, useDispatch } from "react-redux"
 import { getEventsList } from "../../../reducers/eventsSlice"
 import Calendar from "../../calendar/Calendar"
-import { current } from "@reduxjs/toolkit"
 import { getDashboardPostsList } from "../../../reducers/postsSlice"
 import DetailsList from "../../templateSites/detailList/DetailsList"
 
+/**
+ * Element to show page of main posts and events that current user is interested
+ * @returns {JSX.Element} Rendered UserDashboard.
+ */
 const UserDashboard = () => {
   const [value, setValue] = useState(0)
   const dispatch = useDispatch()
@@ -28,7 +31,14 @@ const UserDashboard = () => {
     dispatch(getDashboardPostsList())
   }, [dispatch])
 
+  /**
+   * Sets value page, if its posts or calendar
+   * @param {Event} event default event
+   * @param {Number} newValue selected value
+   * @returns {void}
+   */
   const handleChange = (event, newValue) => {
+    event.preventDefault()
     setValue(newValue)
   }
 

@@ -32,7 +32,7 @@ module.exports = {
     "react/prop-types": "off",
     "no-empty-pattern": "warn",
     "react-hooks/exhaustive-deps": "off",
-    "require-jsdoc": ["off", {
+    "require-jsdoc": ["warn", {
       "require": {
         "FunctionDeclaration": true,
         "MethodDefinition": true,
@@ -41,6 +41,6 @@ module.exports = {
         "FunctionExpression": true
       }
     }],
-    "valid-jsdoc": "off"
+    "valid-jsdoc": "warn"
   }
 }

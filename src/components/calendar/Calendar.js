@@ -5,6 +5,12 @@ import { useState } from "react"
 import CalendarInfo from "./CalendarInfo"
 import styled from "@emotion/styled"
 
+/**
+ * Renders Calendar-compponent
+ * @param {Array.<Object>} events List of events to show in calendar.
+ * @param {Number} height Heigh of the calendar
+ * @returns {JSX.Element} Rendered Calendar
+ */
 const Calendar = ({ events, height = 800 }) => {
   const [open, setOpen] = useState(false)
   const [event, setEvent] = useState()

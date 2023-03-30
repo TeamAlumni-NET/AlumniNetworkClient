@@ -9,6 +9,10 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth"
 import CreatePostForm from '../pages/post/CreatePostForm'
 import EditPostForm from '../pages/post/EditPostForm'
 
+/**
+ * Component to display event details, with it's posts.
+ * @returns {JSX.Element} Rendered EventDetails
+ */
 const EventDetails = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -23,7 +27,11 @@ const EventDetails = () => {
     content: null
   })
 
-  
+  /**
+   * 
+   * @param {Date} timeStamp 
+   * @returns {Date} formated time
+   */
   const timeFormat = timeStamp => {
     const formatTime = new Date(timeStamp).toLocaleString('en-Fi', {
       month: '2-digit',
@@ -40,6 +48,10 @@ const EventDetails = () => {
     dispatch(getCurrentEventChilds(id))
   }, [dispatch])
 
+  /**
+   * 
+   * @param {*} param0 
+   */
   const handleOpenDialog = ({targetUserId, targetUserName}) => {
     const newData = {
       targetUserId: null,
@@ -54,6 +66,10 @@ const EventDetails = () => {
     setOpenDialog(true)
   }
 
+  /**
+   * 
+   * @param {*} dataToEdit 
+   */
   const handleOpenEdit = (dataToEdit) => {
     setEditData({
       content: dataToEdit.content,

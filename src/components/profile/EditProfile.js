@@ -1,10 +1,8 @@
 import { useState } from "react"
 import Box from "@mui/material/Box"
-import Modal from "@mui/material/Modal"
 import Button from "@mui/material/Button"
 import TextField from "@mui/material/TextField"
 import { strings } from "../../utils/localization"
-import { TextareaAutosize } from "@mui/base"
 import { useDispatch, useSelector } from "react-redux"
 import {
   patchCurrentUser,
@@ -20,6 +18,12 @@ import {
 import { useTheme } from "@emotion/react"
 import { Container } from "@mui/system"
 
+/**
+ * Element for editing user's profile.
+ * @param {Boolean} open Defines if this component is shown.
+ * @param {ReferenceState} setOpen For closing this component.
+ * @returns {JSX.Element} Rednered EditProfile
+ */
 const EditProfile = ({ open, setOpen }) => {
   const { user } = useSelector((state) => state.user)
   const dispatch = useDispatch()
@@ -33,7 +37,11 @@ const EditProfile = ({ open, setOpen }) => {
   const theme = useTheme()
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"))
 
-  console.log(user);
+  /**
+   * Submints edited user.
+   * @param {Event} e Default event
+   * @returns {void}
+   */
   const submit = async (e) => {
     const dataToBackend = {
       id: user.id,
@@ -60,7 +68,10 @@ const EditProfile = ({ open, setOpen }) => {
     dispatch(getProfileUser(user.username))
   }
   
-
+  /**
+   * Closes this component.
+   * @returns {void}
+   */
   const handleClose = () => {
     setOpen(false)
   }

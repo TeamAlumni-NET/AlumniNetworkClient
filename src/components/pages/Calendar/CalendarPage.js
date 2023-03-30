@@ -1,10 +1,14 @@
 import { Container, Typography } from "@mui/material"
-import React, { useEffect, useState } from "react"
+import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { getUserSuggestedEventsList } from "../../../reducers/eventsSlice"
 import Calendar from "../../calendar/Calendar"
 import { strings } from "../../../utils/localization"
 
+/**
+ * Renders CalendarPage element
+ * @returns {ReferenceState} Rendered CalendarPage
+ */
 const CalendarPage = () => {
   const dispatch = useDispatch()
   const { userSuggestedEvents } = useSelector((state) => state.eventList)

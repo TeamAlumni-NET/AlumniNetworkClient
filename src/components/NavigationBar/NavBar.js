@@ -13,8 +13,10 @@ import { useDispatch } from "react-redux"
 import { saveNavigate } from "../../reducers/currentPageSlice"
 
 /**
- *  Navigation bar for page navigation
- * @returns {JSX-Element}
+ * Navigation bar for page navigation
+ * @param {string} language Current selected language
+ * @param {ReferenceState} changeLanguageHandler for setting language
+ * @returns {JSX-Element} Rendered navbar
  */
 const NavBar = ({ language, changeLanguageHandler }) => {
   const isAuthenticated = keycloak.authenticated
@@ -31,7 +33,13 @@ const NavBar = ({ language, changeLanguageHandler }) => {
     }
   }, [isAuthenticated])
 
+  /**
+   * Gets clicked button's index and navigates to selected url
+   * @param {Number} key index of navbar button
+   * @returns {void}
+   */
   const handleNavigate = (key) =>{
+    console.log(key);
     if (pathsArray[key] === "profile"){
       dispatch(saveNavigate({url: JSON.parse(localStorage.getItem("currentUser")).userName, id: null}))
       navigate(`/${pathsArray[key].toLowerCase()}/${JSON.parse(localStorage.getItem("currentUser")).userName.toLowerCase()}`)
