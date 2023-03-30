@@ -4,8 +4,8 @@ import keycloak from "../keycloak"
 /**
  * Protect routes based on a given role and authenticated status of a Keycloak Session.
  * @description Default redirect is to the base path: "/"
- * @param {{ children: ReactNode, role: string, redirectTo: string }} props
- * @returns {JSX.Element}
+ * @param {{ children: ReactNode, role: string, redirectTo: string }} props props for keycloak
+ * @returns {JSX.Element} rendered KeycloakRoute
  */
 function KeycloakRoute({ children, role, redirectTo = "/" }) {
   if (!keycloak.authenticated) {

@@ -28,8 +28,8 @@ const EventDetails = () => {
   })
 
   /**
-   * 
-   * @param {Date} timeStamp 
+   * Formats timestamp to be numerig and all values have 2 digits.
+   * @param {Date} timeStamp selected timestamp
    * @returns {Date} formated time
    */
   const timeFormat = timeStamp => {
@@ -49,8 +49,10 @@ const EventDetails = () => {
   }, [dispatch])
 
   /**
-   * 
-   * @param {*} param0 
+   * Sets newData values and opens dialog for creating post
+   * @param {number} targetUserId Selected user's id
+   * @param {string} targetUserName Selected user's username
+   * @returns {void}
    */
   const handleOpenDialog = ({targetUserId, targetUserName}) => {
     const newData = {
@@ -67,8 +69,9 @@ const EventDetails = () => {
   }
 
   /**
-   * 
-   * @param {*} dataToEdit 
+   * Sets editData values and opens post edition
+   * @param {{id: number, title: string, content: string}} dataToEdit Post data to edit
+   * @returns {void}
    */
   const handleOpenEdit = (dataToEdit) => {
     setEditData({

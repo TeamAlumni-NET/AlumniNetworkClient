@@ -8,7 +8,7 @@ import {
 import { strings } from "../../../utils/localization"
 import { useDispatch, useSelector } from "react-redux"
 import { getGroupAsList } from "../../../reducers/groupsSlice"
-import { useNavigate, useParams } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { getTopicAsList } from "../../../reducers/topicsSlice"
 
 import GroupRemoveIcon from "@mui/icons-material/GroupRemove"
@@ -19,8 +19,8 @@ import { saveNavigate } from "../../../reducers/currentPageSlice"
  * A component to render
  * the join or leave button
  * based on current user membership.
- * @param {string} param0 group/topic based on url
- * @returns {JSX-element}
+ * @param {string} type group/topic based on url
+ * @returns {JSX.element} rendered JoinOrLeave
  */
 const JoinOrLeave = ({ type }) => {
   const { groups } = useSelector((state) => state.groupList)
@@ -38,6 +38,7 @@ const JoinOrLeave = ({ type }) => {
   /**
    * fetches data based on type
    * @param {string} currType //Group or Topic based on url
+   * @returns {void}
    */
   const currResourceFetch = (currType) => {
     if (currType === "groups") dispatch(getGroupAsList())
@@ -52,6 +53,7 @@ const JoinOrLeave = ({ type }) => {
    * Handles join/leave buttons.
    * Adds/Removes user to/from
    * current group/topic.
+   * @returns {void}
    */
   const handleClick = () => {
     if (!currResource?.isMember) {

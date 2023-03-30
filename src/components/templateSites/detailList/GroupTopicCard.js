@@ -14,6 +14,13 @@ import { useNavigate } from "react-router-dom"
 import { useDispatch } from "react-redux"
 import { saveNavigate } from "../../../reducers/currentPageSlice"
 
+/**
+ * Renders selected main post and it's childposts as card.
+ * @param {Object} post Current post data
+ * @param {Function} childPost Function for rendering childposts  as list
+ * @param {string} search user input for rendering child posts
+ * @returns  {JSX.Element} Rendered GroupTopicCard
+ */
 const GroupTopicCard = ({ post, childPost, search }) => {
   const navigate = useNavigate()
   const dispatch = useDispatch()

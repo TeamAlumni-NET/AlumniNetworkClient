@@ -9,6 +9,10 @@ import CommentPost from "../templateSites/detailList/CommentPost"
 import { Container } from "@mui/system"
 import Thread from "./Thread"
 
+/**
+ * Renders page of the selected main post.and its childposts
+ * @returns {JSX.Element} rendered post
+ */
 const Post = () => {
   const dispatch = useDispatch()
   const { post, childPosts } = useSelector((state) => state.postsList)
@@ -26,6 +30,12 @@ const Post = () => {
     dispatch(currentChildPosts(id))
   }, [dispatch])
 
+  /**
+   * Sets newData values and opens dialog for creating post
+   * @param {number} targetUserId Selected user's id
+   * @param {string} targetUserName Selected user's username
+   * @returns {void}
+   */
   const handleOpenDialog = ({ targetUserId, targetUserName }) => {
     const newData = {
       targetUserId: null,
@@ -46,6 +56,11 @@ const Post = () => {
     setOpenDialog(true)
   }
 
+  /**
+   * Sets editData values and opens post edition
+   * @param {{id: number, title: string, content: string}} dataToEdit Post data to edit
+   * @returns {void}
+   */
   const handleOpenEdit = (dataToEdit) => {
     setEditData({
       title: dataToEdit.title,

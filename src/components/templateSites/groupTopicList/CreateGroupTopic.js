@@ -15,13 +15,13 @@ import { useState } from "react"
 import { strings } from "../../../utils/localization"
 
 /**
- *
- * @param {*} type
- * @param {*} showCreateNew
- * @param {*} setShowCreateNew
- * @param {*} createGroupTopic
- * @param {*} setCreateGroupTopic
- * @returns
+ * Returns dialog for creating ne topic or group
+ * @param {String} type type of selected create, group or topic
+ * @param {Boolean} showCreateNew Defines if this component is shown.
+ * @param {ReferenceState } setShowCreateNew For closing this component.
+ * @param {String} createGroupTopic Starting name for new topic / group
+ * @param {ReferenceState} setCreateGroupTopic Sets new values to createGroupTopic
+ * @returns {JSX.Element} Rendered CreateGroupTopic
  */
 const CreateGroupTopic = ({
   type,
@@ -44,18 +44,10 @@ const CreateGroupTopic = ({
     }))
   }
 
-  const style = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: 400,
-    bgcolor: "background.paper",
-    border: "2px solid #000",
-    boxShadow: 24,
-    p: 4,
-  }
-
+  /**
+   * Sets stringlist depending on type-parameter
+   * @returns {void}
+   */
   const setStringList = () => {
     if (type === "group") {
       stringList = {
@@ -77,15 +69,28 @@ const CreateGroupTopic = ({
 
   setStringList()
 
+  /**
+   * Closes this component
+   * @returns {void}
+   */
   const handleClose = () => {
     setShowCreateNew(false)
   }
 
+  /**
+   * Sets checkbox to true or false
+   * @param {Event} e default event
+   * @returns {void}
+   */
   const handleCheckBoxChange = (e) => {
     e.preventDefault()
     setPrivacy(e.target.checked)
   }
 
+  /**
+   * Sets createGroupTopic as a object on closes this component
+   * @returns {void}
+   */
   const handleSubmit = () => {
     if (type === "topic") {
       setCreateGroupTopic({
