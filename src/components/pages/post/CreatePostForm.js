@@ -21,10 +21,10 @@ import {
   getTopicPostsList,
   postNewPost,
 } from "../../../reducers/postsSlice"
-import CreateGroupTopic from '../../templateSites/groupTopicList/CreateGroupTopic'
-import { createGroupTopic as createGroupTopicService } from '../../../services/group/groupsTopicsService'
-import { getCurrentUser } from '../../../reducers/userSlice'
-import { commentOnEvent } from '../../../reducers/eventsSlice'
+import CreateGroupTopic from "../../templateSites/groupTopicList/CreateGroupTopic"
+import { createGroupTopic as createGroupTopicService } from "../../../services/group/groupsTopicsService"
+import { getCurrentUser } from "../../../reducers/userSlice"
+import { commentOnEvent } from "../../../reducers/eventsSlice"
 
 const initialState = {
   title: null,
@@ -95,21 +95,28 @@ const CreatePostForm = ({ defaultdata, openDialog, setOpenDialog }) => {
       else newPost.topicId = response.id
     }
     if (defaultdata?.eventId !== undefined && defaultdata?.eventId !== null) {
-      dispatch(commentOnEvent({
-        data: newPost,
-        targetUser: defaultdata.targetUserName
-      }))
+      dispatch(
+        commentOnEvent({
+          data: newPost,
+          targetUser: defaultdata.targetUserName,
+        })
+      )
     } else {
-      dispatch(postNewPost({
-        data: newPost,
-        targetUser: defaultdata.targetUserName,
-        targetGroup: defaultdata.targetGroup,
-        targetTopic: defaultdata.targetTopic
-      }))
+      dispatch(
+        postNewPost({
+          data: newPost,
+          targetUser: defaultdata.targetUserName,
+          targetGroup: defaultdata.targetGroup,
+          targetTopic: defaultdata.targetTopic,
+        })
+      )
       dispatch(getPostsAsList())
       dispatch(getDashboardPostsList())
-      if (window.location.href.indexOf("group") > -1) dispatch(getGroupPostsList(id))
-      else if (window.location.href.indexOf("topic") > -1) dispatch(getTopicPostsList(id))
+
+      if (window.location.href.indexOf("group") > -1)
+        dispatch(getGroupPostsList(id))
+      else if (window.location.href.indexOf("topic") > -1)
+        dispatch(getTopicPostsList(id))
     }
     handleClose()
   }
@@ -193,46 +200,57 @@ const CreatePostForm = ({ defaultdata, openDialog, setOpenDialog }) => {
   return (
     <Drawer anchor="bottom" open={openDialog} onClose={handleClose}>
       <form onSubmit={handleSubmit} style={{ padding: 20 }}>
-        <Box sx={{
-          display: 'flex',
-          flexDirection: 'column',
-        }} >
-          {defaultdata?.parentPostId === undefined && defaultdata.eventId === undefined 
-            ? <h1>{strings.createPostForm.title}</h1>
-            : <h1>{strings.createPostForm.titleAnswer}</h1>
-          }
-          <div style={{display: "flex", justifyContent: "space-between"}}>
-            {defaultdata?.parentPostId === undefined && defaultdata?.eventId === undefined &&
-            <div>
-              <InputLabel variant='standard'>{strings.createPostForm.postTitle}</InputLabel>
-              <TextField
-                required
-                id='outlined-required'
-                defaultValue=""
-                sx={{ width: 300 }}
-                onChange={e => setNewPost(newPost => ({
-                  ...newPost,
-                  title: e.target.value,
-                }))}
-              />
-            </div>
-            }
-            {defaultdata?.nameForForm === undefined && defaultdata?.parentPostId === undefined && defaultdata?.eventId === undefined
-            && <>
-              <div>
-                <InputLabel id="group">
-                  {strings.createPostForm.group}
-                </InputLabel>
-                {autoCompleteRender("group")}
-              </div>
-              <div>
-                <InputLabel id="topic">
-                  {strings.createPostForm.topic}
-                </InputLabel>
-                {autoCompleteRender("topic")}
-              </div>
-            </>
-            }
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          {defaultdata?.parentPostId === undefined &&
+          defaultdata.eventId === undefined ? (
+            <h1>{strings.createPostForm.title}</h1>
+          ) : (
+            <h1>{strings.createPostForm.titleAnswer}</h1>
+          )}
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+            {defaultdata?.parentPostId === undefined &&
+              defaultdata?.eventId === undefined && (
+                <div>
+                  <InputLabel variant="standard">
+                    {strings.createPostForm.postTitle}
+                  </InputLabel>
+                  <TextField
+                    required
+                    id="outlined-required"
+                    defaultValue=""
+                    sx={{ width: 300 }}
+                    onChange={(e) =>
+                      setNewPost((newPost) => ({
+                        ...newPost,
+                        title: e.target.value,
+                      }))
+                    }
+                  />
+                </div>
+              )}
+            {defaultdata?.nameForForm === undefined &&
+              defaultdata?.parentPostId === undefined &&
+              defaultdata?.eventId === undefined && (
+                <>
+                  <div>
+                    <InputLabel id="group">
+                      {strings.createPostForm.group}
+                    </InputLabel>
+                    {autoCompleteRender("group")}
+                  </div>
+                  <div>
+                    <InputLabel id="topic">
+                      {strings.createPostForm.topic}
+                    </InputLabel>
+                    {autoCompleteRender("topic")}
+                  </div>
+                </>
+              )}
           </div>
 
           <div>
@@ -266,7 +284,9 @@ const CreatePostForm = ({ defaultdata, openDialog, setOpenDialog }) => {
           />
         )}
         <Button onClick={handleClose}>{strings.common.cancel}</Button>
-        <Button variant="contained" onClick={handleSubmit}>{strings.createPostForm.post}</Button>
+        <Button variant="contained" onClick={handleSubmit}>
+          {strings.createPostForm.post}
+        </Button>
       </form>
     </Drawer>
   )

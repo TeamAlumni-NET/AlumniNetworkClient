@@ -86,46 +86,47 @@ export const postListSlice = createSlice({
     builder.addCase(getCurrentPost.fulfilled, (state, action) => {
       state.post = action.payload
     }),
-    builder.addCase(currentChildPosts.fulfilled, (state, action) => {
-      state.childPosts = action.payload
-    }),
-    builder.addCase(postNewPost.fulfilled, (state, action) => {
-      if(action.payload.title === null) state.childPosts.push(action.payload)
-      else {
-        if(action.payload.group !== null) {
-          state.postsGroup.push(action.payload)
-          state.postsTimeline.push(action.payload)
+      builder.addCase(currentChildPosts.fulfilled, (state, action) => {
+        state.childPosts = action.payload
+      }),
+      builder.addCase(postNewPost.fulfilled, (state, action) => {
+        if (!action.payload.title) {
+          state.childPosts = [...state.childPosts, action.payload]
+        } else {
+          if (action.payload.group !== null) {
+            state.postsGroup.push(action.payload)
+            state.postsTimeline.push(action.payload)
+          }
+          if (action.payload.topic !== null) {
+            state.postsTopic.push(action.payload)
+            state.postsTimeline.push(action.payload)
+          }
         }
-        if(action.payload.topic !== null) {
-          state.postsTopic.push(action.payload)
-          state.postsTimeline.push(action.payload)
-        }
-      }
-    })
+      })
     builder.addCase(getPostsAsList.fulfilled, (state, action) => {
       state.postsTimeline = action.payload
     }),
-    builder.addCase(getGroupPostsList.fulfilled, (state, action) => {
-      state.postsGroup = action.payload
-    }),
-    builder.addCase(getTopicPostsList.fulfilled, (state, action) => {
-      state.postsTopic = action.payload
-    }),
-    builder.addCase(getDashboardPostsList.fulfilled, (state, action) => {
-      state.postsDashboard = action.payload ? action.payload : []
-    })
+      builder.addCase(getGroupPostsList.fulfilled, (state, action) => {
+        state.postsGroup = action.payload
+      }),
+      builder.addCase(getTopicPostsList.fulfilled, (state, action) => {
+        state.postsTopic = action.payload
+      }),
+      builder.addCase(getDashboardPostsList.fulfilled, (state, action) => {
+        state.postsDashboard = action.payload ? action.payload : []
+      })
     builder.addCase(editPost.fulfilled, (state, action) => {
       if (state.post.id === action.payload.id) {
         state.post.title = action.payload.title
         state.post.content = action.payload.content
       }
-      if (state.childPosts.length > 0){
+      if (state.childPosts.length > 0) {
         const index = current(state.childPosts).findIndex(
           (post) => post.id === action.payload.id
         )
-        if(state.childPosts[index] !== undefined) state.childPosts[index].content = action.payload.content
+        if (state.childPosts[index] !== undefined)
+          state.childPosts[index].content = action.payload.content
       }
-      
     })
   },
 })

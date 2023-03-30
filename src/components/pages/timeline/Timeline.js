@@ -15,7 +15,6 @@ const Timeline = () => {
     topic: strings.timeline.topic,
     startingAt: strings.timeline.startingAt,
   }
-
   const { postsTimeline } = useSelector((state) => state.postsList)
   const { timelineEvents } = useSelector((state) => state.eventList)
   let timeline = []

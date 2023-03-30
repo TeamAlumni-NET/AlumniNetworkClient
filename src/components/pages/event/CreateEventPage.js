@@ -67,7 +67,6 @@ const CreateEventPage = ({ openDialogEvent, setOpenDialogEvent }) => {
     dispatch(postNewEvent(newEvent))
     handleClose()
   }
-  console.log(newEvent)
   return (
     <Dialog
       open={openDialogEvent}
