@@ -4,6 +4,10 @@ import { useDispatch, useSelector } from "react-redux"
 import { createNewGroup, getGroupAsList } from "../../../reducers/groupsSlice"
 import { useEffect, useState } from "react"
 
+/**
+ * Element to show page of groups, that current user can see
+ * @returns {JSX.Element} Render GroupList-page
+ */
 const GroupList = () => {
   const dispatch = useDispatch()
   const { groups } = useSelector((state) => state.groupList)

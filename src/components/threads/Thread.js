@@ -8,7 +8,6 @@ import {
   CardHeader,
   Container,
   Divider,
-  IconButton,
   Typography,
 } from "@mui/material"
 import SendIcon from "@mui/icons-material/Send"
@@ -19,6 +18,13 @@ import { saveNavigate } from "../../reducers/currentPageSlice"
 import { format } from "date-fns"
 import { strings } from "../../utils/localization"
 
+/**
+ * Renders card of the main post
+ * @param {Object} post The main post
+ * @param {Funktion} handleOpenDialog Sets newData values and opens dialog for creating post
+ * @param {Funktion} handleOpenEdit Sets editData values and opens post edition
+ * @returns  {JSX.Element} Rendered Thread
+ */
 const Thread = ({ post, handleOpenDialog, handleOpenEdit }) => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -32,7 +38,7 @@ const Thread = ({ post, handleOpenDialog, handleOpenEdit }) => {
   useEffect(() => {
     setLocalUser(JSON.parse(localStorage.getItem("currentUser")))
   }, [localStorage.getItem("currentUser")])
-  console.log(post)
+
   return (
     <>
       <Card
@@ -90,20 +96,20 @@ const Thread = ({ post, handleOpenDialog, handleOpenEdit }) => {
             <Box sx={{ alignItems: "end", display: "flex" }}>
               {post.userId !==
               JSON.parse(localStorage.getItem("currentUser")).id ? (
-                <Button
-                  variant="contained"
-                  sx={{ m: 1 }}
-                  onClick={() => handleOpenDialog({})}
-                >
-                  {strings.postThread.answer}
-                  <SendIcon sx={{ ml: 1 }} />
-                </Button>
-              ) : (
-                <Button onClick={() => handleOpenEdit(post)}>
-                  {strings.postThread.edit}
-                  <SendIcon sx={{ ml: 1 }} />
-                </Button>
-              )}
+                  <Button
+                    variant="contained"
+                    sx={{ m: 1 }}
+                    onClick={() => handleOpenDialog({})}
+                  >
+                    {strings.postThread.answer}
+                    <SendIcon sx={{ ml: 1 }} />
+                  </Button>
+                ) : (
+                  <Button onClick={() => handleOpenEdit(post)}>
+                    {strings.postThread.edit}
+                    <SendIcon sx={{ ml: 1 }} />
+                  </Button>
+                )}
             </Box>
           </Box>
         </Box>

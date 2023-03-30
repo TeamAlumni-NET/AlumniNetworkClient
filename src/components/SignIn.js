@@ -6,6 +6,10 @@ import keycloak from "../keycloak"
 import { saveNavigate } from "../reducers/currentPageSlice"
 import { strings } from "../utils/localization"
 
+/**
+ * Renders log in page and also starting page of the application
+ * @returns {JSX.Element} Rendered Signin
+ */
 const SignIn = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()

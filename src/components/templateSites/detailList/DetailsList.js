@@ -1,13 +1,10 @@
 import {
-  Card,
-  CardContent,
   Typography,
   Button,
   Container,
   TextField,
   Box,
   IconButton,
-  CardHeader,
   CircularProgress,
 } from "@mui/material"
 import { useEffect, useState } from "react"
@@ -23,6 +20,16 @@ import { useSelector } from "react-redux"
 import CommentPost from "./CommentPost"
 import CreateEventPage from "../../pages/event/CreateEventPage"
 
+/**
+ * Displays posts in a list.
+ * @param {Array.<string[]>} stringList strings from localization
+ * @param {Array.<Object>} data List of posts
+ * @param {Boolean} timeline Defines is timeline features true or false
+ * @param {Array.<Object>} events sa
+ * @param {Boolean} dashboard  Defines is dasboard features true or false
+ * @param {String} defaultType  type of list
+ * @returns {JSX.Element} rendered DetailsList
+ */
 const DetailsList = ({
   stringList,
   data,
@@ -57,6 +64,12 @@ const DetailsList = ({
       )
     }
   }, [search, data])
+
+  /**
+   * Sets newData values and opens dialog for creating post
+   * @param {Event} e Default evet
+   * @returns {void}
+   */
   const handleOpenDialog = (e) => {
     e.preventDefault()
     if (defaultType !== undefined) {
@@ -79,10 +92,20 @@ const DetailsList = ({
     setOpenDialog(true)
   }
 
+  /**
+   * Handles changes to search-value
+   * @param {Event} e Default event
+   * @returns {void}
+   */
   const handleChange = (e) => {
     setSearch(e.target.value.toLowerCase())
   }
 
+  /**
+   * Filters and return rendered list of childposts
+   * @param {Object} currentPost current main post
+   * @returns {JSX.Element} Listed childposts
+   */
   const childPost = (currentPost) => {
     const listOfPosts = currentPost.filter(
       (p) =>
@@ -90,6 +113,11 @@ const DetailsList = ({
         p.user?.username?.toLowerCase().includes(search)
     )
 
+    /**
+     * Renders individual child posts
+     * @param {Array.<Object>} post List of childposts
+     * @returns {JSX.Element} Listed childposts
+     */
     const childPostList = (post) => {
       return post.map((childPost, i) => {
         return <CommentPost comment={childPost} key={i} />
@@ -100,6 +128,10 @@ const DetailsList = ({
     return childPostList(listOfPosts)
   }
 
+  /**
+   * Renders all main posts and their childposts when filtered.
+   * @returns {JSX.Element} rendered list
+   */
   const list = () => {
     if (posts.length > 0) {
       return posts.map((post, i) => {
@@ -141,6 +173,7 @@ const DetailsList = ({
       )
     }
   }
+
   return (
     <>
       <Container sx={{ mt: "50px" }}>

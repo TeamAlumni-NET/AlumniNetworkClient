@@ -6,12 +6,16 @@ import { getGroupPostsList } from "../../../reducers/postsSlice"
 import { strings } from "../../../utils/localization"
 import { getGroupEventsList } from "../../../reducers/eventsSlice"
 
+/**
+ * Element to show page of selected Group and its posts and events
+ * @returns {JSX.Element} Render Group-page with details.
+ */
 const Group = () => {
   const dispatch = useDispatch()
   const { postsGroup } = useSelector((state) => state.postsList)
   const { groupEvents } = useSelector((state) => state.eventList)
   const { id } = useSelector(state => state.currentPage)
-  let groups = [...postsGroup]
+  const groups = [...postsGroup]
 
   const stringList = {
     title: " " + strings.group.title,

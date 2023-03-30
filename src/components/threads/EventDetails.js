@@ -9,6 +9,10 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth"
 import CreatePostForm from '../pages/post/CreatePostForm'
 import EditPostForm from '../pages/post/EditPostForm'
 
+/**
+ * Component to display event details, with it's posts.
+ * @returns {JSX.Element} Rendered EventDetails
+ */
 const EventDetails = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -23,7 +27,11 @@ const EventDetails = () => {
     content: null
   })
 
-  
+  /**
+   * Formats timestamp to be numerig and all values have 2 digits.
+   * @param {Date} timeStamp selected timestamp
+   * @returns {Date} formated time
+   */
   const timeFormat = timeStamp => {
     const formatTime = new Date(timeStamp).toLocaleString('en-Fi', {
       month: '2-digit',
@@ -40,6 +48,12 @@ const EventDetails = () => {
     dispatch(getCurrentEventChilds(id))
   }, [dispatch])
 
+  /**
+   * Sets newData values and opens dialog for creating post
+   * @param {number} targetUserId Selected user's id
+   * @param {string} targetUserName Selected user's username
+   * @returns {void}
+   */
   const handleOpenDialog = ({targetUserId, targetUserName}) => {
     const newData = {
       targetUserId: null,
@@ -54,6 +68,11 @@ const EventDetails = () => {
     setOpenDialog(true)
   }
 
+  /**
+   * Sets editData values and opens post edition
+   * @param {{id: number, title: string, content: string}} dataToEdit Post data to edit
+   * @returns {void}
+   */
   const handleOpenEdit = (dataToEdit) => {
     setEditData({
       content: dataToEdit.content,

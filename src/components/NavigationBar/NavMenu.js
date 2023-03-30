@@ -6,9 +6,11 @@ import MenuIcon from "@mui/icons-material/Menu"
 import { useNavigate } from "react-router"
 import { useDispatch } from "react-redux"
 import { saveNavigate } from "../../reducers/currentPageSlice"
+
 /**
- * An element to display menu as hamburger drawer menu
- * @returns {JSX-Element}
+ * An element to display menu as hamburger drawer menu, for mobile size-screens
+ * @param {Array.<string>} paths url-paths for navigation
+ * @returns {JSX-Element} Rendered NavMenu
  */
 const NavMenu = ({ paths }) => {
   const [drawer, setDrawer] = useState(false)
@@ -19,7 +21,7 @@ const NavMenu = ({ paths }) => {
    * Toggles drawer to open or close
    * @param {string} anchor //side of drawer
    * @param {Boolean} open //bool to open/close drawer
-   * @returns //nothing
+   * @returns {void}
    */
   const toggleDrawer = (anchor, open) => (event) => {
     if (

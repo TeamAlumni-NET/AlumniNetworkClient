@@ -8,15 +8,19 @@ import {
 } from "@mui/material"
 import { Container } from "@mui/system"
 import { useEffect, useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { getCurrentUser, getProfileUser } from "../../../reducers/userSlice"
-import { getUser } from "../../../services/user/UserService"
+import { useDispatch } from "react-redux"
 import EditPostForm from "../../pages/post/EditPostForm"
 import EditIcon from "@mui/icons-material/Edit"
 import { format } from "date-fns"
 import { saveNavigate } from "../../../reducers/currentPageSlice"
 import { useNavigate } from "react-router-dom"
 
+/**
+ * Renders individual posts
+ * @param {Object} comment Current rendering post
+ * @param {boolean} thread Is current post main post
+ * @returns {JSX.Element} Rendered CommentPost
+ */
 const CommentPost = ({ comment, thread = false }) => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -32,6 +36,11 @@ const CommentPost = ({ comment, thread = false }) => {
     title: null,
     content: null,
   })
+  /**
+   * Sets editData values and opens post edition
+   * @param {{id: number, title: string, content: string}} dataToEdit Post data to edit
+   * @returns {void}
+   */
   const handleOpenEdit = (dataToEdit) => {
     setEditData({
       title: dataToEdit.title,

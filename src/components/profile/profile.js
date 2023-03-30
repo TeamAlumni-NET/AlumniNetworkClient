@@ -1,7 +1,4 @@
 import { styled } from "@mui/material/styles"
-import Grid from "@mui/material/Grid"
-import Paper from "@mui/material/Paper"
-import Typography from "@mui/material/Typography"
 import {
   Button,
   Card,
@@ -10,29 +7,30 @@ import {
   CardHeader,
   InputLabel,
   TextField,
+  Container
 } from "@mui/material"
 import { useEffect, useState } from "react"
 import EditProfile from "./EditProfile"
 import { getCurrentUser, getProfileUser } from "../../reducers/userSlice"
 import { useDispatch, useSelector } from "react-redux"
 import { strings } from "../../utils/localization"
-import { useTheme } from "@emotion/react"
-import { borderRadius, Container } from "@mui/system"
 import { useParams } from "react-router-dom"
 
-const Img = styled("img")({
-  margin: "auto",
-  display: "block",
-  maxWidth: "100%",
-  maxHeight: "100%",
-})
-
+/**
+ * Element that displays selected user's profile page.
+ * @returns {JSX.Element} Rendered Profile
+ */
 function Profile() {
   const dispatch = useDispatch()
   const { user, profileUser } = useSelector((state) => state.user)
-  const { id, url } = useSelector((state) => state.currentPage)
+  const { url } = useSelector((state) => state.currentPage)
   const { username } = useParams()
   const [openEdit, setOpenEdit] = useState(false)
+
+  /**
+   * Opens user edition
+   * @returns {void}
+   */
   const handleOpen = () => {
     setOpenEdit(true)
   }

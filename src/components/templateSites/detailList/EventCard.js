@@ -14,16 +14,29 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth"
 import { useDispatch } from "react-redux"
 import { saveNavigate } from "../../../reducers/currentPageSlice"
 
+/**
+ * Renders selected event information and its childposts.
+ * @param {Object} post Current event data
+ * @param {String} time Post's timestamp as string
+ * @param {Function} childPost Function for rendering childposts  as list
+ * @param {string} search user input for rendering child posts
+ * @returns {JSX.Element} rendered EventCard
+ */
 const EventCard = ({ post, time, childPost, search }) => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  
+  /**
+   * Checks what kind of header Eventcard needs.
+   * @returns {String} Header of eventcard
+   */
   const getTopicOrGroupText = () => {
     let topicsOrGroups =
       post.group?.length > 0
         ? strings.group.groups
         : post.topics?.length > 0
-        ? strings.topic.topics
-        : ""
+          ? strings.topic.topics
+          : ""
 
     if (topicsOrGroups === strings.group.groups) {
       post.group?.forEach((element) => {
@@ -34,9 +47,9 @@ const EventCard = ({ post, time, childPost, search }) => {
         topicsOrGroups += element
       })
     }
-
     return topicsOrGroups
   }
+
   return (
     <>
       <Card
