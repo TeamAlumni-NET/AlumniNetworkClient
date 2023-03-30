@@ -3,7 +3,7 @@ import LocalizedStrings from "react-localization"
 export const strings = new LocalizedStrings({
   en: {
     login: {
-      logoUrl: "/media/logo/AlumniNetworkEn/png/logo-no-background.png",
+      logoUrl: "/media/logo/AlumniNetworkEn/svg/logo-no-background.svg",
     },
     navbar: {
       title: "Network Alumni",
@@ -136,7 +136,7 @@ export const strings = new LocalizedStrings({
   },
   fi: {
     login: {
-      logoUrl: "/media/logo/AlumniNetworkFi/png/logo-no-background.png",
+      logoUrl: "/media/logo/AlumniNetworkFi/svg/logo-no-background.svg",
     },
     navbar: {
       title: "Network Alumni",
