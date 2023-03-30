@@ -8,6 +8,7 @@ import {
   Box,
   IconButton,
   CardHeader,
+  CircularProgress,
 } from "@mui/material"
 import { useEffect, useState } from "react"
 import { strings } from "../../../utils/localization"
@@ -101,7 +102,6 @@ const DetailsList = ({
 
   const list = () => {
     if (posts.length > 0) {
-      if (!posts[0]?.group && !posts[0]?.topic) return <>Loading</>
       return posts.map((post, i) => {
         let time = ""
         if (post.startTime) {
@@ -134,7 +134,11 @@ const DetailsList = ({
         )
       })
     } else {
-      return <>No posts</>
+      return (
+        <Box>
+          <CircularProgress />
+        </Box>
+      )
     }
   }
   return (
