@@ -5,6 +5,10 @@ import { useEffect } from "react"
 import { getPostsAsList } from "../../../reducers/postsSlice"
 import { getTimelineEventsList } from "../../../reducers/eventsSlice"
 
+/**
+ * Element to show page timeline with its posts and events as list.
+ * @returns {JSX.Element} Render Timeline.
+ */
 const Timeline = () => {
   const dispatch = useDispatch()
   const stringList = {

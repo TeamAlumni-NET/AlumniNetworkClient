@@ -5,8 +5,6 @@ import {
   InputLabel,
   TextField,
   createFilterOptions,
-  Dialog,
-  DialogActions,
   Drawer,
 } from "@mui/material"
 import { strings } from "../../../utils/localization"
@@ -37,6 +35,21 @@ const initialState = {
   user: null,
 }
 
+/**
+ * Renders a drawer for creating new posts
+ * @param {{nameForForm: string,
+ * targetUserName: string,
+ * targetGroup: string,
+ * targetTopic: string,
+ * groupId: number,
+ * topicId: number,
+ * targetUserId: number,
+ * eventId: number,
+ * targetUserName: string}} defaultdata For setting defaul values for the post. All are optional.
+ * @param {Boolean} openDialog Defines if this component is shown.
+ * @param {ReferenceState} setOpenDialog For closing this component.
+ * @returns {JSX.Element} Derdered drawer
+ */
 const CreatePostForm = ({ defaultdata, openDialog, setOpenDialog }) => {
   const dispatch = useDispatch()
   const filter = createFilterOptions()
@@ -47,7 +60,7 @@ const CreatePostForm = ({ defaultdata, openDialog, setOpenDialog }) => {
   const [createNewGroupTopic, setCreateNewGroupTopic] = useState("")
   const [newPost, setNewPost] = useState(initialState)
   const { user } = useSelector((state) => state.user)
-  const { id, url } = useSelector((state) => state.currentPage)
+  const { id } = useSelector((state) => state.currentPage)
 
   useEffect(() => {
     for (const [key, value] of Object.entries(defaultdata)) {
@@ -79,12 +92,20 @@ const CreatePostForm = ({ defaultdata, openDialog, setOpenDialog }) => {
     }))
   }
 
+  /**
+   * Closes this component and sets parameters to default
+   * @returns {void}
+   */
   const handleClose = () => {
     setOpenDialog(false)
     setCreateNewGroupTopic("")
     setNewPost(initialState)
   }
 
+  /**
+   * Submints new post
+   * @returns {void}
+   */
   const handleSubmit = async () => {
     if (createNewGroupTopic !== "") {
       const response = await createGroupTopicService(
@@ -121,7 +142,16 @@ const CreatePostForm = ({ defaultdata, openDialog, setOpenDialog }) => {
     handleClose()
   }
 
+  /**
+   * Element for choosing or creating new a topic / group
+   * @param {string} completetype topic / group - type of the Autocomplete
+   * @returns {JSX.Element} rendered autoCompleteRender
+   */
   const autoCompleteRender = (completetype) => {
+    /**
+     * Defines if current autocompleteRender is disabled
+     * @returns {Boolean} disabled or not
+     */
     const isDisabled = () => {
       if (completetype !== type) {
         if (createNewGroupTopic !== "") return true

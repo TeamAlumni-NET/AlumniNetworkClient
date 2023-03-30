@@ -20,6 +20,10 @@ import { useDispatch, useSelector } from "react-redux"
 import { saveNavigate } from "./reducers/currentPageSlice"
 import EventDetails from "./components/threads/EventDetails"
 
+/**
+ * Projet's main renderer
+ * @returns {JSX.Element} rendered aplication
+ */
 function App() {
   const dispatch = useDispatch()
   const [language, setLanguage] = useState("en")
@@ -68,6 +72,10 @@ function App() {
   })
 
   useEffect(() => {
+    /**
+     * Gets user's token from keycloak
+     * @returns {void}
+     */
     const get = async () =>
       await onSignInGetOrCreateUser(
         keycloak.tokenParsed.preferred_username,
@@ -86,6 +94,11 @@ function App() {
     dispatch(saveNavigate({ url: newNavigate.url, id: newNavigate.id }))
   }
 
+  /**
+   * Sets language to localization and localstorage
+   * @param {String} lang  current language
+   * @returns {void}
+   */
   const changeLanguageHandler = (lang) => {
     setLanguage(lang)
     strings.setLanguage(lang)

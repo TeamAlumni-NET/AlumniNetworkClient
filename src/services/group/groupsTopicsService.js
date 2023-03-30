@@ -3,6 +3,11 @@ import { config } from "../../utils/config"
 import keycloak from "../../keycloak"
 import { errorHandler } from "../../utils/simpleErrorHandler"
 
+/**
+ * Gets group/topic as list
+ * @param {string} target defines is it group or topic to be fetched
+ * @returns {object} Response from api
+ */
 export const getGroupTopicList = async (target) => {
   try {
     const userId = JSON.parse(localStorage.getItem("currentUser")).id
@@ -18,6 +23,12 @@ export const getGroupTopicList = async (target) => {
   }
 }
 
+/**
+ * Posts new group / topic to api
+ * @param {Object} data information of the new group / topic
+ * @param {string} target defines is it group or topic to be fetched
+ * @returns {object} Response from api
+ */
 export const createGroupTopic = async(data, target) => {
   const userId = JSON.parse(localStorage.getItem("currentUser")).id
   try {
@@ -33,6 +44,12 @@ export const createGroupTopic = async(data, target) => {
   }
 }
 
+/**
+ * Posts user to join to the selected group / topic
+ * @param {string} target defines is it group or topic to be fetched
+ * @param {number} id id of the group / topic
+ * @returns {object} Response from api
+ */
 export const addUserToGroupTopic = async (target, id) => {
   try {
     const userId = JSON.parse(localStorage.getItem("currentUser")).id
@@ -48,6 +65,13 @@ export const addUserToGroupTopic = async (target, id) => {
     errorHandler(error)
   }
 }
+
+/**
+ * Sends patch to remove user from selected group / topic
+ * @param {string} target defines is it group or topic to be fetched 
+ * @param {number} id id of the group / topic
+ * @returns {object} Response from api
+ */
 export const RevomeUserToGroupTopic = async (target, id) => {
   try {
     const userId = JSON.parse(localStorage.getItem("currentUser")).id

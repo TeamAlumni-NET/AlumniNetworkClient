@@ -6,13 +6,29 @@ import { useDispatch } from 'react-redux'
 import { editPost } from '../../../reducers/postsSlice'
 import { editComment } from '../../../reducers/eventsSlice'
 
+/**
+ * Renders a drawer for creating editing posts
+ * @param {{id: number, title: string,content: string}} defaultdata For setting defaul values for the post. All are optional.
+ * @param {Boolean} openDialog Defines if this component is shown.
+ * @param {ReferenceState} setOpenDialog For closing this component.
+ * @returns {JSX.Element} Rendered EditPostForm
+ */
 const EditPostForm = ({ defaultdata, openDialog, setOpenDialog }) => {
   const dispatch = useDispatch()
   const [edit, setEditPost] = useState(defaultdata)
+
+  /**
+   * Closes this component and sets parameters to default
+   * @returns {void}
+   */
   const handleClose = () => {
     setOpenDialog(false)
   }
 
+  /**
+   * Submints edited post
+   * @returns {void}
+   */
   const handleSubmit = async () => {
     if (defaultdata.eventId !== undefined) dispatch(editComment(edit))
     else dispatch(editPost(edit))

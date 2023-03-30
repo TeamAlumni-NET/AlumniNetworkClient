@@ -17,18 +17,29 @@ import EastIcon from "@mui/icons-material/East"
 import { useNavigate } from "react-router-dom"
 import { useDispatch } from "react-redux"
 import { saveNavigate } from "../../reducers/currentPageSlice"
-import { Container } from "@mui/system"
 import { strings } from "../../utils/localization"
 
+/**
+ * Shows info of an element and renders it as dialog.
+ * @param {Boolean} open Defines if this component is shown.
+ * @param {ReferenceState} setOpen For closing this component.
+ * @param {Object} event Selected event
+ * @returns {JSX.Element} Rendered CalendarInfo
+ */
 const CalendarInfo = ({ open, setOpen, event }) => {
   const dispatch = useDispatch()
   const theme = useTheme()
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"))
   const navigate = useNavigate()
 
+  /**
+   * Closes CalendarInfo
+   * @returns {void}
+   */
   const handleClose = () => {
     setOpen(false)
   }
+
   return (
     <Dialog
       fullScreen={fullScreen}

@@ -6,12 +6,16 @@ import { getTopicPostsList } from "../../../reducers/postsSlice"
 import { strings } from "../../../utils/localization"
 import { getTopicEventsList } from "../../../reducers/eventsSlice"
 
+/**
+ * Element to show page of selected Topic and its posts and events
+ * @returns {JSX.Element} Render Topic-page with details.
+ */
 const Topic = () => {
   const dispatch = useDispatch()
   const { postsTopic } = useSelector((state) => state.postsList)
   const { topicEvents } = useSelector((state) => state.eventList)
   const { id } = useSelector(state => state.currentPage)
-  let topics = [...postsTopic]
+  const topics = [...postsTopic]
 
   const stringList = {
     title: strings.topic.title,

@@ -4,6 +4,10 @@ import { useDispatch, useSelector } from "react-redux"
 import { createNewTopic, getTopicAsList } from "../../../reducers/topicsSlice" 
 import { useEffect, useState } from "react"
 
+/**
+ * Element to show page of Topics.
+ * @returns {JSX.Element} Render TopicList-page
+ */
 const TopicList = () => {
   const dispatch = useDispatch()
   const {topics} = useSelector(state => state.topicList)

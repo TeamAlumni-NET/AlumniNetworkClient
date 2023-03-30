@@ -5,11 +5,24 @@ import CreateGroupTopic from "./CreateGroupTopic"
 import { useDispatch } from "react-redux"
 import { saveNavigate } from "../../../reducers/currentPageSlice"
 
+/**
+ * Returns rendered list of groups or topics
+ * @param {Array.<string[]>} stringList strings from localization
+ * @param {Array.<Object>} data Groups or Topics as a list
+ * @param {String} type group or topic
+ * @param {String} createGroupTopic Starting name for new topic / group
+ * @param {ReferenceState} setCreateGroupTopic Sets new values to createGroupTopic
+ * @returns {JSX.Element} rendered GroupTopicList
+ */
 const GroupTopicList = ({ stringList, data, type, createNewGroupTopic, setCreateNewGroupTopic }) => {
   const [showCreateNew, setShowCreateNew] = useState(false)
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
+  /**
+   * Renders data as list of groups/topics
+   * @returns {JSX.Element} rendered list
+   */
   const list = () => {
     if (data) {
       return data.map((d) => {
