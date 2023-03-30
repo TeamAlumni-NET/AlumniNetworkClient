@@ -46,14 +46,14 @@ const CreateEventPage = ({ openDialogEvent, setOpenDialogEvent }) => {
     [...topics].filter((g) => g.isMember),
   ]
   const initialState = {
-    name: "",
+    name: null,
     description: "",
     allowGuests: true,
     startTime: new Date(),
     endTime: null,
     eventCreatorId: JSON.parse(localStorage.getItem("currentUser")).id,
-    topicId: null,
-    groupId: null,
+    topics: [],
+    groups: [],
   }
 
   const [newEvent, setNewEvent] = useState(initialState)
@@ -101,7 +101,6 @@ const CreateEventPage = ({ openDialogEvent, setOpenDialogEvent }) => {
             required
             variant="outlined"
             fullWidth
-            defaultValue=""
             onChange={(e) =>
               setNewEvent((newEvent) => ({
                 ...newEvent,
@@ -130,12 +129,11 @@ const CreateEventPage = ({ openDialogEvent, setOpenDialogEvent }) => {
             <Select
               labelId="GroupLabel"
               label={strings.createEvent.group}
-              disabled={newEvent.topicId !== null}
-              value={newEvent.groupId || ""}
+              disabled={newEvent.topics.lenght > 0}
               onChange={(e) =>
                 setNewEvent((newEvent) => ({
                   ...newEvent,
-                  groupId: e.target.value,
+                  groups: [e.target.value],
                 }))
               }
             >
@@ -152,13 +150,11 @@ const CreateEventPage = ({ openDialogEvent, setOpenDialogEvent }) => {
             <Select
               labelId="TopicLabel"
               label={strings.createEvent.topic}
-              disabled={newEvent.groupId !== null}
-              value={newEvent.topicId || ""}
-              defaultValue=""
+              disabled={newEvent.groups.lenght > 0}
               onChange={(e) =>
                 setNewEvent((newEvent) => ({
                   ...newEvent,
-                  topicId: e.target.value,
+                  topics: [e.target.value],
                 }))
               }
             >

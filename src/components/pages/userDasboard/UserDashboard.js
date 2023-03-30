@@ -18,7 +18,7 @@ const UserDashboard = () => {
   const dispatch = useDispatch()
   const { userEvents } = useSelector((state) => state.eventList)
   const { postsDashboard } = useSelector((state) => state.postsList)
-  const [posts, setPosts] = useState([])
+  const [posts, setPosts] = useState()
 
   const stringList = {
     title: strings.topic.title,
@@ -30,6 +30,13 @@ const UserDashboard = () => {
     dispatch(getEventsList())
     dispatch(getDashboardPostsList())
   }, [dispatch])
+
+  useEffect(() => {
+    setTimeout(() => {
+      dispatch(getEventsList())
+      dispatch(getDashboardPostsList())
+    }, 1000)
+  }, [localStorage.getItem("currentUser")])
 
   /**
    * Sets value page, if its posts or calendar

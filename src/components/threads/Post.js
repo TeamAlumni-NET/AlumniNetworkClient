@@ -18,19 +18,8 @@ const Post = () => {
   const [defaultdata, setDefaultdata] = useState({})
   const [editData, setEditData] = useState({
     id: null,
-    content: null
+    content: null,
   })
-
-  const timeFormat = (timeStamp) => {
-    const formatTime = new Date(timeStamp).toLocaleString("en-Fi", {
-      month: "2-digit",
-      day: "2-digit",
-      year: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-    })
-    return formatTime
-  }
 
   useEffect(() => {
     dispatch(getCurrentPost(id))
@@ -78,114 +67,12 @@ const Post = () => {
         {Object.keys(post).length === 0 ? (
           <Typography>{strings.postThread.wrongPostId}</Typography>
         ) : (
-          <>
-            <Thread post={post} handleOpenDialog={handleOpenDialog} handleOpenEdit={handleOpenEdit} />
-          </>
-          //   <Paper
-          //     sx={{
-          //       p: 2,
-          //       width: "75%",
-          //       flexGrow: 1,
-          //       backgroundColor: (theme) =>
-          //         theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-          //     }}
-          //   >
-          //     <Avatar alt="User" src={post.picture} />
-          //     <Typography variant="h6" fontWeight={"bold"}>
-          //       {post?.title}
-          //     </Typography>
-          //     <Typography variant="body">{post?.content}</Typography>
-          //     <Typography>{timeFormat(post.timeStamp)}</Typography>
-          //     <div style={{ display: "flex", justifyContent: "space-between" }}>
-          //       {/* <Button
-          //         onClick={() => {
-          //           dispatch(
-          //             saveNavigate({
-          //               url: post?.user?.username,
-          //               id: post?.userId,
-          //             })
-          //           )
-          //           navigate(
-          //             `/profile/${post?.user?.username.replace(/\s/g, "_")}`
-          //           )
-          //         }}
-          //       >
-          //         {post?.user?.username}
-          //       </Button> */}
-          //       {/* {post.userId !==
-          //       JSON.parse(localStorage.getItem("currentUser")).id ? (
-          //         <Button onClick={() => handleOpenDialog({})}>
-          //           {strings.postThread.answer}
-          //         </Button>
-          //       ) : (
-          //         <Button onClick={() => handleOpenEdit(post)}>
-          //           {strings.postThread.edit}
-          //         </Button>
-          //       )} */}
-          //     </div>
-          //   </Paper>
-
-          // </>
+          <Thread
+            post={post}
+            handleOpenDialog={handleOpenDialog}
+            handleOpenEdit={handleOpenEdit}
+          />
         )}
-        {/* {childPosts.length === 0 ? (
-          <p>No comments</p>
-        // ) : (
-        //   childPosts.map((child) => (
-        //     <Paper
-        //       key={child.id}
-        //       sx={{
-        //         p: 2,
-        //         marginTop: "2%",
-        //         width: "75%",
-        //         flexGrow: 1,
-        //         backgroundColor: (theme) =>
-        //           theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-        //       }}
-        //     >
-        //       <Avatar alt="User" src={child.pictureUrl} />
-        //       {child.targetUser !== null ? (
-        //         <Typography variant="subtitle1" fontWeight={"bold"}>
-        //           {strings.postThread.reply} {child.targetUser}
-        //         </Typography>
-        //       ) : (
-        //         ""
-        //       )}
-        //       <p>{child.content}</p>
-        //       <p>{timeFormat(child.timeStamp)}</p>
-        //       <div style={{ display: "flex", justifyContent: "space-between" }}>
-        //         <Button
-        //           onClick={() => {
-        //             dispatch(
-        //               saveNavigate({ url: child.user.username, id: null })
-        //             )
-        //             navigate(
-        //               `/profile/${child.user.username.replace(/\s/g, "_")}`
-        //             )
-        //           }}
-        //         >
-        //           {child.user.username}
-        //         </Button>
-        //         {child.user.id !==
-        //         JSON.parse(localStorage.getItem("currentUser")).id ? (
-        //           <Button
-        //             onClick={() =>
-        //               handleOpenDialog({
-        //                 targetUserId: child.user.id,
-        //                 targetUserName: child.user.username,
-        //               })
-        //             }
-        //           >
-        //             {strings.postThread.answer}
-        //           </Button>
-        //         ) : (
-        //           <Button onClick={() => handleOpenEdit(child)}>
-        //             {strings.postThread.edit}
-        //           </Button>
-        //         )}
-        //       </div>
-        //     </Paper>
-          // ))
-        )} */}
       </div>
       {openDialog && (
         <CreatePostForm
