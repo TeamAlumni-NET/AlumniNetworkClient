@@ -73,13 +73,7 @@ const EventCard = ({ post, time, childPost, search }) => {
               avatar={<AccessTimeIcon />}
               title={strings.common.start + ":"}
               subheader={time}
-              onClick={() => {
-                dispatch(
-                  saveNavigate({ url: post?.user?.name, id: post?.user?.id })
-                )
-                navigate(`/profile/${post?.user?.name.replace(/\s/g, "_")}`)
-              }}
-            ></CardHeader>
+            />
           </Box>
           <CardActions mr={"10px"}>
             <IconButton

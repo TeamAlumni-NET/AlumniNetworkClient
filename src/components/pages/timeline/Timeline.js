@@ -15,7 +15,6 @@ const Timeline = () => {
     topic: strings.timeline.topic,
     startingAt: strings.timeline.startingAt,
   }
-
   const { postsTimeline } = useSelector((state) => state.postsList)
   const { timelineEvents } = useSelector((state) => state.eventList)
   let timeline = []
@@ -23,7 +22,6 @@ const Timeline = () => {
   useEffect(() => {
     setForTheFirstTime()
   }, [postsTimeline, timelineEvents])
-
   useEffect(() => {
     dispatch(getPostsAsList())
     dispatch(getTimelineEventsList())
@@ -39,6 +37,7 @@ const Timeline = () => {
       console.log(error)
     }
   }
+
   setForTheFirstTime()
   return (
     <>

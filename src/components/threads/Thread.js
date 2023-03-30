@@ -32,7 +32,7 @@ const Thread = ({ post, handleOpenDialog, handleOpenEdit }) => {
   useEffect(() => {
     setLocalUser(JSON.parse(localStorage.getItem("currentUser")))
   }, [localStorage.getItem("currentUser")])
-
+  console.log(post)
   return (
     <>
       <Card
@@ -88,8 +88,9 @@ const Thread = ({ post, handleOpenDialog, handleOpenEdit }) => {
               />
             </Container>
             <Box sx={{ alignItems: "end", display: "flex" }}>
-              {post.userId !== JSON.parse(localStorage.getItem("currentUser")).id 
-                ? <Button
+              {post.userId !==
+              JSON.parse(localStorage.getItem("currentUser")).id ? (
+                <Button
                   variant="contained"
                   sx={{ m: 1 }}
                   onClick={() => handleOpenDialog({})}
@@ -97,9 +98,12 @@ const Thread = ({ post, handleOpenDialog, handleOpenEdit }) => {
                   {strings.postThread.answer}
                   <SendIcon sx={{ ml: 1 }} />
                 </Button>
-                :<Button onClick={() => handleOpenEdit(post)}>{strings.postThread.edit}<SendIcon sx={{ ml: 1 }} />
+              ) : (
+                <Button onClick={() => handleOpenEdit(post)}>
+                  {strings.postThread.edit}
+                  <SendIcon sx={{ ml: 1 }} />
                 </Button>
-              }
+              )}
             </Box>
           </Box>
         </Box>
