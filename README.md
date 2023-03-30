@@ -1,70 +1,140 @@
-# Getting Started with Create React App
+# AlumniNetworkClient
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+AlumniNetworkClient is front-end part of Alumni Network Portal. Its primary task is enable communication between Experis and Noroff Alumnis. 
 
-## Available Scripts
+With the Alumni Network Portal candidates are able to create and manage threads and comment them, create and join events, create and join topics and groups, see user details, display own activity on user dashboard.
 
-In the project directory, you can run:
+AlumniNetworkClient is created with React.
 
-### `npm start`
+## Technologies used
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+* React
+* MUI
+* Redux
+* Axios
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Folder Structure
+```
+.
+|   .env
+|   .env.example
+|   .eslintrc.js
+|   .gitignore
+|   package-lock.json
+|   package.json
+|   README.md
+|   
++---public
+|   |   favicon.ico
+|   |   index.html
+|   |   keycloackproduct.json
+|   |   keycloak.json
+|   |   manifest.json
+|   |   robots.txt
+|   |   
+\---src
+    |   App.js
+    |   index.js
+    |   keycloak.js
+    |   
+    +---components
+    |   |   KeycloakRoute.js
+    |   |   SignIn.js
+    |   |   
+    |   +---calendar
+    |   |       Calendar.js
+    |   |       CalendarDrawerView.js
+    |   |       CalendarInfo.js
+    |   |       
+    |   +---navigationBar
+    |   |       NavBar.js
+    |   |       NavMenu.js
+    |   |       
+    |   +---pages
+    |   |   +---Calendar
+    |   |   |       CalendarPage.js
+    |   |   |       
+    |   |   +---event
+    |   |   |       CreateEventPage.js
+    |   |   |       
+    |   |   +---group
+    |   |   |       CreateGroup.js
+    |   |   |       Group.js
+    |   |   |       GroupList.js
+    |   |   |       
+    |   |   +---post
+    |   |   |       CreatePostForm.js
+    |   |   |       EditPostForm.js
+    |   |   |       
+    |   |   +---timeline
+    |   |   |       Timeline.js
+    |   |   |       
+    |   |   +---topic
+    |   |   |       CreateTopic.js
+    |   |   |       Topic.js
+    |   |   |       TopicList.js
+    |   |   |       
+    |   |   \---userDasboard
+    |   |           UserDashboard.js
+    |   |           
+    |   +---profile
+    |   |       EditProfile.js
+    |   |       profile.js
+    |   |       
+    |   +---templateSites
+    |   |   +---detailList
+    |   |   |       CommentPost.js
+    |   |   |       DetailsList.js
+    |   |   |       EventCard.js
+    |   |   |       GroupTopicCard.js
+    |   |   |       JoinOrLeave.js
+    |   |   |       
+    |   |   \---groupTopicList
+    |   |           CreateGroupTopic.js
+    |   |           GroupTopicList.js
+    |   |           
+    |   \---threads
+    |           EventDetails.js
+    |           Post.js
+    |           Thread.js
+    |           
+    +---reducers
+    |       authenticationSlice.js
+    |       currentPageSlice.js
+    |       eventsSlice.js
+    |       groupsSlice.js
+    |       postsSlice.js
+    |       topicsSlice.js
+    |       userSlice.js
+    |       
+    +---services
+    |   +---event
+    |   |       eventService.js
+    |   |       
+    |   +---group
+    |   |       groupsTopicsService.js
+    |   |       
+    |   +---post
+    |   |       postService.js
+    |   |       
+    |   \---user
+    |           UserCRUDOperations.js
+    |           UserService.js
+    |           
+    +---store
+    |       store.js
+    |       
+    \---utils
+            config.js
+            localization.js
+            simpleErrorHandler.js
+```
 
-### `npm test`
+## Authors
+[@Marco A](https://github.com/DeferredMonk)
+[@Jesperi K](https://github.com/jespetius)
+[@Heidi J](https://github.com/HeidiJoensuu)
+[@Kirsi T](https://github.com/KipaTa)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Sources
+Project was an assignment done during education program created by Noroff Education

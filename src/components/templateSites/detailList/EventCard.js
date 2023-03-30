@@ -17,17 +17,20 @@ import { saveNavigate } from "../../../reducers/currentPageSlice"
 const EventCard = ({ post, time, childPost, search }) => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
-
   const getTopicOrGroupText = () => {
     let topicsOrGroups =
-      post.group.length > 0 ? strings.group.groups : strings.topic.topics
+      post.group?.length > 0
+        ? strings.group.groups
+        : post.topics?.length > 0
+        ? strings.topic.topics
+        : ""
 
     if (topicsOrGroups === strings.group.groups) {
-      post.group.forEach((element) => {
+      post.group?.forEach((element) => {
         topicsOrGroups += element
       })
     } else {
-      post.topic.forEach((element) => {
+      post.topic?.forEach((element) => {
         topicsOrGroups += element
       })
     }
@@ -44,9 +47,15 @@ const EventCard = ({ post, time, childPost, search }) => {
         }}
       >
         <Box
-          sx={{ ml: "15px", mr: "15px", display: "flex", alignItems: "center" }}
+          sx={{
+            ml: "15px",
+            mr: "15px",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
         >
-          <CalendarMonthIcon /> Event
+          <CalendarMonthIcon /> <>{strings.calendar.event}</>
         </Box>
         <Box
           sx={{
@@ -58,23 +67,27 @@ const EventCard = ({ post, time, childPost, search }) => {
           }}
         >
           <Box>
-            <CardHeader title={post.name} subheader={getTopicOrGroupText()} />
+            <CardHeader title={post?.name} subheader={getTopicOrGroupText()} />
             <Divider />
             <CardHeader
               avatar={<AccessTimeIcon />}
               title={strings.common.start + ":"}
               subheader={time}
               onClick={() => {
-                dispatch(saveNavigate({url: post.user.name, id: post.user.id}))
-                navigate(`/profile/${post.user.name.replace(/\s/g, "_")}`)
+                dispatch(
+                  saveNavigate({ url: post?.user?.name, id: post?.user?.id })
+                )
+                navigate(`/profile/${post?.user?.name.replace(/\s/g, "_")}`)
               }}
             ></CardHeader>
           </Box>
           <CardActions mr={"10px"}>
             <IconButton
               onClick={() => {
-                dispatch(saveNavigate({url: post.name, id: post.id}))
-                navigate(`../event/${post.name.replace(/\s/g, "_")}`, { replace: true })
+                dispatch(saveNavigate({ url: post?.name, id: post?.id }))
+                navigate(`../event/${post.name?.replace(/\s/g, "_")}`, {
+                  replace: true,
+                })
               }}
             >
               <NavigateNextIcon />
@@ -83,7 +96,7 @@ const EventCard = ({ post, time, childPost, search }) => {
         </Box>
       </Card>
       {search !== "" &&
-        post.childPosts.length > 0 &&
+        post.childPosts?.length > 0 &&
         childPost(post.childPosts)}
     </>
   )
