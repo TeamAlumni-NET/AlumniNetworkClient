@@ -23,7 +23,6 @@ const Timeline = () => {
   useEffect(() => {
     setForTheFirstTime()
   }, [postsTimeline, timelineEvents])
-
   useEffect(() => {
     dispatch(getPostsAsList())
     dispatch(getTimelineEventsList())
@@ -39,6 +38,7 @@ const Timeline = () => {
       console.log(error)
     }
   }
+
   setForTheFirstTime()
   return (
     <>

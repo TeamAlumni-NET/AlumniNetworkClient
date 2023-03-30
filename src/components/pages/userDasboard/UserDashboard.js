@@ -26,7 +26,7 @@ const UserDashboard = () => {
   useEffect(() => {
     dispatch(getEventsList())
     dispatch(getDashboardPostsList())
-  }, [dispatch])
+  }, [dispatch, localStorage.getItem("currentUser")])
 
   const handleChange = (event, newValue) => {
     setValue(newValue)

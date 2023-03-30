@@ -1,39 +1,57 @@
-import { Box, Button, FormControlLabel, InputLabel, Modal, TextField, Typography, Checkbox } from "@mui/material"
+import {
+  Box,
+  Button,
+  FormControlLabel,
+  InputLabel,
+  Modal,
+  TextField,
+  Typography,
+  Checkbox,
+  Dialog,
+  DialogTitle,
+} from "@mui/material"
+import { Container } from "@mui/system"
 import { useState } from "react"
 import { strings } from "../../../utils/localization"
 
 /**
- * 
+ *
  * @param {*} type
- * @param {*} showCreateNew 
- * @param {*} setShowCreateNew 
- * @param {*} createGroupTopic 
+ * @param {*} showCreateNew
+ * @param {*} setShowCreateNew
+ * @param {*} createGroupTopic
  * @param {*} setCreateGroupTopic
- * @returns 
+ * @returns
  */
-const CreateGroupTopic = ({ type, showCreateNew, setShowCreateNew, createGroupTopic, setCreateGroupTopic }) => {
+const CreateGroupTopic = ({
+  type,
+  showCreateNew,
+  setShowCreateNew,
+  createGroupTopic,
+  setCreateGroupTopic,
+}) => {
   let stringList = {}
   const [privacy, setPrivacy] = useState(false)
   const [newGroupTopic, setNewGroupTopic] = useState({
     name: "",
-    description: ""
+    description: "",
   })
 
-  if (newGroupTopic.name === "" &&  createGroupTopic !== "") {
-    setNewGroupTopic(newGroupTopic => ({
+  if (newGroupTopic.name === "" && createGroupTopic !== "") {
+    setNewGroupTopic((newGroupTopic) => ({
       ...newGroupTopic,
-      name: createGroupTopic
+      name: createGroupTopic,
     }))
   }
 
   const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
     width: 400,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
+    bgcolor: "background.paper",
+    border: "2px solid #000",
     boxShadow: 24,
     p: 4,
   }
@@ -45,14 +63,14 @@ const CreateGroupTopic = ({ type, showCreateNew, setShowCreateNew, createGroupTo
         name: strings.createGroup.groupName,
         description: strings.createGroup.groupDescription,
         private: strings.createGroup.private,
-        add: strings.createGroup.addGroup
+        add: strings.createGroup.addGroup,
       }
     } else {
       stringList = {
         new: strings.createTopic.newTopic,
         name: strings.createTopic.topicName,
         description: strings.createTopic.topicDescription,
-        add: strings.createTopic.addTopic
+        add: strings.createTopic.addTopic,
       }
     }
   }
@@ -63,7 +81,7 @@ const CreateGroupTopic = ({ type, showCreateNew, setShowCreateNew, createGroupTo
     setShowCreateNew(false)
   }
 
-  const handleCheckBoxChange = e => {
+  const handleCheckBoxChange = (e) => {
     e.preventDefault()
     setPrivacy(e.target.checked)
   }
@@ -72,76 +90,87 @@ const CreateGroupTopic = ({ type, showCreateNew, setShowCreateNew, createGroupTo
     if (type === "topic") {
       setCreateGroupTopic({
         name: newGroupTopic.name,
-        description: newGroupTopic.description
+        description: newGroupTopic.description,
       })
     } else {
       setCreateGroupTopic({
         name: newGroupTopic.name,
         description: newGroupTopic.description,
-        isPrivate: privacy
+        isPrivate: privacy,
       })
     }
     handleClose()
   }
-  
 
   return (
-    <>
-      <Modal
-        open={showCreateNew}
-        onClose={handleClose}
-      >
-
-        <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
+    <Container sx={{ maxWidth: "500px" }}>
+      <Dialog open={showCreateNew} onClose={handleClose}>
+        <Container
+          sx={{ maxWidth: "500px", width: "100%", alignText: "center" }}
+        >
+          <DialogTitle id="modal-modal-title" variant="h6">
             {stringList.new}
-          </Typography>
-          <form>
-
-            <div>
-              <InputLabel variant='standard'>{stringList.name}</InputLabel>
-              <TextField
-                required
-                id='outlined-required'
-                defaultValue={newGroupTopic.name}
-                onChange={e => setNewGroupTopic(newGroupTopic => ({
+          </DialogTitle>
+          <div>
+            <InputLabel variant="standard">{stringList.name}</InputLabel>
+            <TextField
+              required
+              fullWidth
+              id="outlined-required"
+              defaultValue={newGroupTopic.name}
+              onChange={(e) =>
+                setNewGroupTopic((newGroupTopic) => ({
                   ...newGroupTopic,
                   name: e.target.value,
-                }))}
-              />
-            </div>
+                }))
+              }
+            />
+          </div>
 
-            <div>
-              <InputLabel variant='standard'>{stringList.description}</InputLabel>
-              <TextField
-                required
-                multiline
-                fullWidth
-                minRows={2}
-                id='outlined-required'
-                defaultValue=""
-                onChange={e => setNewGroupTopic(newGroupTopic => ({
+          <div>
+            <InputLabel variant="standard">{stringList.description}</InputLabel>
+            <TextField
+              required
+              multiline
+              fullWidth
+              minRows={2}
+              id="outlined-required"
+              defaultValue=""
+              onChange={(e) =>
+                setNewGroupTopic((newGroupTopic) => ({
                   ...newGroupTopic,
                   description: e.target.value,
-                }))}
-              />
-            </div>
+                }))
+              }
+            />
+          </div>
 
-            {
-              type === "group" &&
-              <div>
-                <FormControlLabel label={stringList.private} control={
-                  <Checkbox checked={privacy} onChange={handleCheckBoxChange} />
-                }
-                />
-              </div>
-            }
-          </form>
-          <Button onClick={handleSubmit}>{stringList.add}</Button>
-          <Button onClick={handleClose}>{strings.common.close}</Button>
-        </Box>
-      </Modal>
-    </>
+          {type === "group" && (
+            <FormControlLabel
+              label={stringList.private}
+              control={
+                <Checkbox checked={privacy} onChange={handleCheckBoxChange} />
+              }
+            />
+          )}
+          <Box
+            sx={{
+              p: "20px",
+              display: "flex",
+              gap: 1,
+              justifyContent: "end",
+            }}
+          >
+            <Button onClick={handleClose} variant="outlined">
+              {strings.common.close}
+            </Button>
+            <Button onClick={handleSubmit} variant="contained">
+              {stringList.add}
+            </Button>
+          </Box>
+        </Container>
+      </Dialog>
+    </Container>
   )
 }
 
